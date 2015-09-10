@@ -17,16 +17,21 @@ public class Main {
 
     public static void main(String arg[]) {
 	System.out.println("This is the Ifi Pascal2100 compiler (" +
-			   version + ")");
+			   version + ")\nImplemented by Kenneth Frisvold kennetaf@ulrik.uio.no and" +
+               " Axel Rosén parosen@ulrik.uio.no\n");
 
 	int exitStatus = 0;
 	try {
+        System.out.println("///////////");
 	    readArgs(arg);
 	    log.init(baseFileName + ".log");
 
 	    Scanner s = new Scanner(sourceFileName);
-	    if (testScanner) 
-		doTestScanner(s);
+		s.readNextToken();
+        //doTestScanner(s);
+        System.out.println("!!!!!\n");
+	    //if (testScanner) 
+		//doTestScanner(s);
 	    //Del 2: else if (testParser)
 	    //    doTestParser(s);
 	    // else

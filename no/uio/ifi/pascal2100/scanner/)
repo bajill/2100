@@ -4,11 +4,10 @@ import no.uio.ifi.pascal2100.main.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 import java.io.*;
-import java.util.*;
 
 public class Scanner {
     public Token curToken = null, nextToken = null; 
-    private HashMap<String, String> signMap;
+
     private LineNumberReader sourceFile = null;
     private String sourceFileName, sourceLine = "";
     private int sourcePos = 0;
@@ -20,7 +19,7 @@ public class Scanner {
         } catch (FileNotFoundException e) {
             Main.error("Cannot read " + fileName + "!");
         }
-        makeSignMap();
+
         readNextToken();  readNextToken();
     }
 
@@ -47,7 +46,7 @@ public class Scanner {
             curToken = nextToken;
         if(sourceLine.length() == 0)
             readNextLine();
-        if((sourceLine.length() == (sourcePos + 1))){
+        if((sourceLine.length() == (sourcePos + 1)))){
             readNextLine(); // Read next line to sourceLine
         }
         if(sourceLine.length() == 0){
@@ -57,16 +56,9 @@ public class Scanner {
         }
         if(isLetterAZ(sourceLine.charAt(sourcePos)))
             readString();
-        
-        else if(signMap.containsKey(sourceLine.charAt(sourcePos))) {
-            nextToken = new Token(valueOf(signMap.get(sourceLine.charAt(sourcePos))), getFileLineNum());
-            System.out.println("signmap: " + nextToken.identify());
-            sourcePos++; 
-        }
-        /*else if(isDot(sourceLine.charAt(sourcePos)))
+        else if(isDot(sourceLine.charAt(sourcePos)))
             makeDotToken();
-        */
-        /*
+/*
         for(; sourcePos < sourceLine.length(); sourcePos++){
             if(isLetterAZ(sourceLine.charAt(sourcePos))) 
                 readString();
@@ -74,34 +66,28 @@ public class Scanner {
                 */
     }
 
-
     public void makeDotToken(){
-        for(TokenKind temp : TokenKind.values()){
-            temp.identify();
-        }
-            //kindMap.put(valueOf(.identify(), 
-
-        nextToken = new Token(valueOf("dotToken"), getFileLineNum()); 
-        sourcePos++;
-        System.out.println("asjkdnextToken : " + nextToken.identify());
+       nextToken = new Token(TokenKind.dotToken, getFileLineNum()); 
+       sourcePos++;
+       System.out.println("nextToken : " + nextToken.identify());
 
     }
 
     public void readString(){
-        String tempToken = "";
+        String currentToken = "";
         boolean b = true;
 
         System.out.println("ReadString");
         while(b) {
             if(isLetterAZ(sourceLine.charAt(sourcePos)) || isDigit(sourceLine.charAt(sourcePos))){
-                tempToken += sourceLine.charAt(sourcePos);
+                currentToken += sourceLine.charAt(sourcePos);
                 sourcePos++;
             }
             else b = false;
         }
         
-        nextToken = new Token(tempToken, sourceFile.getLineNumber());
-        System.out.println("nextToken: " + nextToken.identify());
+        nextToken = new Token(currentToken, sourceFile.getLineNumber());
+            System.out.println("nextToken: " + nextToken.identify());
         //Del 1 her
         //Main.log.noteToken(nextToken);
     }
@@ -168,30 +154,5 @@ public class Scanner {
     public void skip(TokenKind t) {
         test(t);  
         readNextToken();
-    }
-
-    private void makeSignMap() {
-        signMap = new HashMap <String, String>(); 
-        signMap.put("addToken", "+");
-        signMap.put("assignToken", ":=");
-        signMap.put("colonToken", ":");
-        signMap.put("commaToken", ";");
-        /* signMap.put("divideToken", "/"); */
-        signMap.put("dotToken", ".");
-        signMap.put("equalToken", "=");
-        signMap.put("greaterToken", ">");
-        signMap.put("greaterEqualToken", ">=");
-        signMap.put("leftBracketToken", "[");
-        signMap.put("leftParToken", "(");
-        signMap.put("lessToken", "<");
-        signMap.put("lessEqualToken", "<=");
-        signMap.put("multiplyToken", "*");
-        signMap.put("notEqualToken", "<>");
-        signMap.put("rangeToken", "..");
-        signMap.put("rightBracketToken", "]");
-        signMap.put("rightParToken", ")");
-        signMap.put("semicolonToken", ";");
-        signMap.put("subtractToken", "-");
-
     }
 }
