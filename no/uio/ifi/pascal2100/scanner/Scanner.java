@@ -12,6 +12,7 @@ public class Scanner {
     private LineNumberReader sourceFile = null;
     private String sourceFileName, sourceLine = "";
     private int sourcePos = 0;
+    private char curChar;
 
     public Scanner(String fileName) {
         sourceFileName = fileName;
@@ -39,59 +40,156 @@ public class Scanner {
         Main.error("Scanner error on line " + curLineNum() + ": " + message);
     }
 
-
+    // TODO end + . gir eof-token, som er en beskjed til kompilatoren
     public void readNextToken() {
         // Del 1 her 
-        System.out.println("readnexttoken");
+        //System.out.println("readnexttoken");
         if(nextToken != null)
             curToken = nextToken;
         if(sourceLine.length() == 0)
             readNextLine();
+        // if end of line/first read
         if((sourceLine.length() == (sourcePos + 1))){
             readNextLine(); // Read next line to sourceLine
         }
-        if(sourceLine.length() == 0){
+        // if e-o-f
+        if(sourceFile == null){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-            System.out.println("eofToken : " + nextToken.identify());
+            System.out.println("Scanner: " + nextToken.identify());
             return;
         }
-        if(isLetterAZ(sourceLine.charAt(sourcePos)))
-            readString();
-        
-        else if(signMap.containsKey(sourceLine.charAt(sourcePos))) {
-            nextToken = new Token(valueOf(signMap.get(sourceLine.charAt(sourcePos))), getFileLineNum());
-            System.out.println("signmap: " + nextToken.identify());
-            sourcePos++; 
-        }
-        /*else if(isDot(sourceLine.charAt(sourcePos)))
-            makeDotToken();
-        */
-        /*
-        for(; sourcePos < sourceLine.length(); sourcePos++){
-            if(isLetterAZ(sourceLine.charAt(sourcePos))) 
-                readString();
-        }            
-                */
+        //System.out.println(sourcePos);
+        curChar = sourceLine.charAt(sourcePos);
+        // if commentary
+        if(curChar == '/' || curChar == '{')
+            readCommentary();
+            
+        // if space char token
+        if(sourceLine.charAt(sourcePos) == ' ')
+            if(sourceLine.length() == 1)
+                return;
+            else
+                sourcePos++;
+        // if a-z char token
+        else if(isLetterAZ(sourceLine.charAt(sourcePos)))
+            makeStringToken();
+        // if symbol char, dobble symbol token has same first symbol as a single
+        else if(signMap.containsKey(Character.toString(sourceLine.charAt(sourcePos)))) 
+            createCharToken();
+        // if value token
+        else if(curChar == '\'')
+            createValToken();
+        // if digit token
+        else if(isDigit(curChar))
+            createDigitToken();
+        else
+            System.exit(-1);
+    }
+   
+
+    public void readCommentary() {
+        StringBuilder comment = new StringBuilder();
+        boolean curly = false;
+        boolean slash = false;
+        if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*')
+            curly = true;
+        else
+            curly = true;
+        do{
+
+            if(sourceLine.length() == (sourcePos + 1)){
+                System.out.println("   " + getFileLineNum() + ": " + comment);
+                readNextLine();
+            }
+            if(sourceFile == null){
+                nextToken = new Token(TokenKind.eofToken, getFileLineNum());
+                System.out.println("   " + getFileLineNum() + ": " + comment);
+                System.out.println("Scanner: " + nextToken.identify());
+                System.exit(0);
+            }
+            if(curly){
+                if(sourceLine.charAt(sourcePos) == '*' && sourceLine.charAt(sourcePos+1) == '/'){
+                    comment.append(sourceLine.charAt(sourcePos));
+                    comment.append(sourceLine.charAt(sourcePos+1));
+                    System.out.println("   " + getFileLineNum() + ": " + comment); 
+                    return;
+                }
+            }
+            else if(sourcePos.charAt(sourcePos) == '}'){
+                comment.append(sourceLine.charAt(sourcePos));
+                System.out.println("   " + getFileLineNum() + ": " + comment);  
+                return;
+            }
+            else if(sourceLine.length() = 1 && sourceLine.charAt(sourcePos) == ' ')
+                System.out.println("");
+            else
+                comment.append(sourceLine.charAt(sourcePos++));
+        }while(1);
+     
     }
 
+    public void createDigitToken() {
+        String digit = "";
+        while(isDigit(sourceLine.charAt(sourcePos))){
+            digit += sourceLine.charAt(sourcePos++);
 
-    public void makeDotToken(){
-        for(TokenKind temp : TokenKind.values()){
-            temp.identify();
         }
-            //kindMap.put(valueOf(.identify(), 
+        nextToken = new Token(Integer.parseInt(digit), getFileLineNum());
+        System.out.println("Scanner: " + nextToken.identify());
+    }
 
-        nextToken = new Token(valueOf("dotToken"), getFileLineNum()); 
+    public void createCharToken() {
+        if (createSpecialChar())
+            return;
+        nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))), getFileLineNum());
+        System.out.println("Scanner: " + nextToken.identify());
+        sourcePos++; 
+    }
+
+    /**
+     * Creates special caracter tokens
+     * @return true if special caracter was created, else false
+     */
+    private boolean createSpecialChar(){
+        char[] specChar = {':', '<', '>', '.'};
+        int i = 0;
+        String doubleSign = "";
+        //System.out.println(specChar.length);
+        while (i < 4) {
+            if (curChar == specChar[i]) {
+                doubleSign += curChar;
+                doubleSign += sourceLine.charAt(sourcePos +1);
+                //System.out.println(doubleSign);
+                // if l 
+                if(signMap.containsKey(doubleSign)){
+                    nextToken = new Token(valueOf(signMap.get(doubleSign)), getFileLineNum());
+                    sourcePos += 2;
+                    System.out.println("Scanner: " + nextToken.identify());
+                    return true;
+                }
+                // TODO ELSE 
+
+
+            }
+            i++;
+        }
+        return false;
+    }
+    
+    public void createValToken(){
+        StringBuilder val = new StringBuilder("\'"); 
+        do {
+            val.append(sourceLine.charAt(++sourcePos));
+        } while(sourceLine.charAt(sourcePos) != '\'');
+        nextToken = new Token("", val.toString(), sourceFile.getLineNumber());
+        System.out.println("Scanner: " + nextToken.identify());
         sourcePos++;
-        System.out.println("asjkdnextToken : " + nextToken.identify());
-
     }
 
-    public void readString(){
+    public void makeStringToken(){
         String tempToken = "";
         boolean b = true;
 
-        System.out.println("ReadString");
         while(b) {
             if(isLetterAZ(sourceLine.charAt(sourcePos)) || isDigit(sourceLine.charAt(sourcePos))){
                 tempToken += sourceLine.charAt(sourcePos);
@@ -101,12 +199,10 @@ public class Scanner {
         }
         
         nextToken = new Token(tempToken, sourceFile.getLineNumber());
-        System.out.println("nextToken: " + nextToken.identify());
+        System.out.println("Scanner: " + nextToken.identify());
         //Del 1 her
         //Main.log.noteToken(nextToken);
     }
-
-
 
 
     private void readNextLine() {
@@ -134,14 +230,6 @@ public class Scanner {
 
 
     // Character test utilities:
-
-    private boolean isBrackets(char c) {
-        return false;
-    }
-
-    private boolean isDot(char c) {
-        return c == '.';
-    }
 
     private boolean isLetterAZ(char c) {
         return 'A'<=c && c<='Z' || 'a'<=c && c<='z';
@@ -171,27 +259,19 @@ public class Scanner {
     }
 
     private void makeSignMap() {
+        
         signMap = new HashMap <String, String>(); 
-        signMap.put("addToken", "+");
-        signMap.put("assignToken", ":=");
-        signMap.put("colonToken", ":");
-        signMap.put("commaToken", ";");
-        /* signMap.put("divideToken", "/"); */
-        signMap.put("dotToken", ".");
-        signMap.put("equalToken", "=");
-        signMap.put("greaterToken", ">");
-        signMap.put("greaterEqualToken", ">=");
-        signMap.put("leftBracketToken", "[");
-        signMap.put("leftParToken", "(");
-        signMap.put("lessToken", "<");
-        signMap.put("lessEqualToken", "<=");
-        signMap.put("multiplyToken", "*");
-        signMap.put("notEqualToken", "<>");
-        signMap.put("rangeToken", "..");
-        signMap.put("rightBracketToken", "]");
-        signMap.put("rightParToken", ")");
-        signMap.put("semicolonToken", ";");
-        signMap.put("subtractToken", "-");
+        String []mapKeys = {"+", ":=", ":", ";", ".", "=", ">", ">=", "[", "(", "<", "<=", "*",
+            "<>", "..", "]", ")", ";", "-"};
 
+        String []mapValues = {"addToken","assignToken", "colonToken","commaToken",  "dotToken",
+            "equalToken", "greaterToken", "greaterEqualToken", "leftBracketToken",
+            "leftParToken", "lessToken", "lessEqualToken","multiplyToken",
+            "notEqualToken", "rangeToken", "rightBracketToken", "rightParToken",
+            "semicolonToken", "subtractToken"};
+        for(int i = 0; i < mapKeys.length; i++){
+            signMap.put(mapKeys[i], mapValues[i]);
+            //System.out.println(signMap.get(mapKeys[i]));
+        }
     }
 }

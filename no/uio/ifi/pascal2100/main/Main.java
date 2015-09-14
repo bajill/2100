@@ -22,16 +22,12 @@ public class Main {
 
 	int exitStatus = 0;
 	try {
-        System.out.println("///////////");
 	    readArgs(arg);
 	    log.init(baseFileName + ".log");
 
 	    Scanner s = new Scanner(sourceFileName);
-		s.readNextToken();
-        //doTestScanner(s);
-        System.out.println("!!!!!\n");
-	    //if (testScanner) 
-		//doTestScanner(s);
+	    if (testScanner) 
+		    doTestScanner(s);
 	    //Del 2: else if (testParser)
 	    //    doTestParser(s);
 	    // else
