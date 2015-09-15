@@ -1,8 +1,15 @@
+/* kommentar */
 program p:
 var variable : integer
 
 var x := 5;
-begin
+/* kommentar2 */
+begin  {komentar 3}
     if (V <> X) then
-    write('test string')
+        /* sldkfj
+sdlfkj
+
+sdlkfj*/
+    write('test string') /* sdf
+    sdf*/
 end.

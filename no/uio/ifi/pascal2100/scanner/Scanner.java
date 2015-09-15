@@ -46,23 +46,28 @@ public class Scanner {
         //System.out.println("readnexttoken");
         if(nextToken != null)
             curToken = nextToken;
-        if(sourceLine.length() == 0)
+        if(sourceLine.length() == 0){
             readNextLine();
+            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+        }
         // if end of line/first read
-        if((sourceLine.length() == (sourcePos + 1))){
+        if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
+            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
         // if e-o-f
         if(sourceFile == null){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-            System.out.println("Scanner: " + nextToken.identify());
+            Main.log.noteToken(nextToken);
             return;
         }
         //System.out.println(sourcePos);
         curChar = sourceLine.charAt(sourcePos);
         // if commentary
-        if(curChar == '/' || curChar == '{')
+        if(curChar == '/' || curChar == '{'){
             readCommentary();
+            return;
+        }
             
         // if space char token
         if(sourceLine.charAt(sourcePos) == ' ')
@@ -82,50 +87,52 @@ public class Scanner {
         // if digit token
         else if(isDigit(curChar))
             createDigitToken();
-        else
+        else{
+            System.out.println("PANIC: Programming error in line num " + getFileLineNum()); 
             System.exit(-1);
+        }
     }
    
 
     public void readCommentary() {
         StringBuilder comment = new StringBuilder();
-        boolean curly = false;
-        boolean slash = false;
-        if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*')
-            curly = true;
-        else
-            curly = true;
+        boolean slashStar = false;
+            if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
+            slashStar = true;
+        }
         do{
 
             if(sourceLine.length() == (sourcePos + 1)){
-                System.out.println("   " + getFileLineNum() + ": " + comment);
                 readNextLine();
+                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+
             }
             if(sourceFile == null){
                 nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-                System.out.println("   " + getFileLineNum() + ": " + comment);
-                System.out.println("Scanner: " + nextToken.identify());
+                Main.log.noteToken(nextToken);
                 System.exit(0);
             }
-            if(curly){
-                if(sourceLine.charAt(sourcePos) == '*' && sourceLine.charAt(sourcePos+1) == '/'){
-                    comment.append(sourceLine.charAt(sourcePos));
-                    comment.append(sourceLine.charAt(sourcePos+1));
-                    System.out.println("   " + getFileLineNum() + ": " + comment); 
+            
+            if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
+                System.out.println("   " + getFileLineNum() + ": ");
+                break;
+            }
+
+            else if(slashStar){
+                if(sourceLine.charAt(sourceLine.length()-3) == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
+                    sourcePos = sourceLine.length()-1;
                     return;
                 }
+                else 
+                    readNextLine();
+                    System.out.println("   " + getFileLineNum() + ": " + sourceLine);
             }
-            else if(sourcePos.charAt(sourcePos) == '}'){
-                comment.append(sourceLine.charAt(sourcePos));
-                System.out.println("   " + getFileLineNum() + ": " + comment);  
+            else if (sourceLine.charAt(sourceLine.length()-2) == '}'){
+                sourcePos = sourceLine.length() -1;
                 return;
             }
-            else if(sourceLine.length() = 1 && sourceLine.charAt(sourcePos) == ' ')
-                System.out.println("");
-            else
-                comment.append(sourceLine.charAt(sourcePos++));
-        }while(1);
-     
+            
+        }while(true);
     }
 
     public void createDigitToken() {
@@ -135,14 +142,19 @@ public class Scanner {
 
         }
         nextToken = new Token(Integer.parseInt(digit), getFileLineNum());
-        System.out.println("Scanner: " + nextToken.identify());
+        Main.log.noteToken(nextToken);
     }
 
     public void createCharToken() {
         if (createSpecialChar())
             return;
         nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))), getFileLineNum());
-        System.out.println("Scanner: " + nextToken.identify());
+        Main.log.noteToken(nextToken);
+        if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
+            nextToken = new Token(TokenKind.eofToken, getFileLineNum());
+            Main.log.noteToken(nextToken);
+            System.exit(0);
+        }
         sourcePos++; 
     }
 
@@ -154,21 +166,18 @@ public class Scanner {
         char[] specChar = {':', '<', '>', '.'};
         int i = 0;
         String doubleSign = "";
-        //System.out.println(specChar.length);
         while (i < 4) {
             if (curChar == specChar[i]) {
                 doubleSign += curChar;
                 doubleSign += sourceLine.charAt(sourcePos +1);
-                //System.out.println(doubleSign);
                 // if l 
                 if(signMap.containsKey(doubleSign)){
                     nextToken = new Token(valueOf(signMap.get(doubleSign)), getFileLineNum());
                     sourcePos += 2;
-                    System.out.println("Scanner: " + nextToken.identify());
+                    Main.log.noteToken(nextToken);
                     return true;
                 }
                 // TODO ELSE 
-
 
             }
             i++;
@@ -182,7 +191,7 @@ public class Scanner {
             val.append(sourceLine.charAt(++sourcePos));
         } while(sourceLine.charAt(sourcePos) != '\'');
         nextToken = new Token("", val.toString(), sourceFile.getLineNumber());
-        System.out.println("Scanner: " + nextToken.identify());
+        Main.log.noteToken(nextToken);
         sourcePos++;
     }
 
@@ -199,9 +208,8 @@ public class Scanner {
         }
         
         nextToken = new Token(tempToken, sourceFile.getLineNumber());
-        System.out.println("Scanner: " + nextToken.identify());
         //Del 1 her
-        //Main.log.noteToken(nextToken);
+        Main.log.noteToken(nextToken);
     }
 
 
