@@ -1,15 +1,14 @@
-/* kommentar */
-program p:
-var variable : integer
+/* Det er lov Ã¥ ha kommentarer utenpÃ¥ hverandre,
+   om de er av ulik type,
+   for eksempel slik: {indre kommentar}.
 
-var x := 5;
-/* kommentar2 */
-begin  {komentar 3}
-    if (V <> X) then
-        /* sldkfj
-sdlfkj
+   Men det er ikke lov nÃ¥r de er av samme type,
+   for eksempel slik: /*indre kommentar*/
+   som _ikke_ er lov.
+*/
 
-sdlkfj*/
-    write('test string') /* sdf
-    sdf*/
+program NesteteKommentarer;
+begin
+   write('Dette programmet har kommentarer inni andre kommentarer.', eol);
 end.
+

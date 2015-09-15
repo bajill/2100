@@ -13,6 +13,7 @@ public class Scanner {
     private String sourceFileName, sourceLine = "";
     private int sourcePos = 0;
     private char curChar;
+    
 
     public Scanner(String fileName) {
         sourceFileName = fileName;
@@ -41,41 +42,61 @@ public class Scanner {
     }
 
     // TODO end + . gir eof-token, som er en beskjed til kompilatoren
-    public void readNextToken() {
-        // Del 1 her 
+    
+
+
+    public void checkForEnds() {
+
+        /* set curToken */
         if(nextToken != null)
             curToken = nextToken;
-        if(sourceLine.length() == 0){
-            readNextLine();
-            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
-        }
-        /* if end of line/first read */
+
+        /* end of line/first read */
         if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
-            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
+
+        /* end of file */
+        if(sourceFile == null){
+            Main.error("Reached end of file without reading 'end.'\nProgram terminated.");
+            System.exit(-1);
+        }
+    }
+
+
+    public void readNextToken() {
+        checkForEnds();
         curChar = sourceLine.charAt(sourcePos);
-        /* if commentary */
+
+        /* commentary, calls readNextToken until Token found */
         if(curChar == '/' || curChar == '{'){
             readCommentary();
+            readNextToken();
             return;
         }
-            
+
         /* if space char token */
-        if(sourceLine.charAt(sourcePos) == ' ')
+        if(sourceLine.charAt(sourcePos) == ' '){
             if(sourceLine.length() == 1)
-                return;
-            else
+                readNextToken();
+            else{
                 sourcePos++;
+                readNextToken();
+            }
+        }
         /* if a-z char token */
         else if(isLetterAZ(curChar))
             makeStringToken();
+
         /* if symbol char, and E-O-F */
         else if(signMap.containsKey(Character.toString(curChar))) 
             createCharToken();
+
         /* if value token */
         else if(curChar == '\'')
             createValToken();
+
         /* if digit token */
         else if(isDigit(curChar))
             createDigitToken();
@@ -84,12 +105,52 @@ public class Scanner {
             System.exit(-1);
         }
     }
-   
 
+    public void readCommentary2() {
+        boolean slashStar = false;
+        if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
+            slashStar = true;
+        }
+        while(true) {
+            checkForEnds();
+
+            /* end of file */
+            if(sourceFile == null){
+                nextToken = new Token(TokenKind.eofToken, getFileLineNum());
+                Main.log.noteToken(nextToken);
+                System.exit(0);
+            }
+
+            /* space char */
+            if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
+                System.out.println("   " + getFileLineNum() + ": ");
+                break;
+            }
+            
+            else if(slashStar){
+                if(sourceLine.charAt(sourceLine.length()-3) == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
+                    sourcePos = sourceLine.length()-1;
+                    //readNextLine();
+                    return;
+                }
+                else 
+                    readNextLine();
+                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            }
+            else if (sourceLine.charAt(sourceLine.length()-2) == '}'){
+                sourcePos = sourceLine.length() -1;
+                //readNextLine();
+                return;
+            }
+
+
+        }
+    }
     public void readCommentary() {
         StringBuilder comment = new StringBuilder();
         boolean slashStar = false;
-            if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
+        int start = getFileLineNum();
+        if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
             slashStar = true;
         }
         do{
@@ -101,11 +162,10 @@ public class Scanner {
             }
             /* if EOF */
             if(sourceFile == null){
-                nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-                Main.log.noteToken(nextToken);
+                Main.error(start, "No end for comment starting on line " + start);
                 System.exit(0);
             }
-            
+
             if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
                 System.out.println("   " + getFileLineNum() + ": ");
                 break;
@@ -114,17 +174,19 @@ public class Scanner {
             else if(slashStar){
                 if(sourceLine.charAt(sourceLine.length()-3) == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
                     sourcePos = sourceLine.length()-1;
+                    //readNextLine();
                     return;
                 }
                 else 
                     readNextLine();
-                    System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
             }
             else if (sourceLine.charAt(sourceLine.length()-2) == '}'){
                 sourcePos = sourceLine.length() -1;
+                readNextLine();
                 return;
             }
-            
+
         }while(true);
     }
 
@@ -164,25 +226,27 @@ public class Scanner {
             if (curChar == specChar[i]) {
                 doubleSign += curChar;
                 doubleSign += sourceLine.charAt(sourcePos +1);
-                // if l 
                 if(signMap.containsKey(doubleSign)){
                     nextToken = new Token(valueOf(signMap.get(doubleSign)), getFileLineNum());
                     sourcePos += 2;
                     Main.log.noteToken(nextToken);
                     return true;
                 }
-                // TODO ELSE 
             }
             i++;
         }
         return false;
     }
-    
+
     public void createValToken(){
         StringBuilder val = new StringBuilder("\'"); 
-        do {
-            val.append(sourceLine.charAt(++sourcePos));
-        } while(sourceLine.charAt(sourcePos) != '\'');
+        try {
+            do {
+                val.append(sourceLine.charAt(++sourcePos));
+            } while(sourceLine.charAt(sourcePos) != '\'');
+        } catch (StringIndexOutOfBoundsException e) {
+            Main.error(getFileLineNum(), "String is never terminated. \nProgram terminated");
+        }
         nextToken = new Token("", val.toString(), sourceFile.getLineNumber());
         Main.log.noteToken(nextToken);
         sourcePos++;
@@ -198,7 +262,7 @@ public class Scanner {
             }
             else b = false;
         }
-        
+
         nextToken = new Token(tempToken, sourceFile.getLineNumber());
         //Del 1 her
         Main.log.noteToken(nextToken);
@@ -259,7 +323,7 @@ public class Scanner {
     }
 
     private void makeSignMap() {
-        
+
         signMap = new HashMap <String, String>(); 
         String []mapKeys = {"+", ":=", ":", ",", ".", "=", ">", ">=", "[", "(", "<", "<=", "*",
             "<>", "..", "]", ")", ";", "-"};

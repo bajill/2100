@@ -1,4 +1,4 @@
-/* Det er lov Ã¥ ha kommentarer utenpÃ¥ hverandre,
+ /* Det er lov Ã¥ ha kommentarer utenpÃ¥ hverandre,
    om de er av ulik type,
    for eksempel slik: {indre kommentar}.
 
