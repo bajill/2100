@@ -43,52 +43,44 @@ public class Scanner {
     // TODO end + . gir eof-token, som er en beskjed til kompilatoren
     public void readNextToken() {
         // Del 1 her 
-        //System.out.println("readnexttoken");
         if(nextToken != null)
             curToken = nextToken;
         if(sourceLine.length() == 0){
             readNextLine();
-            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
-        // if end of line/first read
+        /* if end of line/first read */
         if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
-            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
-        // if e-o-f
-        if(sourceFile == null){
-            nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-            Main.log.noteToken(nextToken);
-            return;
-        }
-        //System.out.println(sourcePos);
         curChar = sourceLine.charAt(sourcePos);
-        // if commentary
+        /* if commentary */
         if(curChar == '/' || curChar == '{'){
             readCommentary();
             return;
         }
             
-        // if space char token
+        /* if space char token */
         if(sourceLine.charAt(sourcePos) == ' ')
             if(sourceLine.length() == 1)
                 return;
             else
                 sourcePos++;
-        // if a-z char token
-        else if(isLetterAZ(sourceLine.charAt(sourcePos)))
+        /* if a-z char token */
+        else if(isLetterAZ(curChar))
             makeStringToken();
-        // if symbol char, dobble symbol token has same first symbol as a single
-        else if(signMap.containsKey(Character.toString(sourceLine.charAt(sourcePos)))) 
+        /* if symbol char, and E-O-F */
+        else if(signMap.containsKey(Character.toString(curChar))) 
             createCharToken();
-        // if value token
+        /* if value token */
         else if(curChar == '\'')
             createValToken();
-        // if digit token
+        /* if digit token */
         else if(isDigit(curChar))
             createDigitToken();
         else{
-            System.out.println("PANIC: Programming error in line num " + getFileLineNum()); 
+            Main.error(getFileLineNum(), "Illegal character : '" + curChar + "'");
             System.exit(-1);
         }
     }
@@ -107,6 +99,7 @@ public class Scanner {
                 System.out.println("   " + getFileLineNum() + ": " + sourceLine);
 
             }
+            /* if EOF */
             if(sourceFile == null){
                 nextToken = new Token(TokenKind.eofToken, getFileLineNum());
                 Main.log.noteToken(nextToken);
@@ -150,6 +143,7 @@ public class Scanner {
             return;
         nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))), getFileLineNum());
         Main.log.noteToken(nextToken);
+        // if E-O-F
         if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
             Main.log.noteToken(nextToken);
@@ -178,7 +172,6 @@ public class Scanner {
                     return true;
                 }
                 // TODO ELSE 
-
             }
             i++;
         }
@@ -198,7 +191,6 @@ public class Scanner {
     public void makeStringToken(){
         String tempToken = "";
         boolean b = true;
-
         while(b) {
             if(isLetterAZ(sourceLine.charAt(sourcePos)) || isDigit(sourceLine.charAt(sourcePos))){
                 tempToken += sourceLine.charAt(sourcePos);
@@ -269,7 +261,7 @@ public class Scanner {
     private void makeSignMap() {
         
         signMap = new HashMap <String, String>(); 
-        String []mapKeys = {"+", ":=", ":", ";", ".", "=", ">", ">=", "[", "(", "<", "<=", "*",
+        String []mapKeys = {"+", ":=", ":", ",", ".", "=", ">", ">=", "[", "(", "<", "<=", "*",
             "<>", "..", "]", ")", ";", "-"};
 
         String []mapValues = {"addToken","assignToken", "colonToken","commaToken",  "dotToken",
