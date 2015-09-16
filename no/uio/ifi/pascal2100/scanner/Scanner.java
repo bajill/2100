@@ -6,13 +6,23 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.io.*;
 import java.util.*;
 
+/** 
+ * Creates Tokens of type TokenKind.
+ * Reads from file and creates the matching Token from the language pascal2100
+ *
+ * @author kennetaf
+ * @author parosen
+ * @version 16/9/2015
+ */
 public class Scanner {
     public Token curToken = null, nextToken = null; 
-    private HashMap<String, String> signMap;
     private LineNumberReader sourceFile = null;
     private String sourceFileName, sourceLine = "";
     private int sourcePos = 0;
+
+    /* Additional variables */
     private char curChar;
+    private HashMap<String, String> signMap;
     
 
     public Scanner(String fileName) {
@@ -41,10 +51,11 @@ public class Scanner {
         Main.error("Scanner error on line " + curLineNum() + ": " + message);
     }
 
-    // TODO end + . gir eof-token, som er en beskjed til kompilatoren
-    
 
-
+/**
+ * Checks if end of line or end of file are reached, and reads lines.
+ * 
+ */
     public void checkForEnds() {
 
         /* set curToken */
@@ -54,7 +65,7 @@ public class Scanner {
         /* end of line/first read */
         if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
-            System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            // System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
 
         /* end of file */
@@ -64,19 +75,25 @@ public class Scanner {
         }
     }
 
+    /**
+     * Reades next token, and decides which Token to be created.
+     * Calls checkForEnd() to read a line, then check what type of Token to be
+     * created. This function may be called recursivly if there are comments or
+     * empty lines in the code read from file
+     */
 
     public void readNextToken() {
         checkForEnds();
         curChar = sourceLine.charAt(sourcePos);
 
-        /* commentary, calls readNextToken until Token found */
+        /* commentary, calls readNextToken() until Token found */
         if(curChar == '/' || curChar == '{'){
             readCommentary();
             readNextToken();
             return;
         }
 
-        /* if space char token */
+        /* Checking for empty lines in code, readNextToken() */
         if(sourceLine.charAt(sourcePos) == ' '){
             if(sourceLine.length() == 1)
                 readNextToken();
@@ -128,7 +145,9 @@ public class Scanner {
             }
             
             else if(slashStar){
-                if(sourceLine.charAt(sourceLine.length()-3) == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
+                
+                if(sourceLine.trim().charAt(sourceLine.length()-3) 
+                        == '*' && sourceLine.trim().charAt(sourceLine.length()-2) == '/'){
                     sourcePos = sourceLine.length()-1;
                     //readNextLine();
                     return;
@@ -137,7 +156,7 @@ public class Scanner {
                     readNextLine();
                 System.out.println("   " + getFileLineNum() + ": " + sourceLine);
             }
-            else if (sourceLine.charAt(sourceLine.length()-2) == '}'){
+            else if (sourceLine.trim().charAt(sourceLine.length()-2) == '}'){
                 sourcePos = sourceLine.length() -1;
                 //readNextLine();
                 return;
@@ -172,7 +191,8 @@ public class Scanner {
             }
 
             else if(slashStar){
-                if(sourceLine.charAt(sourceLine.length()-3) == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
+                if(sourceLine.charAt(sourceLine.length()-3)
+                        == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
                     sourcePos = sourceLine.length()-1;
                     //readNextLine();
                     return;
@@ -203,9 +223,11 @@ public class Scanner {
     public void createCharToken() {
         if (createSpecialChar())
             return;
-        nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))), getFileLineNum());
+        nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))),
+                getFileLineNum());
         Main.log.noteToken(nextToken);
-        // if E-O-F
+
+        /* if end of file, make token */
         if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
             Main.log.noteToken(nextToken);
@@ -264,7 +286,6 @@ public class Scanner {
         }
 
         nextToken = new Token(tempToken, sourceFile.getLineNumber());
-        //Del 1 her
         Main.log.noteToken(nextToken);
     }
 
