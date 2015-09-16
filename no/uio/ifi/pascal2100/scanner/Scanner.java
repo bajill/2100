@@ -102,19 +102,19 @@ public class Scanner {
                 readNextToken();
             }
         }
-        /* if a-z char token */
+        /* a-z char Token */
         else if(isLetterAZ(curChar))
             makeStringToken();
 
-        /* if symbol char, and E-O-F */
+        /* symbol char, and E-O-F Token*/
         else if(signMap.containsKey(Character.toString(curChar))) 
             createCharToken();
 
-        /* if value token */
+        /* value Token */
         else if(curChar == '\'')
             createValToken();
 
-        /* if digit token */
+        /* digit Token */
         else if(isDigit(curChar))
             createDigitToken();
         else{
