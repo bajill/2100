@@ -342,7 +342,9 @@ public class Scanner {
         test(t);  
         readNextToken();
     }
-
+    /**
+     * Creates HashMap code-symbols as keys and their matching TokenKinds as values.
+     */
     private void makeSignMap() {
 
         signMap = new HashMap <String, String>(); 
