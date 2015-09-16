@@ -36,21 +36,17 @@ public class Scanner {
         readNextToken();  readNextToken();
     }
 
-
     public String identify() {
         return "Scanner reading " + sourceFileName;
     }
-
 
     public int curLineNum() {
         return curToken.lineNum;
     }
 
-
     private void error(String message) {
         Main.error("Scanner error on line " + curLineNum() + ": " + message);
     }
-
 
 /**
  * Checks if end of line or end of file are reached, and reads lines.
@@ -81,7 +77,6 @@ public class Scanner {
      * created. This function may be called recursivly if there are comments or
      * empty lines in the code read from file
      */
-
     public void readNextToken() {
         checkForEnds();
         curChar = sourceLine.charAt(sourcePos);
@@ -123,91 +118,50 @@ public class Scanner {
         }
     }
 
-    public void readCommentary2() {
-        boolean slashStar = false;
-        if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
-            slashStar = true;
-        }
-        while(true) {
-            checkForEnds();
-
-            /* end of file */
-            if(sourceFile == null){
-                nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-                Main.log.noteToken(nextToken);
-                System.exit(0);
-            }
-
-            /* space char */
-            if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
-                System.out.println("   " + getFileLineNum() + ": ");
-                break;
-            }
-            
-            else if(slashStar){
-                
-                if(sourceLine.trim().charAt(sourceLine.length()-3) 
-                        == '*' && sourceLine.trim().charAt(sourceLine.length()-2) == '/'){
-                    sourcePos = sourceLine.length()-1;
-                    //readNextLine();
-                    return;
-                }
-                else 
-                    readNextLine();
-                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
-            }
-            else if (sourceLine.trim().charAt(sourceLine.length()-2) == '}'){
-                sourcePos = sourceLine.length() -1;
-                //readNextLine();
-                return;
-            }
-
-
-        }
-    }
+    /**
+     * Search for end of commentary.
+     * Reads all commentslines until end of comment are reached. If EOF is
+     * reached before end of comment are reached, it writes a error and
+     * terminates program
+     */
     public void readCommentary() {
-        StringBuilder comment = new StringBuilder();
         boolean slashStar = false;
         int start = getFileLineNum();
         if(curChar == '/' && sourceLine.charAt(sourcePos+1) == '*'){
             slashStar = true;
         }
-        do{
-
+        while(true){
+            /* end of line */
             if(sourceLine.length() == (sourcePos + 1)){
                 readNextLine();
-                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
-
             }
-            /* if EOF */
+            /* EOF */
             if(sourceFile == null){
                 Main.error(start, "No end for comment starting on line " + start);
                 System.exit(0);
             }
-
+            /* blank line */
             if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
-                System.out.println("   " + getFileLineNum() + ": ");
                 break;
             }
-
+            /* /* comments */
             else if(slashStar){
+                /* comments end */
                 if(sourceLine.charAt(sourceLine.length()-3)
                         == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
                     sourcePos = sourceLine.length()-1;
-                    //readNextLine();
                     return;
                 }
                 else 
                     readNextLine();
-                System.out.println("   " + getFileLineNum() + ": " + sourceLine);
             }
+            /* {} comments */
             else if (sourceLine.charAt(sourceLine.length()-2) == '}'){
                 sourcePos = sourceLine.length() -1;
                 readNextLine();
                 return;
             }
-
-        }while(true);
+        }
     }
 
     public void createDigitToken() {
@@ -342,9 +296,7 @@ public class Scanner {
         test(t);  
         readNextToken();
     }
-    /**
-     * Creates HashMap code-symbols as keys and their matching TokenKinds as values.
-     */
+
     private void makeSignMap() {
 
         signMap = new HashMap <String, String>(); 
