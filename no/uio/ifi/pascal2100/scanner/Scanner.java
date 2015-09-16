@@ -212,21 +212,26 @@ public class Scanner {
 
     public void createDigitToken() {
         String digit = "";
+
         while(isDigit(sourceLine.charAt(sourcePos))){
             digit += sourceLine.charAt(sourcePos++);
-
         }
         nextToken = new Token(Integer.parseInt(digit), getFileLineNum());
         Main.log.noteToken(nextToken);
     }
 
+    /**
+     * Creates special character tokens that consists of only one character.
+     * First it calls createSpecialChar() to check if current char consists of a sign
+     * that can be combined into a doublechar Token. If that is not the case then this 
+     * will create the Token that matches from the special sign HashMap.
+     */
     public void createCharToken() {
         if (createSpecialChar())
             return;
         nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))),
                 getFileLineNum());
         Main.log.noteToken(nextToken);
-
         /* if end of file, make token */
         if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
@@ -237,13 +242,16 @@ public class Scanner {
     }
 
     /**
-     * Creates special caracter tokens
+     * Creates special character Tokens if they consist of two characters.
+     * For example <>
+     * It checks for matches inside the HashMap signMap.
      * @return true if special caracter was created, else false
      */
     private boolean createSpecialChar(){
         char[] specChar = {':', '<', '>', '.'};
         int i = 0;
         String doubleSign = "";
+
         while (i < 4) {
             if (curChar == specChar[i]) {
                 doubleSign += curChar;
@@ -260,8 +268,13 @@ public class Scanner {
         return false;
     }
 
+    /**
+     * Creates stringValTokens.
+     * These are strings that you find as arguments inside functions like write()
+     */
     public void createValToken(){
         StringBuilder val = new StringBuilder("\'"); 
+
         try {
             do {
                 val.append(sourceLine.charAt(++sourcePos));
@@ -274,6 +287,9 @@ public class Scanner {
         sourcePos++;
     }
 
+    /**
+     * Creates a Token of any "String-type", either a terminal or non-terminal.
+     */
     public void makeStringToken(){
         String tempToken = "";
         boolean b = true;
@@ -284,11 +300,9 @@ public class Scanner {
             }
             else b = false;
         }
-
         nextToken = new Token(tempToken, sourceFile.getLineNumber());
         Main.log.noteToken(nextToken);
     }
-
 
     private void readNextLine() {
         if (sourceFile != null) {
@@ -342,23 +356,22 @@ public class Scanner {
         test(t);  
         readNextToken();
     }
+    
     /**
      * Creates HashMap code-symbols as keys and their matching TokenKinds as values.
      */
     private void makeSignMap() {
-
         signMap = new HashMap <String, String>(); 
         String []mapKeys = {"+", ":=", ":", ",", ".", "=", ">", ">=", "[", "(", "<", "<=", "*",
             "<>", "..", "]", ")", ";", "-"};
-
         String []mapValues = {"addToken","assignToken", "colonToken","commaToken",  "dotToken",
             "equalToken", "greaterToken", "greaterEqualToken", "leftBracketToken",
             "leftParToken", "lessToken", "lessEqualToken","multiplyToken",
             "notEqualToken", "rangeToken", "rightBracketToken", "rightParToken",
             "semicolonToken", "subtractToken"};
-        for(int i = 0; i < mapKeys.length; i++){
+        
+    for(int i = 0; i < mapKeys.length; i++){
             signMap.put(mapKeys[i], mapValues[i]);
-            //System.out.println(signMap.get(mapKeys[i]));
         }
     }
 }
