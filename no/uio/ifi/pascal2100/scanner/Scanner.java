@@ -49,25 +49,36 @@ public class Scanner {
 
 /**
  * Checks if end of line or end of file are reached, and reads lines.
- * 
+ * Return true if there is no more token to be made, else false
  */
-    public void checkForEnds() {
-
-        /* set curToken */
-        if(nextToken != null)
-            curToken = nextToken;
-
+    boolean checkForEnds() {
         /* end of line/first read */
         if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
-            // System.out.println("   " + getFileLineNum() + ": " + sourceLine);
+            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
-
+        /* if eof token, make nextToken a eofToken*/
+        if(nextToken != null && curToken != null)
+            if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken) {
+                curToken = nextToken;
+                nextToken = new Token(TokenKind.eofToken, getFileLineNum());
+                Main.log.noteToken(nextToken);
+                return true;
+            }else if(nextToken.kind == TokenKind.eofToken){
+                curToken = nextToken;
+                return true;
+            }
+        /* set curToken */
+        if(nextToken != null)
+            curToken = nextToken;
         /* end of file */
         if(sourceFile == null){
-            Main.error("Reached end of file without reading 'end.'\nProgram terminated.");
-            System.exit(-1);
+            //System.out.println("last token: " + curToken.identify());
+            Main.error("Nothing more to read");
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -77,7 +88,9 @@ public class Scanner {
      * empty lines in the code read from file
      */
     public void readNextToken() {
-        checkForEnds();
+        /* True if end of file */
+        if(checkForEnds())
+            return;
         curChar = sourceLine.charAt(sourcePos);
 
         /* commentary, calls readNextToken() until Token found */
@@ -137,7 +150,7 @@ public class Scanner {
             /* EOF */
             if(sourceFile == null){
                 Main.error(start, "No end for comment starting on line " + start);
-                System.exit(0);
+                System.exit(-1);
             }
             /* blank line */
             // if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
@@ -185,12 +198,13 @@ public class Scanner {
             return;
         nextToken = new Token(valueOf(signMap.get(Character.toString(sourceLine.charAt(sourcePos)))),
                 getFileLineNum());
-        Main.log.noteToken(nextToken);
         /* if end of file, make token */
+        /*
         if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
-            Main.log.noteToken(nextToken);
         }
+        */
+        Main.log.noteToken(nextToken);
         sourcePos++; 
     }
 

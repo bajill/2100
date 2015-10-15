@@ -21,8 +21,13 @@ public class Program extends PascalDecl {
         Program p = new Program(s.curToken.id, s.curLineNum());
         s.readNextToken();
         s.skip(semicolonToken);
+        //System.out.println("1. " + s.curToken.identify());
         p.progBlock = Block.parse(s); // p.progBlock.context = p;
+        //System.out.println("2. " + s.curToken.identify());
         s.skip(dotToken);
+        //System.out.println("3. " + s.curToken.identify());
+        
+        s.skip(eofToken);
         leaveParser("program");
         return p;
     }

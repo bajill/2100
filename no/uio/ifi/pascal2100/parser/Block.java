@@ -18,22 +18,19 @@ class Block extends PascalSyntax{
     }
     
     static Block parse(Scanner s) {
-        System.out.println("1111");
 
         enterParser("block"); 
-        System.out.println("2222");
 
         Block bl = new Block(s.curLineNum());
-        System.out.println("333 ");
         
         s.test(beginToken);
-        System.out.println("4444");
-        System.out.println(s.curToken.identify());
-        System.out.println(s.nextToken.identify());
+        //System.out.println("etter test beginToken: " + s.curToken.identify());
         s.readNextToken();
+        //System.out.println("etter readnextToken: " + s.curToken.identify());
+        //System.out.println("etter readnextToken: " + s.nextToken.identify());
        // bl.statmList = StatmList.parse(s); 
         s.skip(endToken);
-        System.out.println("5555");
+        //System.out.println("etter skip endToken: " + s.curToken.identify());
     // Fyll ut resten her.
         leaveParser("block");
         return bl;
