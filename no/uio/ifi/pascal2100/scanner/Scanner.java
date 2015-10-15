@@ -89,7 +89,7 @@ public class Scanner {
         }
 
         /* Checking for empty lines in code, readNextToken() */
-        if(sourceLine.charAt(sourcePos) == ' '){
+        if(Character.isWhitespace(sourceLine.charAt(sourcePos))){
             if(sourceLine.length() == 1)
                 readNextToken();
             else{
@@ -141,11 +141,12 @@ public class Scanner {
                 System.exit(0);
             }
             /* blank line */
-            if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
+            // if(sourceLine.length() == 1 && sourceLine.charAt(sourcePos) == ' ') {
+            if(sourceLine.length() == 1 && Character.isWhitespace(sourceLine.charAt(sourcePos))) {
                 break;
             }
             /* /* comments */
-            else if(slashStar){
+                else if(slashStar){
                 /* comments end */
                 if(sourceLine.charAt(sourceLine.length()-3)
                         == '*' && sourceLine.charAt(sourceLine.length()-2) == '/'){
@@ -227,12 +228,12 @@ public class Scanner {
      * These are strings that you find as arguments inside functions like write()
      */
     public void createValToken(){
-        StringBuilder val = new StringBuilder("\'"); 
-
+        StringBuilder val = new StringBuilder(""); 
+        sourcePos++;
         try {
             do {
-                val.append(sourceLine.charAt(++sourcePos));
-            } while(sourceLine.charAt(sourcePos) != '\'');
+                val.append(sourceLine.charAt(sourcePos));
+            } while(sourceLine.charAt(++sourcePos) != '\'');
         } catch (StringIndexOutOfBoundsException e) {
             Main.error(getFileLineNum(), "String is never terminated. \nProgram terminated");
         }
