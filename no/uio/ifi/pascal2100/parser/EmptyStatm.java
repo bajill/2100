@@ -12,7 +12,7 @@ class EmptyStatm extends Statement {
     @Override public String identify() {
     return "<empty statm> on line " + lineNum;
     }
-
+/*
 
     @Override void check(Block curScope, Library lib) {
     // Til del 3 av prosjektet
@@ -27,15 +27,16 @@ class EmptyStatm extends Statement {
     @Override void prettyPrint() {
     // Til neste ukes oppgaver
     }
-
+*/
 
     static EmptyStatm parse(Scanner s) {
-    enterParser("empty statm"); 
+        enterParser("empty statm"); 
 
-    EmptyStatm ess = new EmptyStatm(s.curLineNum());
-    // Fyll ut resten her.
+        EmptyStatm ess = new EmptyStatm(s.curLineNum());
+        s.readNextToken();
+        // Fyll ut resten her.
 
-    leaveParser("empty statm");
-    return ess;
+        leaveParser("empty statm");
+        return ess;
     }
 }

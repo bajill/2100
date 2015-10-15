@@ -19,7 +19,7 @@ class StatmList extends PascalSyntax {
         return "<statm list> on line " + lineNum;
     }
 
-
+/*
     @Override void check(Block curScope, Library lib) {
         // Til del 3 av prosjektet
     }
@@ -33,12 +33,13 @@ class StatmList extends PascalSyntax {
     @Override void prettyPrint() {
         // Til neste ukes oppgaver
     }
-
+*/
 
     static StatmList parse(Scanner s) {
         enterParser("statm list");
 
         StatmList sl = new StatmList(s.curLineNum());
+        s.readNextToken();
             // Fyll ut resten her.
 
         leaveParser("statm list");

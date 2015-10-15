@@ -2,5 +2,4 @@
                 
 program Mini;
 begin
-    ;
 end.

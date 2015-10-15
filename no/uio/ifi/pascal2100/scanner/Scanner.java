@@ -1,5 +1,4 @@
 package no.uio.ifi.pascal2100.scanner;
-
 import no.uio.ifi.pascal2100.main.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
@@ -191,7 +190,6 @@ public class Scanner {
         if(nextToken.kind == TokenKind.dotToken && curToken.kind == TokenKind.endToken){
             nextToken = new Token(TokenKind.eofToken, getFileLineNum());
             Main.log.noteToken(nextToken);
-            System.exit(0);
         }
         sourcePos++; 
     }
@@ -308,7 +306,7 @@ public class Scanner {
     }
 
     public void skip(TokenKind t) {
-        test(t);  
+        test(t);
         readNextToken();
     }
     

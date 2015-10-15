@@ -13,7 +13,7 @@ class Statement extends StatmList {
     return "<empty statm> on line " + lineNum;
     }
 
-
+/*
     @Override void check(Block curScope, Library lib) {
     // Til del 3 av prosjektet
     }
@@ -28,11 +28,12 @@ class Statement extends StatmList {
     // Til neste ukes oppgaver
     }
 
-
+*/
     static Statement parse(Scanner s) {
         enterParser("statement"); 
 
         Statement st = new Statement(s.curLineNum()); 
+        s.readNextToken();
     // Fyll ut resten her.
 
         leaveParser("statement ");

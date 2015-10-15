@@ -28,7 +28,8 @@ public class Main {
 	    Scanner s = new Scanner(sourceFileName);
 	    if (testScanner) 
 		    doTestScanner(s);
-	    Del 2: else if (testParser)
+	    //Del 2: 
+        else if (testParser)
 	        doTestParser(s);
 	    // else
 	    //    doRunRealCompiler(s);

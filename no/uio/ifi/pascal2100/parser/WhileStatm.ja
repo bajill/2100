@@ -16,6 +16,7 @@ class WhileStatm extends Statement {
     static WhileStatm parse(Scanner s) {
         enterParser("while-statm");
         WhileStatm ws = new WhileStatm(s.curLineNum());
+        s.readNextToken();
         s.skip(whileToken);
         ws.expr = Expression.parse(s);
         s.skip(doToken);
