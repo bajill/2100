@@ -28,8 +28,8 @@ public class Main {
 	    Scanner s = new Scanner(sourceFileName);
 	    if (testScanner) 
 		    doTestScanner(s);
-	    //Del 2: else if (testParser)
-	    //    doTestParser(s);
+	    Del 2: else if (testParser)
+	        doTestParser(s);
 	    // else
 	    //    doRunRealCompiler(s);
 	} catch (PascalError e) {
@@ -84,15 +84,15 @@ public class Main {
     }
 
 
-    /* Del 2:
+    /* Del 2: */
     private static void doTestParser(Scanner s) {
 	Program prog = Program.parse(s);
 	if (s.curToken.kind != eofToken) 
 	    error("Scanner error: Garbage after the program!");
 
-	prog.prettyPrint();
+	// prog.prettyPrint();
     }
-    */
+    
 
     /* Del 3 og 4:
     private static void doRunRealCompiler(Scanner s) {
