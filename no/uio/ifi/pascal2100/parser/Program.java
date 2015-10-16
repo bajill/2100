@@ -27,6 +27,7 @@ public class Program extends PascalDecl {
         s.skip(dotToken);
         //System.out.println("3. " + s.curToken.identify());
         
+        // Hvorfor var ikke denne med koden?
         s.skip(eofToken);
         leaveParser("program");
         return p;

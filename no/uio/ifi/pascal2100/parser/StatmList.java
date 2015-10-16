@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 class StatmList extends PascalSyntax {
     ArrayList<Statement> statements = new ArrayList<Statement>();
+    Statement statement;
 
     StatmList(int lNum) {
         super(lNum);
@@ -39,8 +40,7 @@ class StatmList extends PascalSyntax {
         enterParser("statm list");
 
         StatmList sl = new StatmList(s.curLineNum());
-        s.readNextToken();
-            // Fyll ut resten her.
+        sl.statement = Statement.parse(s);
 
         leaveParser("statm list");
         return sl;

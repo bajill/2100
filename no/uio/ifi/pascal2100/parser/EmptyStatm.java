@@ -1,7 +1,7 @@
 package no.uio.ifi.pascal2100.parser;
-
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
+import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class EmptyStatm extends Statement {
     EmptyStatm(int lNum) {
@@ -31,7 +31,7 @@ class EmptyStatm extends Statement {
 
     static EmptyStatm parse(Scanner s) {
         enterParser("empty statm"); 
-
+        s.test(semicolonToken);
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
         s.readNextToken();
         // Fyll ut resten her.

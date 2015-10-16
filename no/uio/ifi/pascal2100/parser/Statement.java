@@ -2,41 +2,41 @@ package no.uio.ifi.pascal2100.parser;
 
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
+import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
-class Statement extends StatmList {
+abstract class Statement extends PascalSyntax {
+    EmptyStatm emptyStatm;
+
     Statement(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
+
     @Override public String identify() {
-    return "<empty statm> on line " + lineNum;
+        return "<empty statm> on line " + lineNum;
     }
-
-/*
-    @Override void check(Block curScope, Library lib) {
-    // Til del 3 av prosjektet
-    }
-
-
-    @Override void genCode(CodeFile f) {
-    // Til del 4 av prosjektet
-    }
-
-
-    @Override void prettyPrint() {
-    // Til neste ukes oppgaver
-    }
-
-*/
     static Statement parse(Scanner s) {
-        enterParser("statement"); 
-
-        Statement st = new Statement(s.curLineNum()); 
-        s.readNextToken();
-    // Fyll ut resten her.
-
-        leaveParser("statement ");
+        enterParser("statement");
+        Statement st = null;
+        switch (s.curToken.kind) {
+            case beginToken:
+                st = CompoundStatm.parse(s);  break;
+            case ifToken:
+                //st = IfStatm.parse(s);  break;
+            case nameToken:
+                switch (s.nextToken.kind) {
+                    case assignToken:
+                    case leftBracketToken:
+                        //st = AssignStatm.parse(s);  break;
+                    default:
+                        //st = ProcCallStatm.parse(s);  break;
+                } break;
+            case whileToken:
+                //st = WhileStatm.parse(s);  break;
+            default:
+                st = EmptyStatm.parse(s);  break;
+        }
+        leaveParser("statement");
         return st;
     }
 }
