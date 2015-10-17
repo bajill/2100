@@ -2,7 +2,5 @@
                 
 program Mini;
 begin
-    begin
-       ; 
-    end
+    a := 'hello World'
 end.

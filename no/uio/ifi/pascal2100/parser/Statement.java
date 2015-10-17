@@ -27,7 +27,7 @@ abstract class Statement extends PascalSyntax {
                 switch (s.nextToken.kind) {
                     case assignToken:
                     case leftBracketToken:
-                        //st = AssignStatm.parse(s);  break;
+                        st = AssignStatm.parse(s);  break;
                     default:
                         //st = ProcCallStatm.parse(s);  break;
                 } break;

@@ -1,0 +1,22 @@
+package no.uio.ifi.pascal2100.parser;
+import no.uio.ifi.pascal2100.main.*;
+import no.uio.ifi.pascal2100.scanner.*;
+import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
+class <C> extends Statement {
+    <C>(int lNum) {
+    super(lNum);
+    }
+
+    
+    @Override public String identify() {
+    return "<msg> on line " + lineNum;
+    }
+
+    static <C> parse(Scanner s) {
+        enterParser("msg"); 
+        <C> <r> = new <C>(s.curLineNum());
+        leaveParser("msg");
+        return <r>;
+    }
+}
