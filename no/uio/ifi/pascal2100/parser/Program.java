@@ -17,15 +17,10 @@ public class Program extends PascalDecl {
     @Override public void prettyPrint(){
         Main.log.prettyPrint("Program ");
         super.prettyPrint();
-<<<<<<< HEAD
         //Main.log.prettyPrint(";\n");
-        progBlock.prettyPrint(); 
+        block.prettyPrint(); 
         //Main.log.prettyPrint(".");
-=======
-        Main.log.prettyPrint(";\n");
         //block.prettyPrint(); 
-        Main.log.prettyPrint(".");
->>>>>>> 3d58fc7587c91b19efe8e9dbe700ca60d5235bf5
     }
 
 
