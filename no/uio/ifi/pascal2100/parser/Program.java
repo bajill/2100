@@ -5,7 +5,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 /*<program> ::= ’program’ <name> ’;’ <block> ’.’*/
 public class Program extends PascalDecl {
-    Block progBlock;
+    Block block;
     Program(String id, int lNum) {
         super(id, lNum);
     }
@@ -17,9 +17,15 @@ public class Program extends PascalDecl {
     @Override public void prettyPrint(){
         Main.log.prettyPrint("Program ");
         super.prettyPrint();
+<<<<<<< HEAD
         //Main.log.prettyPrint(";\n");
         progBlock.prettyPrint(); 
         //Main.log.prettyPrint(".");
+=======
+        Main.log.prettyPrint(";\n");
+        //block.prettyPrint(); 
+        Main.log.prettyPrint(".");
+>>>>>>> 3d58fc7587c91b19efe8e9dbe700ca60d5235bf5
     }
 
 
@@ -31,7 +37,7 @@ public class Program extends PascalDecl {
         s.readNextToken();
         s.skip(semicolonToken);
         //System.out.println("1. " + s.curToken.identify());
-        p.progBlock = Block.parse(s); // p.progBlock.context = p;
+        p.block = Block.parse(s); // p.block.context = p;
         //System.out.println("2. " + s.curToken.identify());
         s.skip(dotToken);
         //System.out.println("3. " + s.curToken.identify());
