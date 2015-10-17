@@ -2,5 +2,9 @@
                 
 program Mini;
 begin
-    a := 'hello World'
+    ;;
+    a := 'hello'
+    ;
+    b := 'world'
+    ;;
 end.

@@ -23,17 +23,16 @@ class EmptyStatm extends Statement {
     // Til del 4 av prosjektet
     }
 
+*/
 
     @Override void prettyPrint() {
-    // Til neste ukes oppgaver
     }
-*/
 
     static EmptyStatm parse(Scanner s) {
         enterParser("empty statm"); 
-        s.test(semicolonToken);
+       // s.test(semicolonToken);
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
-        s.readNextToken();
+        //s.readNextToken();
         // Fyll ut resten her.
 
         leaveParser("empty statm");

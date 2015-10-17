@@ -21,6 +21,13 @@ class Block extends PascalSyntax{
     @Override public String identify() {
     return "<empty statm> on line " + lineNum;
     }
+
+    @Override void prettyPrint(){
+        Main.log.prettyPrint("begin");
+        statmList.prettyPrint();
+        Main.log.prettyPrint("end");
+        
+    }
     
     static Block parse(Scanner s) {
 
