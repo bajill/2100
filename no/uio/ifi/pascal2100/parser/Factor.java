@@ -19,7 +19,7 @@ abstract class Factor extends PascalSyntax {
         Factor f = null;
         switch (s.curToken.kind) {
             case stringValToken:
-                f = StringLiteral.parse(s);  break;
+                f = Constant.parse(s);  break;
                 //st = IfStatm.parse(s);  break;
         } 
         leaveParser("factor");
