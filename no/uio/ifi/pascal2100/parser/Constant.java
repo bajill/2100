@@ -5,7 +5,7 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 abstract class Constant extends Factor {
-    StringLiteral strintLiteral;
+    Constant constant;
     Constant(int lNum) {
     super(lNum);
     }
@@ -16,6 +16,8 @@ abstract class Constant extends Factor {
     }
 
     static Constant parse(Scanner s) {
+        // TODO Er dette feil? Constant er en abstrakt klasse, skal ikke
+        // subklassene kalles direkte
         enterParser("constant"); 
         Constant c;
         c = StringLiteral.parse(s);

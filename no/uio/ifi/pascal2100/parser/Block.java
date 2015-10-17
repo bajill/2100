@@ -5,12 +5,12 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* Block ::= <const decl part> <type decl part> <var decl part> 
     <func decl> || <proc decl> 'begin' <statm list> 'end' */
 class Block extends PascalSyntax{
-    /*ConstDeclPart constDeclPart;
-    TypeDeclPart typeDeclPart;
-    VarDeclPart varDeclPart;
-    FuncDecl funcDecl;
-    ProcDecl procDecl;
-*/
+    ConstDeclPart constDeclPart;
+    // TypeDeclPart typeDeclPart;
+    // VarDeclPart varDeclPart;
+    // FuncDecl funcDecl;
+    // ProcDecl procDecl;
+
     StatmList statmList;
 
 
@@ -25,19 +25,22 @@ class Block extends PascalSyntax{
     static Block parse(Scanner s) {
 
         enterParser("block"); 
-        Block bl = new Block(s.curLineNum());
-        s.test(beginToken);
-        s.readNextToken();
-        // constDeclPart = constDeclPart.parse(s);
+        Block b = new Block(s.curLineNum());
+        switch(s.curToken.kind){
+            case constToken: 
+                b.constDeclPart = ConstDeclPart.parse(s);
         // typeDeclPart = typeDeclPart.parse(s);
         // varDeclPart = varDeclPart.parse(s);
         // funcDecl = funcDecl.parse(s);
         // procDecl = procDecl.parse(s);
+        }
+        s.test(beginToken);
+        s.readNextToken();
         
-        bl.statmList = StatmList.parse(s); 
+        b.statmList = StatmList.parse(s); 
         s.skip(endToken);
         leaveParser("block");
-        return bl;
+        return b;
     }
 
 }

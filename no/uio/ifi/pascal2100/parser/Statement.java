@@ -5,7 +5,6 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 abstract class Statement extends PascalSyntax {
-    EmptyStatm emptyStatm;
 
     Statement(int lNum) {
         super(lNum);
