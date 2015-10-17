@@ -23,7 +23,9 @@ class NumberLiteral extends Constant {
         NumberLiteral nl = new NumberLiteral(s.curLineNum());
         s.test(intValToken);
         nl.numValue = s.curToken.intVal;
+        //System.out.println(s.curToken.identify());
         s.readNextToken();
+        //System.out.println(s.curToken.identify());
         leaveParser("numeric literal");
         return nl;
     }

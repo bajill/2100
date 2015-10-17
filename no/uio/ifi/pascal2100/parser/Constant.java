@@ -19,8 +19,17 @@ abstract class Constant extends Factor {
         // TODO Er dette feil? Constant er en abstrakt klasse, skal ikke
         // subklassene kalles direkte
         enterParser("constant"); 
-        Constant c;
-        c = StringLiteral.parse(s);
+        Constant c = null;
+        switch (s.curToken.kind){
+            case nameToken:
+                
+            case intValToken:
+                c = NumberLiteral.parse(s);
+                break;
+            case stringValToken:
+                c = StringLiteral.parse(s);
+                break;
+        }
         leaveParser("constant");
         return c;
     }
