@@ -26,6 +26,7 @@ class EmptyStatm extends Statement {
 */
 
     @Override void prettyPrint() {
+        Main.log.prettyPrint(";");
     }
 
     static EmptyStatm parse(Scanner s) {

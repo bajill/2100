@@ -15,6 +15,10 @@ class Term extends PascalSyntax  {
     return "<term> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+        factor.prettyPrint();
+    }
+
     static Term parse(Scanner s) {
         enterParser("term"); 
         Term t = new Term(s.curLineNum());

@@ -15,6 +15,11 @@ class SimpleExpr extends PascalSyntax {
     return "<simpleExpr> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+
+        term.prettyPrint();
+    }
+
     static SimpleExpr parse(Scanner s) {
         enterParser("simpleExpr"); 
         SimpleExpr se = new SimpleExpr(s.curLineNum());

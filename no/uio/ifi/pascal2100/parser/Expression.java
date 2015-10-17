@@ -15,6 +15,11 @@ class Expression extends PascalSyntax {
     return "<expression> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+
+        simpleExpr.prettyPrint();
+    }
+
     static Expression parse(Scanner s) {
         enterParser("expression"); 
         Expression ex = new Expression(s.curLineNum());
