@@ -25,6 +25,8 @@ class Block extends PascalSyntax{
     }
 
     @Override void prettyPrint(){
+        constDeclPart.prettyPrint();
+        typeDeclPart.prettyPrint();
         Main.log.prettyPrintLn("begin");
         Main.log.prettyIndent();
         statmList.prettyPrint();
