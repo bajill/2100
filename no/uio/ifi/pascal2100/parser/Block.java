@@ -3,7 +3,7 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* Block ::= <const decl part> <type decl part> <var decl part> 
-    <func decl> || <proc decl> 'begin' <statm list> 'end' */
+   <func decl> || <proc decl> 'begin' <statm list> 'end' */
 class Block extends PascalSyntax{
     // TODO All these are PascalDecl, should be a arraylist?
     // ArrayList<PascalDecl> pascalDecl;
@@ -11,7 +11,7 @@ class Block extends PascalSyntax{
     TypeDeclPart typeDeclPart;
     VarDeclPart varDeclPart;
     // FuncDecl funcDecl;
-    // ProcDecl procDecl;
+    ProcDecl procDecl;
 
     StatmList statmList;
 
@@ -19,9 +19,9 @@ class Block extends PascalSyntax{
     Block(int lNum){
         super(lNum);
     }
-    
+
     @Override public String identify() {
-    return "<empty statm> on line " + lineNum;
+        return "<empty statm> on line " + lineNum;
     }
 
     @Override void prettyPrint(){
@@ -31,9 +31,9 @@ class Block extends PascalSyntax{
         Main.log.prettyOutdent();
         Main.log.prettyPrintLn();
         Main.log.prettyPrint("end");
-        
+
     }
-    
+
     static Block parse(Scanner s) {
 
         enterParser("block"); 
@@ -45,16 +45,24 @@ class Block extends PascalSyntax{
                 b.typeDeclPart = TypeDeclPart.parse(s);
             case varToken:
                 b.varDeclPart = VarDeclPart.parse(s);
-        // funcDecl = funcDecl.parse(s);
-        // procDecl = procDecl.parse(s);
         }
+        while(true){
+            switch(s.curToken.kind){
+                case procedureToken:
+                    b.procDecl = ProcDecl.parse(s);
+                    // funcDecl = funcDecl.parse(s);
+            }
+            if(s.curToken.kind != functionToken ||
+                    s.curToken.kind != procedureToken)
+                break;
+        }
+
         s.test(beginToken);
         s.readNextToken();
-        
+
         b.statmList = StatmList.parse(s); 
         s.skip(endToken);
         leaveParser("block");
         return b;
     }
-
 }

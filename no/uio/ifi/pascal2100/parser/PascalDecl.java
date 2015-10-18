@@ -13,6 +13,12 @@ public abstract class PascalDecl extends PascalSyntax {
 	name = id;
     }
 
+    PascalDecl(String dummy, String name, int lNum) {
+        super(lNum);
+        progProcFuncName = name;
+
+    }
+
     void prettyPrint(){
         Main.log.prettyPrint(name);
     }
