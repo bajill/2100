@@ -3,9 +3,8 @@ program Mini;
 const v1 = 1;
 type a = integer;
 begin
-    ;;
-    a := 'hello'
-    ;
-    b := 'world'
-    ;;
+    a := 'hello';
+    begin
+        ;
+    end
 end.

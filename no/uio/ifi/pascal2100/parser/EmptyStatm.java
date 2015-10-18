@@ -33,7 +33,7 @@ class EmptyStatm extends Statement {
         enterParser("empty statm"); 
        // s.test(semicolonToken);
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
-        //s.readNextToken();
+        s.readNextToken();
         // Fyll ut resten her.
 
         leaveParser("empty statm");
