@@ -4,7 +4,7 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* const decl part ::= 'const' <const decl> <const decl> ect... */
 class ConstDeclPart extends PascalSyntax {
-    ConstDecl constDecl;
+    ArrayList<ConstDecl> constDecl;
     ConstDeclPart(int lNum) {
     super(lNum);
     }
@@ -20,7 +20,7 @@ class ConstDeclPart extends PascalSyntax {
         /* loop trough all const decl */
         ConstDeclPart cdp = new ConstDeclPart(s.curLineNum());
         while(true){
-            cdp.constDecl = ConstDecl.parse(s);
+            cdp.constDecl.append(ConstDecl.parse(s));
             // TODO har ikke funnet noe å teste for her
             if(true)
                 break;

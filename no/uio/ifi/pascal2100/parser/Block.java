@@ -29,7 +29,8 @@ class Block extends PascalSyntax{
         switch(s.curToken.kind){
             case constToken: 
                 b.constDeclPart = ConstDeclPart.parse(s);
-        // typeDeclPart = typeDeclPart.parse(s);
+            case typeToken:
+                b.typeDeclPart = TypeDeclPart.parse(s);
         // varDeclPart = varDeclPart.parse(s);
         // funcDecl = funcDecl.parse(s);
         // procDecl = procDecl.parse(s);
