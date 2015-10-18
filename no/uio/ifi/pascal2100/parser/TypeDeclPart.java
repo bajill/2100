@@ -21,10 +21,9 @@ class TypeDeclPart extends PascalSyntax {
         Main.log.prettyPrint("type ");
         for (int i = 0; i < typeDecl.size(); i ++) {
             typeDecl.get(i).prettyPrint();
-           // if (i < typeDecl.size() - 1)
-           //     Main.log.prettyPrintLn(";");
-        }
-
+            if (i < typeDecl.size() - 1)
+                Main.log.prettyPrintLn(";");
+        } 
     }
 
     static TypeDeclPart parse(Scanner s) {
@@ -33,8 +32,10 @@ class TypeDeclPart extends PascalSyntax {
         TypeDeclPart tdp = new TypeDeclPart(s.curLineNum());
         while(true){
             tdp.typeDecl.add(TypeDecl.parse(s));
-            if(true)
-                break;
+            System.out.println(s.curToken.kind);
+            if(s.curToken.kind != semicolonToken) break;
+            System.out.println(s.curToken.kind);
+            s.skip(semicolonToken);
         }
         leaveParser("type decl part");
         return tdp;

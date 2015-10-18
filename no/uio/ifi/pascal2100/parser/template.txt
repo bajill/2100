@@ -13,6 +13,10 @@ class <C> extends Statement {
     return "<msg> on line " + lineNum;
     }
 
+    @Override public void prettyPrint() {
+
+    }
+
     static <C> parse(Scanner s) {
         enterParser("msg"); 
         <C> <r> = new <C>(s.curLineNum());

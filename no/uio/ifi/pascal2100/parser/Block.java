@@ -5,9 +5,11 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* Block ::= <const decl part> <type decl part> <var decl part> 
     <func decl> || <proc decl> 'begin' <statm list> 'end' */
 class Block extends PascalSyntax{
+    // TODO All these are PascalDecl, should be a arraylist?
+    // ArrayList<PascalDecl> pascalDecl;
     ConstDeclPart constDeclPart;
     TypeDeclPart typeDeclPart;
-    // VarDeclPart varDeclPart;
+    VarDeclPart varDeclPart;
     // FuncDecl funcDecl;
     // ProcDecl procDecl;
 
@@ -24,6 +26,7 @@ class Block extends PascalSyntax{
 
     @Override void prettyPrint(){
         constDeclPart.prettyPrint();
+        typeDeclPart.prettyPrint();
         Main.log.prettyPrintLn("begin");
         Main.log.prettyIndent();
         statmList.prettyPrint();
@@ -42,7 +45,8 @@ class Block extends PascalSyntax{
                 b.constDeclPart = ConstDeclPart.parse(s);
             case typeToken:
                 b.typeDeclPart = TypeDeclPart.parse(s);
-        // varDeclPart = varDeclPart.parse(s);
+            case varToken:
+                b.varDeclPart = VarDeclPart.parse(s);
         // funcDecl = funcDecl.parse(s);
         // procDecl = procDecl.parse(s);
         }
