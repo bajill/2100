@@ -21,7 +21,7 @@ class TypeDecl extends PascalDecl {
         enterParser("type decl"); 
         TypeDecl td = new TypeDecl(TypeName.parse(s).name , s.curLineNum());
 
-        td.typename = Type.parse(s);
+     //   td.typename = Type.parse(s);
         s.skip(equalToken);
 
         td.type = Type.parse(s);
