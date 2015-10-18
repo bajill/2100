@@ -18,6 +18,12 @@ class TypeDeclPart extends PascalSyntax {
     }
 
     @Override public void prettyPrint(){
+        Main.log.prettyPrint("type ");
+        for (int i = 0; i < typeDecl.size(); i ++) {
+            typeDecl.get(i).prettyPrint();
+           // if (i < typeDecl.size() - 1)
+           //     Main.log.prettyPrintLn(";");
+        }
 
     }
 
