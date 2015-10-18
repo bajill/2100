@@ -16,6 +16,14 @@ class AssignStatm extends Statement {
     return "<assign statm> on line " + lineNum;
     }
 
+
+    @Override void prettyPrint() {
+
+        variable.prettyPrint();
+        Main.log.prettyPrint(":=");
+        expression.prettyPrint();
+    }
+
     static AssignStatm parse(Scanner s) {
         enterParser("assign statm"); 
         AssignStatm as = new AssignStatm(s.curLineNum());

@@ -14,6 +14,10 @@ abstract class Statement extends PascalSyntax {
     @Override public String identify() {
         return "<empty statm> on line " + lineNum;
     }
+
+    @Override void prettyPrint() {
+    }
+    
     static Statement parse(Scanner s) {
         enterParser("statement");
         Statement st = null;

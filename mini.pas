@@ -2,5 +2,9 @@
 program Mini;
 const v1 = 1;
 begin
-    a := 'hello World'
+    ;;
+    a := 'hello'
+    ;
+    b := 'world'
+    ;;
 end.

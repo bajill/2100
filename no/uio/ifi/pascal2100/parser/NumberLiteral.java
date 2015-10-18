@@ -15,6 +15,9 @@ class NumberLiteral extends Constant {
     return "<numeric literal> on line " + lineNum;
     }
 
+    @Override void prettyPrint(){
+    }
+
     static NumberLiteral parse(Scanner s) {
         enterParser("numeric literal"); 
         NumberLiteral nl = new NumberLiteral(s.curLineNum());

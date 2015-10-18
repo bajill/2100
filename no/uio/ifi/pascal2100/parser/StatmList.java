@@ -30,17 +30,25 @@ class StatmList extends PascalSyntax {
         // Til del 4 av prosjektet
     }
 
-
-    @Override void prettyPrint() {
-        // Til neste ukes oppgaver
-    }
 */
+    @Override void prettyPrint() {
+        for (int i = 0; i < statements.size(); i ++) {
+            statements.get(i).prettyPrint();
+            if (i < statements.size() - 1)
+                Main.log.prettyPrintLn(";");
+        }
+    }
+
 
     static StatmList parse(Scanner s) {
         enterParser("statm list");
 
         StatmList sl = new StatmList(s.curLineNum());
-        sl.statement = Statement.parse(s);
+        while (true) {
+            sl.statements.add(Statement.parse(s));
+            if (s.curToken.kind != semicolonToken) break;
+            s.skip(semicolonToken);
+        }
 
         leaveParser("statm list");
         return sl;
