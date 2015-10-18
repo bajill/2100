@@ -6,7 +6,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
     <func decl> || <proc decl> 'begin' <statm list> 'end' */
 class Block extends PascalSyntax{
     ConstDeclPart constDeclPart;
-    // TypeDeclPart typeDeclPart;
+    TypeDeclPart typeDeclPart;
     // VarDeclPart varDeclPart;
     // FuncDecl funcDecl;
     // ProcDecl procDecl;

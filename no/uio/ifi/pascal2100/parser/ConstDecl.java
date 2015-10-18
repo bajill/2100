@@ -26,6 +26,8 @@ public class ConstDecl extends PascalDecl {
 
         cd.constant = Constant.parse(s);      
         s.skip(semicolonToken);
+        System.out.println("Er dette noe? " + cd);
+        System.out.println("Er dette noe? " + cd.constant);
 
         leaveParser("const decl");
         return cd;
