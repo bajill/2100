@@ -16,7 +16,6 @@ class SimpleExpr extends PascalSyntax {
     }
 
     @Override void prettyPrint() {
-
         term.prettyPrint();
     }
 

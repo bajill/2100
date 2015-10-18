@@ -2,9 +2,8 @@
 program Mini;
 const v1 = 1;
 begin
-    ;;
-    a := 'hello'
-    ;
-    b := 'world'
-    ;;
+    a := 'hello';
+    begin
+        ;
+    end
 end.

@@ -13,6 +13,15 @@ class CompoundStatm extends Statement{
     return "<empty statm> on line " + lineNum;
     }
     
+    @Override void prettyPrint() {
+        Main.log.prettyPrintLn("begin");
+        Main.log.prettyIndent();
+        statmList.prettyPrint();
+        Main.log.prettyOutdent();
+        Main.log.prettyPrintLn();
+        Main.log.prettyPrint("end");
+    }
+    
     static CompoundStatm parse(Scanner s) {
 
         enterParser("compoundStatm"); 

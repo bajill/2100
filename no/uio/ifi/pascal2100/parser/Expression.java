@@ -16,7 +16,6 @@ class Expression extends PascalSyntax {
     }
 
     @Override void prettyPrint() {
-
         simpleExpr.prettyPrint();
     }
 
