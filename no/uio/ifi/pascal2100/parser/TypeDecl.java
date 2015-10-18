@@ -6,7 +6,6 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* type name ::= <type name> 'equal' <type> '; */
 class TypeDecl extends PascalDecl {
     Type type;
-    Type typename;
 
     TypeDecl(String id, int lNum) {
     super(id, lNum);
@@ -17,11 +16,17 @@ class TypeDecl extends PascalDecl {
     return "<type decl> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+        super.prettyPrint();
+        Main.log.prettyPrint(" = ");
+        type.prettyPrint();
+        Main.log.prettyPrintLn(";");
+    }
+
     static TypeDecl parse(Scanner s) {
         enterParser("type decl"); 
         TypeDecl td = new TypeDecl(TypeName.parse(s).name , s.curLineNum());
 
-        td.typename = Type.parse(s);
         s.skip(equalToken);
 
         td.type = Type.parse(s);
