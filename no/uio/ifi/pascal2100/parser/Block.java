@@ -10,7 +10,7 @@ class Block extends PascalSyntax{
     ConstDeclPart constDeclPart;
     TypeDeclPart typeDeclPart;
     VarDeclPart varDeclPart;
-    // FuncDecl funcDecl;
+    FuncDecl funcDecl;
     ProcDecl procDecl;
 
     StatmList statmList;
@@ -25,7 +25,9 @@ class Block extends PascalSyntax{
     }
 
     @Override void prettyPrint(){
+        if(constDeclPart != null)
         constDeclPart.prettyPrint();
+        if(typeDeclPart != null)
         typeDeclPart.prettyPrint();
         Main.log.prettyPrintLn("begin");
         Main.log.prettyIndent();
@@ -40,27 +42,35 @@ class Block extends PascalSyntax{
 
         enterParser("block"); 
         Block b = new Block(s.curLineNum());
-        switch(s.curToken.kind){
-            case constToken: 
-                b.constDeclPart = ConstDeclPart.parse(s);
-            case typeToken:
-                b.typeDeclPart = TypeDeclPart.parse(s);
-            case varToken:
-                b.varDeclPart = VarDeclPart.parse(s);
-        }
+
+        /* const, type and varDeclPart */
+        if(s.curToken.kind == constToken)
+            b.constDeclPart = ConstDeclPart.parse(s);
+        if(s.curToken.kind == typeToken)
+            b.typeDeclPart = TypeDeclPart.parse(s);
+        if(s.curToken.kind == varToken)
+            b.varDeclPart = VarDeclPart.parse(s);
+
+        /* func or procDecl */
         while(true){
             switch(s.curToken.kind){
                 case procedureToken:
                     b.procDecl = ProcDecl.parse(s);
-                    // funcDecl = funcDecl.parse(s);
+                    break;
+                case functionToken:
+                    b.funcDecl = FuncDecl.parse(s);
+                    break;
             }
+            /* */
+            System.out.println(s.curToken.kind);
             if(s.curToken.kind != functionToken ||
                     s.curToken.kind != procedureToken)
                 break;
         }
 
-        s.test(beginToken);
-        s.readNextToken();
+        s.skip(beginToken);
+        //s.test(beginToken);
+        //s.readNextToken();
 
         b.statmList = StatmList.parse(s); 
         s.skip(endToken);

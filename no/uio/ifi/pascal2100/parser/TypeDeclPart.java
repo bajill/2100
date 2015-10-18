@@ -32,9 +32,7 @@ class TypeDeclPart extends PascalSyntax {
         TypeDeclPart tdp = new TypeDeclPart(s.curLineNum());
         while(true){
             tdp.typeDecl.add(TypeDecl.parse(s));
-            System.out.println(s.curToken.kind);
             if(s.curToken.kind != semicolonToken) break;
-            System.out.println(s.curToken.kind);
             s.skip(semicolonToken);
         }
         leaveParser("type decl part");
