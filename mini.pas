@@ -2,6 +2,7 @@
 program Mini;
 const v1 = 1;
 type a = integer;
+var res : integer;
 begin
     a := 'hello';
     begin
