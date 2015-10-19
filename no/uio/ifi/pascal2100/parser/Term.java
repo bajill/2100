@@ -10,6 +10,7 @@ class Term extends PascalSyntax  {
 
     Term(int lNum) {
     super(lNum);
+    factor = new ArrayList<Factor>();
     }
 
     
@@ -27,7 +28,9 @@ class Term extends PascalSyntax  {
         Term t = new Term(s.curLineNum());
 
         while(true){
-            t.factor.add(Factor.parse(s));
+
+            Factor f = Factor.parse(s);
+            t.factor.add(f);
             /* if more factors */
             if(s.curToken.kind.isFactorOpr())
                 t.operator.add(FactorOperator.parse(s));

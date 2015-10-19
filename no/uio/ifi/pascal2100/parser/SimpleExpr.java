@@ -10,6 +10,8 @@ class SimpleExpr extends PascalSyntax {
     ArrayList<Operator> operator;
     SimpleExpr(int lNum) {
     super(lNum);
+    term = new ArrayList<Term>();
+    operator = new ArrayList<Operator>();
     }
 
     
