@@ -3,9 +3,11 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
-
+import java.util.ArrayList;
+/* simple expr ::= [<prefix opr>] <term> [<term opr> loop] */
 class SimpleExpr extends PascalSyntax {
-    Term term;
+    ArrayList<Term> term;
+    ArrayList<Operator> operator;
     SimpleExpr(int lNum) {
     super(lNum);
     }
@@ -16,13 +18,18 @@ class SimpleExpr extends PascalSyntax {
     }
 
     @Override void prettyPrint() {
-        term.prettyPrint();
+        // term.prettyPrint();
     }
 
     static SimpleExpr parse(Scanner s) {
         enterParser("simpleExpr"); 
         SimpleExpr se = new SimpleExpr(s.curLineNum());
-        se.term = Term.parse(s);
+        while(true){
+            se.term.add(Term.parse(s));
+            if(!s.curToken.kind.isTermOpr())
+                break;
+            //TODO se.operator.add(TermOperator.parse());
+        }    
         leaveParser("simpleExpr");
         return se;
     }

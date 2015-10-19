@@ -3,9 +3,10 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
-
+import java.util.ArrayList;
 class Term extends PascalSyntax  {
-    Factor factor;
+    ArrayList<Operator> operator;
+    ArrayList<Factor> factor;
     Term(int lNum) {
     super(lNum);
     }
@@ -16,13 +17,19 @@ class Term extends PascalSyntax  {
     }
 
     @Override void prettyPrint() {
-        factor.prettyPrint();
+        //factor.prettyPrint();
     }
 
     static Term parse(Scanner s) {
         enterParser("term"); 
         Term t = new Term(s.curLineNum());
-        t.factor = Factor.parse(s);
+        while(true){
+            t.factor.add(Factor.parse(s));
+            if(s.curToken.kind.isFactorOpr())
+                t.operator.add(FactorOperator.parse(s));
+            else
+                break;
+        }
         leaveParser("term");
         return t;
     }
