@@ -35,7 +35,7 @@ abstract class Statement extends PascalSyntax {
                         //st = ProcCallStatm.parse(s);  break;
                 } break;
             case whileToken:
-                //st = WhileStatm.parse(s);  break;
+                st = WhileStatm.parse(s);  break;
             default:
                 st = EmptyStatm.parse(s);  break;
         }
