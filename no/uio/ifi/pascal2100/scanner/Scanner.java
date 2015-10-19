@@ -39,7 +39,7 @@ public class Scanner {
         return "Scanner reading " + sourceFileName;
     }
 
-    public int curLineNum() {
+      public int curLineNum() {
         return curToken.lineNum;
     }
 

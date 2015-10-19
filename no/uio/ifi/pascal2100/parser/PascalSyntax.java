@@ -1,5 +1,7 @@
 package no.uio.ifi.pascal2100.parser;
-
+import no.uio.ifi.pascal2100.scanner.TokenKind;
+import no.uio.ifi.pascal2100.scanner.Token;
+import no.uio.ifi.pascal2100.scanner.Scanner;
 import no.uio.ifi.pascal2100.main.*;
 
 public abstract class PascalSyntax {
@@ -11,7 +13,19 @@ public abstract class PascalSyntax {
 
     boolean isInLibrary() {
 	return lineNum < 0;
+    }  
+    
+    public static boolean testIfToken(Scanner s, TokenKind[] tokens) {
+        boolean b = false;
+        //  System.out.println(t);
+        for (int i = 0; i < tokens.length; i++) {
+            if (s.curToken.kind == tokens[i])
+                b = true;
+        }
+        return b;
     }
+
+
 
     //Del 3: abstract void check(Block curScope, Library lib);
     //Del 4: abstract void genCode(CodeFile f);

@@ -61,17 +61,15 @@ class Block extends PascalSyntax{
                     b.funcDecl = FuncDecl.parse(s);
                     break;
             }
-            /* */
-            System.out.println(s.curToken.kind);
-            if(s.curToken.kind != functionToken ||
-                    s.curToken.kind != procedureToken)
+            
+            if(s.curToken.kind == functionToken ||
+                    s.curToken.kind == procedureToken)
+                continue;
+            else
                 break;
         }
 
         s.skip(beginToken);
-        //s.test(beginToken);
-        //s.readNextToken();
-
         b.statmList = StatmList.parse(s); 
         s.skip(endToken);
         leaveParser("block");

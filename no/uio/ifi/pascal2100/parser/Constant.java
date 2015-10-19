@@ -14,6 +14,8 @@ abstract class Constant extends Factor {
     return "<constant> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+    }
 
     static Constant parse(Scanner s) {
         // TODO Er dette feil? Constant er en abstrakt klasse, skal ikke

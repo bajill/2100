@@ -17,8 +17,12 @@ class VarDeclPart extends Statement {
     }
 
     @Override public void prettyPrint() {
-
-
+        Main.log.prettyPrintLn("var");
+        Main.log.prettyIndent();
+        for (int i = 0; i < varDecl.size(); i ++) {
+            varDecl.get(i).prettyPrint();
+        } 
+        Main.log.prettyOutdent();
     }
 
     static VarDeclPart parse(Scanner s) {
@@ -27,10 +31,13 @@ class VarDeclPart extends Statement {
         VarDeclPart vdp = new VarDeclPart(s.curLineNum());
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
-            // TODO find reason to break
-            if(true)
+            if(s.curToken.kind == functionToken ||
+                    s.curToken.kind == procedureToken || s.curToken.kind == beginToken)
                 break;
-        }   
+            else
+                continue;
+        }
+           
         leaveParser("var decl part");
         return vdp;
     }

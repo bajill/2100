@@ -15,6 +15,13 @@ public class ConstDecl extends PascalDecl {
         return "<const decl> on line " + lineNum;
     }
 
+    @Override void prettyPrint() {
+        super.prettyPrint();
+        Main.log.prettyPrint(" = ");
+        constant.prettyPrint();
+        Main.log.prettyPrintLn(";");
+    }
+
     public static ConstDecl parse(Scanner s) {
         enterParser("const decl"); 
         s.test(nameToken);
