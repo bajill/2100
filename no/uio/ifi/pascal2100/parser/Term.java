@@ -7,6 +7,7 @@ import java.util.ArrayList;
 class Term extends PascalSyntax  {
     ArrayList<Operator> operator;
     ArrayList<Factor> factor;
+
     Term(int lNum) {
     super(lNum);
     }
@@ -20,11 +21,14 @@ class Term extends PascalSyntax  {
         //factor.prettyPrint();
     }
 
+    // DONE, BUT WORKING?
     static Term parse(Scanner s) {
         enterParser("term"); 
         Term t = new Term(s.curLineNum());
+
         while(true){
             t.factor.add(Factor.parse(s));
+            /* if more factors */
             if(s.curToken.kind.isFactorOpr())
                 t.operator.add(FactorOperator.parse(s));
             else

@@ -20,11 +20,13 @@ class StringLiteral extends Constant {
         Main.log.prettyPrint(" '" + id +"'");
     }
 
+    // DONE, BUT WORKING?
     static StringLiteral parse(Scanner s) {
         enterParser("string literal"); 
         s.test(stringValToken);
         StringLiteral sl = new StringLiteral(s.curLineNum(), s.curToken.strVal);
         s.readNextToken();
+        System.out.println("StringLiteral " + sl);
         leaveParser("string literal");
         return sl;
     }

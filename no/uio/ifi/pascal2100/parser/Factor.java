@@ -27,14 +27,18 @@ abstract class Factor extends PascalSyntax {
 
             case stringValToken:
             case intValToken:
+                System.out.println("Factor hit?");
                 f = Constant.parse(s);  break;
             // Hvis factor er variable
             case nameToken:
                 System.out.println("NameToken");
-                
+            // TODO func call
+            // TODO inner expr
+            // TODO negation
                 //st = IfStatm.parse(s);  break;
         } 
         leaveParser("factor");
+        System.out.println("factor ut " + f);
         return f;
     }
 }

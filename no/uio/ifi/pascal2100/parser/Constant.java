@@ -18,21 +18,26 @@ abstract class Constant extends Factor {
     }
 
     static Constant parse(Scanner s) {
-        // TODO Er dette feil? Constant er en abstrakt klasse, skal ikke
-        // subklassene kalles direkte
         enterParser("constant"); 
         Constant c = null;
         switch (s.curToken.kind){
             case nameToken:
-                
-            case intValToken:
-                c = NumberLiteral.parse(s);
-                break;
+             //TODO her det et problem, klassen er abstrakt og kan derfor ikke
+             // være noe object i seg selv, hvor skal id??
+             //c = new Constant(s.curToken.id, s.curLineNum());
             case stringValToken:
+                System.out.println("Constant hit 2?");
                 c = StringLiteral.parse(s);
                 break;
+            case intValToken:
+                System.out.println("Constant hit?");
+                c = NumberLiteral.parse(s);
+                break;
+            default:
+                System.out.println("Something wrong in Constant");
         }
         leaveParser("constant");
+        System.out.println("Constant " + c);
         return c;
     }
 }
