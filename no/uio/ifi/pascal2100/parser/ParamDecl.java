@@ -8,7 +8,7 @@ class ParamDecl extends PascalDecl{
     TypeName typeName;
     /* name is going to super's  progProcFuncName */
     ParamDecl(String name, int lNum) {
-    super("", name, lNum);
+    super(name, lNum);
     }
 
     
@@ -17,7 +17,9 @@ class ParamDecl extends PascalDecl{
     }
 
     @Override public void prettyPrint() {
-
+        super.prettyPrint();
+        Main.log.prettyPrint(" : ");
+        typeName.prettyPrint();
     }
 
     static ParamDecl parse(Scanner s) {

@@ -30,7 +30,7 @@ class TypeDecl extends PascalDecl {
         s.skip(equalToken);
 
         td.type = Type.parse(s);
-        //s.skip(semicolonToken);
+        s.skip(semicolonToken);
         
         leaveParser("type decl");
         return td;

@@ -17,7 +17,6 @@ public abstract class PascalSyntax {
     
     public static boolean testIfToken(Scanner s, TokenKind[] tokens) {
         boolean b = false;
-        //  System.out.println(t);
         for (int i = 0; i < tokens.length; i++) {
             if (s.curToken.kind == tokens[i])
                 b = true;

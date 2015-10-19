@@ -27,14 +27,13 @@ class TypeDeclPart extends PascalSyntax {
     }
 
     static TypeDeclPart parse(Scanner s) {
+        TokenKind[] tokenKind = {varToken, functionToken, procedureToken, beginToken};
         enterParser("type decl part"); 
         s.skip(typeToken);
         TypeDeclPart tdp = new TypeDeclPart(s.curLineNum());
         while(true){
             tdp.typeDecl.add(TypeDecl.parse(s));
-            s.skip(semicolonToken);
-            if(s.curToken.kind == varToken || s.curToken.kind == functionToken ||
-                    s.curToken.kind == procedureToken || s.curToken.kind == beginToken)
+            if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;

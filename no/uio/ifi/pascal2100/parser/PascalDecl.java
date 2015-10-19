@@ -20,7 +20,10 @@ public abstract class PascalDecl extends PascalSyntax {
     }
 
     void prettyPrint(){
-        Main.log.prettyPrint(name);
+        if (name == null)
+            Main.log.prettyPrint(progProcFuncName);
+        else 
+            Main.log.prettyPrint(name);
     }
 
 

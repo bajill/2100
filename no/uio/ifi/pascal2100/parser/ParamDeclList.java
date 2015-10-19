@@ -19,7 +19,13 @@ class ParamDeclList extends PascalSyntax{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint(" (");
+        for (int i = 0; i < paramDecl.size(); i++) {
+            paramDecl.get(i).prettyPrint();
+            if (i < paramDecl.size() - 1)
+                Main.log.prettyPrint("; ");
+        }        
+        Main.log.prettyPrint(")");
     }
 
     static ParamDeclList parse(Scanner s) {

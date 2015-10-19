@@ -26,13 +26,13 @@ class VarDeclPart extends Statement {
     }
 
     static VarDeclPart parse(Scanner s) {
+        TokenKind[] tokenKind = {functionToken, procedureToken, beginToken};
         enterParser("var decl part"); 
         s.skip(varToken);
         VarDeclPart vdp = new VarDeclPart(s.curLineNum());
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
-            if(s.curToken.kind == functionToken ||
-                    s.curToken.kind == procedureToken || s.curToken.kind == beginToken)
+            if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;

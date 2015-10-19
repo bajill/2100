@@ -6,8 +6,8 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 /* ProcDecl ==: 'procedure' <name> [param decl list] ';' <block> ';' */
 class ProcDecl extends PascalDecl {
     ParamDeclList paramDeclList;
-
     Block block;
+    
     ProcDecl(String name, int lNum) {
         super("", name, lNum);
     }
@@ -18,7 +18,11 @@ class ProcDecl extends PascalDecl {
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint("procedure  ");
+        super.prettyPrint();
+        paramDeclList.prettyPrint();
+        Main.log.prettyPrintLn(";");
+        block.prettyPrint();
     }
 
     static ProcDecl parse(Scanner s) {

@@ -2,6 +2,7 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+import java.util.ArrayList;
 /* Block ::= <const decl part> <type decl part> <var decl part> 
    <func decl> || <proc decl> 'begin' <statm list> 'end' */
 class Block extends PascalSyntax{
@@ -10,14 +11,14 @@ class Block extends PascalSyntax{
     ConstDeclPart constDeclPart;
     TypeDeclPart typeDeclPart;
     VarDeclPart varDeclPart;
-    FuncDecl funcDecl;
-    ProcDecl procDecl;
+    ArrayList<ProcDecl> procANDfuncDecl;
 
     StatmList statmList;
 
 
     Block(int lNum){
         super(lNum);
+        procANDfuncDecl = new ArrayList<ProcDecl>(); 
     }
 
     @Override public String identify() {
@@ -26,15 +27,21 @@ class Block extends PascalSyntax{
 
     @Override void prettyPrint(){
         if(constDeclPart != null)
-        constDeclPart.prettyPrint();
+            constDeclPart.prettyPrint();
         if(typeDeclPart != null)
-        typeDeclPart.prettyPrint();
+            typeDeclPart.prettyPrint();
+        if(varDeclPart != null)
+            varDeclPart.prettyPrint();
+        if(procANDfuncDecl.size() != 0)
+            for (int i = 0; i < procANDfuncDecl.size(); i++)
+                 procANDfuncDecl.get(i).prettyPrint();
         Main.log.prettyPrintLn("begin");
         Main.log.prettyIndent();
         statmList.prettyPrint();
         Main.log.prettyOutdent();
         Main.log.prettyPrintLn();
-        Main.log.prettyPrint("end");
+        Main.log.prettyPrintLn("end");
+        Main.log.prettyPrintLn();
 
     }
 
@@ -55,10 +62,10 @@ class Block extends PascalSyntax{
         while(true){
             switch(s.curToken.kind){
                 case procedureToken:
-                    b.procDecl = ProcDecl.parse(s);
+                    b.procANDfuncDecl.add(ProcDecl.parse(s));
                     break;
                 case functionToken:
-                    b.funcDecl = FuncDecl.parse(s);
+                    b.procANDfuncDecl.add(FuncDecl.parse(s));
                     break;
             }
             

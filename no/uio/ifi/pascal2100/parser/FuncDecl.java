@@ -20,7 +20,13 @@ class FuncDecl extends ProcDecl{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint("function ");
+        Main.log.prettyPrint(progProcFuncName);
+        paramDeclList.prettyPrint();
+        Main.log.prettyPrint(" : ");
+        typeName.prettyPrint();
+        Main.log.prettyPrintLn(";");
+        block.prettyPrint();
     }
 
     static FuncDecl parse(Scanner s) {
