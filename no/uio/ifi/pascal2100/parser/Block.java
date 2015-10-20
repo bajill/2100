@@ -40,8 +40,7 @@ class Block extends PascalSyntax{
         statmList.prettyPrint();
         Main.log.prettyOutdent();
         Main.log.prettyPrintLn();
-        Main.log.prettyPrintLn("end");
-        Main.log.prettyPrintLn();
+        Main.log.prettyPrint("end");
 
     }
 

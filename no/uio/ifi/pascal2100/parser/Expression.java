@@ -20,7 +20,10 @@ class Expression extends PascalSyntax {
 
     @Override void prettyPrint() {
         simpleExpr.prettyPrint();
-        if (operator != null)
+        if (operator != null) {
+            operator.prettyPrint();
+            additionalSimpleExpr.prettyPrint();
+        }
     }
 
     static Expression parse(Scanner s) {
@@ -28,6 +31,7 @@ class Expression extends PascalSyntax {
         /* simple expression */ 
         Expression ex = new Expression(s.curLineNum());
         ex.simpleExpr = SimpleExpr.parse(s);
+        System.out.println(s.curToken.id);
         /* <rel opr> <simple expression> */
         if(s.curToken.kind.isRelOpr()){
             ex.operator = RelOperator.parse(s); 

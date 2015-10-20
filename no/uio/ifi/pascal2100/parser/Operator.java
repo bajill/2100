@@ -17,7 +17,6 @@ abstract class Operator extends PascalSyntax {
     }
 
     @Override public void prettyPrint() {
-
     }
     // Dont need anything here?
     static Operator parse(Scanner s) {
