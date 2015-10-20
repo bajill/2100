@@ -5,10 +5,9 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class Negation extends Factor{
-    String name;
-    Negation(String name, int lNum) {
+    Factor factor;
+    Negation(int lNum) {
     super(lNum);
-    this.name = name;
     }
 
     
@@ -17,12 +16,15 @@ class Negation extends Factor{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint("not ");
+        factor.prettyPrint();
     }
 
     static Negation parse(Scanner s) {
         enterParser("negation"); 
-        Negation n = new Negation(s.curToken.kind.toString(), s.curLineNum());
+        s.skip(notToken);
+        Negation n = new Negation(s.curLineNum());
+        n.factor = Factor.parse(s);
         leaveParser("negation");
         return n;
     }

@@ -29,7 +29,6 @@ abstract class Factor extends PascalSyntax {
             // constant: numeric or stringliteral
             case stringValToken:
             case intValToken:
-                System.out.println("Factor hit?");
                 f = Constant.parse(s);  
                 break;
             
@@ -49,13 +48,15 @@ abstract class Factor extends PascalSyntax {
                         break;
                 }
                 break;
+            case leftParToken:
+                f = InnerExpr.parse(s);
+                break;
 
             case notToken:
                 f = Negation.parse(s);
         }
 
         leaveParser("factor");
-        System.out.println("factor ut " + f);
         return f;
     }
 }

@@ -17,7 +17,7 @@ class CharLiteral extends Constant{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint(name);
     }
 
     static CharLiteral parse(Scanner s) {
