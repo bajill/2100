@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -11,7 +10,6 @@ class Variable extends Factor {
         super(lNum);
         this.id = id; 
     }
-
 
     @Override public String identify() {
         return "<variable> on line " + lineNum;

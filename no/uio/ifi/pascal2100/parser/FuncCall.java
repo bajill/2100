@@ -7,9 +7,11 @@ import java.util.ArrayList;
 class FuncCall extends Factor {
     CharLiteral name;
     ArrayList<Expression> expression;
+    boolean arguments;
     FuncCall(int lNum) {
     super(lNum);
     expression = new ArrayList<Expression>();
+    arguments = false;
     }
 
     
@@ -32,15 +34,18 @@ class FuncCall extends Factor {
         enterParser("func call"); 
         FuncCall fc = new FuncCall(s.curLineNum());
         fc.name = CharLiteral.parse(s);
-        s.skip(leftParToken);
-        while(true){
-            fc.expression.add(Expression.parse(s));
-            if(s.curToken.kind == commaToken)
-                s.skip(commaToken);
-            else
-                break;
+        if(s.curToken.kind == leftParToken){
+            fc.arguments = true;
+            s.skip(leftParToken);
+            while(true){
+                fc.expression.add(Expression.parse(s));
+                if(s.curToken.kind == commaToken)
+                    s.skip(commaToken);
+                else
+                    break;
+            }
+            s.skip(rightParToken);
         }
-        s.skip(rightParToken);
         leaveParser("func call");
         return fc;
     }
