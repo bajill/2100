@@ -21,7 +21,7 @@ class FactorOperator extends Operator{
     // DONE, BUT WORKING?
     static FactorOperator parse(Scanner s) {
         enterParser("factor operator"); 
-        FactorOperator fo = new FactorOperator(s.curToken.id, s.curLineNum());
+        FactorOperator fo = new FactorOperator(s.curToken.kind.toString(), s.curLineNum());
         System.out.println("kommer til FactorOperator? " + fo.name);
         s.readNextToken();
         leaveParser("factor operator");

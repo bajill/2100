@@ -41,7 +41,7 @@ abstract class Factor extends PascalSyntax {
                         break;
 
                     case leftParToken:
-                        //f = FuncCall.parse(s);
+                        f = FuncCall.parse(s);
                         break;
 
                     default:
@@ -51,7 +51,7 @@ abstract class Factor extends PascalSyntax {
                 break;
 
             case notToken:
-                //f = Negation.parse(s);
+                f = Negation.parse(s);
         }
 
         leaveParser("factor");

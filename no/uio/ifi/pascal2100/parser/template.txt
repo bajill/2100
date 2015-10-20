@@ -3,7 +3,7 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
-class <C> extends Statement {
+class <C> extends CC{
     <C>(int lNum) {
     super(lNum);
     }
