@@ -6,8 +6,11 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
 /* simple expr ::= [<prefix opr>] <term> [<term opr> loop] */
 class SimpleExpr extends PascalSyntax {
+    /* term and operator belongs together */
     ArrayList<Term> term;
     ArrayList<Operator> operator;
+    /* prefix operator*/
+    Operator optionalOperator;
     SimpleExpr(int lNum) {
     super(lNum);
     term = new ArrayList<Term>();
@@ -23,15 +26,19 @@ class SimpleExpr extends PascalSyntax {
        for (int i = 0; i < term.size(); i++)
            term.get(i).prettyPrint();
     }
-
+    // DONE, BUT WORKING?
     static SimpleExpr parse(Scanner s) {
         enterParser("simpleExpr"); 
         SimpleExpr se = new SimpleExpr(s.curLineNum());
+        if(s.curToken.kind.isPrefixOpr()){
+           se.optionalOperator = PrefixOpr.parse(s);
+        }
+
         while(true){
             se.term.add(Term.parse(s));
             if(!s.curToken.kind.isTermOpr())
                 break;
-            //TODO se.operator.add(TermOperator.parse());
+            se.operator.add(TermOperator.parse(s));
         }    
         leaveParser("simpleExpr");
         return se;

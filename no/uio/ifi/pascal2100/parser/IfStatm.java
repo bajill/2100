@@ -3,8 +3,9 @@ import no.uio.ifi.pascal2100.main.* ;
 import no.uio.ifi.pascal2100.scanner.* ; 
 import static no.uio.ifi.pascal2100.scanner.TokenKind.* ; 
 class IfStatm extends Statement {
-    Expression expr;
-    Statement body;
+    Expression expression;
+    Statement statement;
+    Statement additionalStatement;
     IfStatm(int lNum) {
         super(lNum);
     }
@@ -14,22 +15,31 @@ class IfStatm extends Statement {
 
     @Override void prettyPrint() {
         Main.log.prettyPrint("if ");
+        expression.prettyPrint();
+        Main.log.prettyPrintLn("do ");
         expr.prettyPrint();
         Main.log.prettyPrintLn("then ");
         Main.log.prettyIndent();
-        body.prettyPrint();
+        statement.prettyPrint();
         Main.log.prettyOutdent();
     }
+
+    // DONE, BUT WORKING?
     static IfStatm parse(Scanner s) {
         enterParser("if-statm");
 
         IfStatm is = new IfStatm(s.curLineNum());
+
         s.skip(ifToken);
-
-        is.expr = Expression.parse(s);
+        is.expression = Expression.parse(s);
         s.skip(thenToken);
-        is.body = Statement.parse(s);
+        is.statement = Statement.parse(s);
 
+        if(s.curToken.kind == elseToken){
+            s.skip(elseToken);
+            is.additionalStatement = Statement.parse(s);
+        }
+            
         leaveParser("if-statm");
         return is;
     }

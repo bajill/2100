@@ -26,25 +26,34 @@ abstract class Factor extends PascalSyntax {
         Factor f = null;
         switch (s.curToken.kind) {
 
-            // numeric or stringliteral
+            // constant: numeric or stringliteral
             case stringValToken:
             case intValToken:
                 System.out.println("Factor hit?");
                 f = Constant.parse(s);  
                 break;
-            // Hvis factor er variable
+            
             case nameToken:
-                System.out.println("FAKTOR NameToken");
+                switch (s.nextToken.kind){
+
+                    case leftBracketToken:
+                        f = Variable.parse(s);
+                        break;
+
+                    case leftParToken:
+                        //f = FuncCall.parse(s);
+                        break;
+
+                    default:
+                        f = CharLiteral.parse(s);
+                        break;
+                }
                 break;
-                // TODO func call
-            // TODO inner expr
-            // TODO negation
-            case ifToken:
-                f.ifStatm = IfStatm.parse(s);  
-                break;
-            default:
-                System.out.println("FAKTOR: metodekall mangler");
-        } 
+
+            case notToken:
+                //f = Negation.parse(s);
+        }
+
         leaveParser("factor");
         System.out.println("factor ut " + f);
         return f;
