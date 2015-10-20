@@ -19,7 +19,7 @@ class ProcCallStatm extends Statement {
 
     @Override public void prettyPrint() {
         name.prettyPrint();
-        if arguments {
+        if (arguments) {
             Main.log.prettyPrint("(");
             for (int i = 0; i < expression.size(); i++) {
                 expression.get(i).prettyPrint();
@@ -35,7 +35,7 @@ class ProcCallStatm extends Statement {
         ProcCallStatm pcs = new ProcCallStatm(s.curLineNum());
         pcs.name = CharLiteral.parse(s);
         if(s.curToken.kind == leftParToken){
-            arguments = true;
+            pcs.arguments = true;
             s.skip(leftParToken);
             while(true){
                 pcs.expression.add(Expression.parse(s));

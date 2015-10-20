@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -7,7 +6,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class ProcDecl extends PascalDecl {
     ParamDeclList paramDeclList;
     Block block;
-    
+
     ProcDecl(String name, int lNum) {
         super("", name, lNum);
     }
@@ -20,7 +19,8 @@ class ProcDecl extends PascalDecl {
     @Override public void prettyPrint() {
         Main.log.prettyPrint("procedure  ");
         super.prettyPrint();
-        paramDeclList.prettyPrint();
+        if (paramDeclList != null)
+            paramDeclList.prettyPrint();
         Main.log.prettyPrintLn(";");
         block.prettyPrint();
     }
@@ -33,7 +33,7 @@ class ProcDecl extends PascalDecl {
 
         if(s.curToken.kind == leftParToken){
             pd.paramDeclList = ParamDeclList.parse(s);
-            
+
         }
         s.skip(semicolonToken);
         pd.block = Block.parse(s);

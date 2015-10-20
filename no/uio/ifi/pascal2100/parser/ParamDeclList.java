@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -12,7 +11,6 @@ class ParamDeclList extends PascalSyntax{
         super(lNum);
         paramDecl = new ArrayList<ParamDecl>();
     }
-
     
     @Override public String identify() {
     return "<param decl part> on line " + lineNum;
