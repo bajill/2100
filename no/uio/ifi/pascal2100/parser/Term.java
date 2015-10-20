@@ -30,7 +30,6 @@ class Term extends PascalSyntax  {
         Term t = new Term(s.curLineNum());
 
         while(true){
-
             Factor f = Factor.parse(s);
             t.factor.add(f);
             /* if more factors */
