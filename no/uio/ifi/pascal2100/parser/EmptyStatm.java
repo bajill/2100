@@ -7,7 +7,6 @@ class EmptyStatm extends Statement {
     EmptyStatm(int lNum) {
     super(lNum);
     }
-
     
     @Override public String identify() {
     return "<empty statm> on line " + lineNum;
@@ -31,10 +30,7 @@ class EmptyStatm extends Statement {
 
     static EmptyStatm parse(Scanner s) {
         enterParser("empty statm"); 
-       // s.test(semicolonToken);
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
-        //s.readNextToken();
-        // Fyll ut resten her.
         System.out.println("emptyStatm: " + s.curToken.kind);
         leaveParser("empty statm");
         return ess;

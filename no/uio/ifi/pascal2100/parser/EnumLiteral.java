@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -9,14 +8,13 @@ class EnumLiteral extends PascalDecl{
     EnumLiteral(String name, int lNum) {
     super(name, lNum);
     }
-
     
     @Override public String identify() {
     return "<enum literal> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint(name);
     }
 
     static EnumLiteral parse(Scanner s) {

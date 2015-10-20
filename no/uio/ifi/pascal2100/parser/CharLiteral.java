@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -10,7 +9,6 @@ class CharLiteral extends Constant{
         super(lNum);
         this.name = name;
     }
-
 
     @Override public String identify() {
         return "<char literal> on line " + lineNum;

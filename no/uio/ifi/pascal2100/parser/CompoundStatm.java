@@ -23,7 +23,6 @@ class CompoundStatm extends Statement{
     }
     
     static CompoundStatm parse(Scanner s) {
-
         enterParser("compoundStatm"); 
         CompoundStatm cs = new CompoundStatm(s.curLineNum());
         s.skip(beginToken);
