@@ -24,6 +24,7 @@ abstract class Constant extends Factor {
         switch (s.curToken.kind){
             case nameToken:
                 c = CharLiteral.parse(s);
+                break;
             case stringValToken:
                 c = StringLiteral.parse(s);
                 break;

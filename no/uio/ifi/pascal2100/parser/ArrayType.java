@@ -29,6 +29,7 @@ class ArrayType extends Type{
 
         at.type = Type.parse(s);
         s.skip(rightBracketToken);
+        System.out.println("Arraytype ;" + s.curToken.kind);
 
         s.skip(ofToken);
         at.additionalType = Type.parse(s); 

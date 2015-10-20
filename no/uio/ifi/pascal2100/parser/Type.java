@@ -31,13 +31,20 @@ abstract class Type extends PascalSyntax {
 
             case nameToken:
                 switch(s.nextToken.kind){
-                    case equalToken:
+                    /* if range type -> constant -> name = nextToken will be ..
+                     * in rangeType */
+                    case semicolonToken:
+                    case rightBracketToken:
                         t = TypeName.parse(s);
-                        break;
+                        leaveParser("type");
+                        return t;
+                        
                 }
-                /* All the other fails, must be */
+
             default:
                 t = RangeType.parse(s);
+                break;
+
         }
         leaveParser("type");
         return t;
