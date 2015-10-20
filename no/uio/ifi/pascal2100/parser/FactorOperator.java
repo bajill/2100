@@ -16,6 +16,7 @@ class FactorOperator extends Operator{
     }
 
     @Override public void prettyPrint() {
+        Main.log.prettyPrint(name);
 
     }
     // DONE, BUT WORKING?

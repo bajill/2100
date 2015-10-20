@@ -21,6 +21,8 @@ class Term extends PascalSyntax  {
     @Override void prettyPrint() {
         for (int i = 0; i < factor.size(); i++) {
             factor.get(i).prettyPrint();
+            if (i < factor.size() -1)
+                operator.get(i).prettyPrint();
         }
     }
 
