@@ -5,12 +5,12 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 abstract class Type extends PascalSyntax {
     Type(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
+
     @Override public String identify() {
-    return "<type> on line " + lineNum;
+        return "<type> on line " + lineNum;
     }
 
     @Override void prettyPrint() {
@@ -18,14 +18,28 @@ abstract class Type extends PascalSyntax {
 
     static Type parse(Scanner s) {
         enterParser("type"); 
-        
+
         Type t = null;
         switch (s.curToken.kind){
+            case leftParToken:
+                t = EnumType.parse(s);
+                break;
+
+            case arrayToken:
+                t = ArrayType.parse(s);
+                break;
+
             case nameToken:
-                t = TypeName.parse(s);
-                
+                switch(s.nextToken.kind){
+                    case equalToken:
+                        t = TypeName.parse(s);
+                        break;
+                }
+                /* All the other fails, must be */
+            default:
+                t = RangeType.parse(s);
         }
-            leaveParser("type");
+        leaveParser("type");
         return t;
     }
-}
+    }

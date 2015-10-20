@@ -33,9 +33,9 @@ class EmptyStatm extends Statement {
         enterParser("empty statm"); 
        // s.test(semicolonToken);
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
-        s.readNextToken();
+        //s.readNextToken();
         // Fyll ut resten her.
-
+        System.out.println("emptyStatm: " + s.curToken.kind);
         leaveParser("empty statm");
         return ess;
     }
