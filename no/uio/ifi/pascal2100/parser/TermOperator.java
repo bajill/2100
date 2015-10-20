@@ -15,12 +15,13 @@ class TermOperator extends Operator {
     }
 
     @Override public void prettyPrint() {
+        Main.log.prettyPrint(name + " ");
 
     }
 
     static TermOperator parse(Scanner s) {
         enterParser("term operator"); 
-        TermOperator tm = new TermOperator(s.curToken.id, s.curLineNum());
+        TermOperator tm = new TermOperator(s.curToken.kind.toString(), s.curLineNum());
         s.readNextToken();
         leaveParser("term operator");
         return tm;

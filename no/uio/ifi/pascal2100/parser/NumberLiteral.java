@@ -16,7 +16,7 @@ class NumberLiteral extends Constant {
     }
 
     @Override void prettyPrint(){
-        Main.log.prettyPrint(Integer.toString(numValue) + " ");
+        Main.log.prettyPrint(Integer.toString(numValue));
     }
 
     static NumberLiteral parse(Scanner s) {

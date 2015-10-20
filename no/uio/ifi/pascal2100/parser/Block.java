@@ -12,9 +12,7 @@ class Block extends PascalSyntax{
     TypeDeclPart typeDeclPart;
     VarDeclPart varDeclPart;
     ArrayList<ProcDecl> procANDfuncDecl;
-
     StatmList statmList;
-
 
     Block(int lNum){
         super(lNum);
@@ -41,12 +39,10 @@ class Block extends PascalSyntax{
         Main.log.prettyOutdent();
         Main.log.prettyPrintLn();
         Main.log.prettyPrint("end");
-
     }
 
     // DONE, BUT WORKING?
     static Block parse(Scanner s) {
-
         enterParser("block"); 
         Block b = new Block(s.curLineNum());
 

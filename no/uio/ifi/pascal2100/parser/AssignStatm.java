@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -11,14 +10,11 @@ class AssignStatm extends Statement {
     super(lNum);
     }
 
-    
     @Override public String identify() {
     return "<assign statm> on line " + lineNum;
     }
 
-
     @Override void prettyPrint() {
-
         variable.prettyPrint();
         Main.log.prettyPrint(":= ");
         expression.prettyPrint();

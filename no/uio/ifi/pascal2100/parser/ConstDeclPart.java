@@ -12,7 +12,6 @@ class ConstDeclPart extends PascalSyntax {
         constDecl = new ArrayList<ConstDecl>();
     }
 
-
     @Override public String identify() {
         return "<const decl part> on line " + lineNum;
     }
@@ -30,14 +29,11 @@ class ConstDeclPart extends PascalSyntax {
         TokenKind[] tokenKind = {varToken, functionToken, procedureToken, typeToken, beginToken};
         enterParser("const decl part"); 
         s.skip(constToken);
+
         /* loop trough all const decl */
         ConstDeclPart cdp = new ConstDeclPart(s.curLineNum());
         while(true){
             cdp.constDecl.add(ConstDecl.parse(s));
-            /*if(s.curToken.kind == varToken || s.curToken.kind == functionToken ||
-                    s.curToken.kind == procedureToken || s.curToken.kind == typeToken ||
-                    s.curToken.kind == beginToken)
-                break; */
             if (testIfToken(s, tokenKind)) 
                 break;
             else

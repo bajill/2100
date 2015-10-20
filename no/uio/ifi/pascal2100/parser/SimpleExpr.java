@@ -22,9 +22,14 @@ class SimpleExpr extends PascalSyntax {
     return "<simpleExpr> on line " + lineNum;
     }
 
-    @Override void prettyPrint() {
-       for (int i = 0; i < term.size(); i++)
+    @Override void prettyPrint() { 
+        if (optionalOperator != null)
+            optionalOperator.prettyPrint();
+        for (int i = 0; i < term.size(); i++) {
            term.get(i).prettyPrint();
+           if (i < term.size() - 1)
+               operator.get(i).prettyPrint();
+       }
     }
     // DONE, BUT WORKING?
     static SimpleExpr parse(Scanner s) {

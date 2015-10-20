@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -9,7 +8,6 @@ public class ConstDecl extends PascalDecl {
     ConstDecl(String name, int lNum) {
         super(name, lNum);
     }
-
 
     @Override public String identify() {
         return "<const decl> on line " + lineNum;
@@ -30,7 +28,6 @@ public class ConstDecl extends PascalDecl {
         ConstDecl cd = new ConstDecl(s.curToken.id, s.curLineNum());
         s.readNextToken();
         s.skip(equalToken);
-
         cd.constant = Constant.parse(s);      
         s.skip(semicolonToken);
         leaveParser("const decl");

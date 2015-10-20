@@ -16,13 +16,13 @@ class FactorOperator extends Operator{
     }
 
     @Override public void prettyPrint() {
+        Main.log.prettyPrint(name + " ");
 
     }
     // DONE, BUT WORKING?
     static FactorOperator parse(Scanner s) {
         enterParser("factor operator"); 
         FactorOperator fo = new FactorOperator(s.curToken.kind.toString(), s.curLineNum());
-        System.out.println("kommer til FactorOperator? " + fo.name);
         s.readNextToken();
         leaveParser("factor operator");
         return fo;

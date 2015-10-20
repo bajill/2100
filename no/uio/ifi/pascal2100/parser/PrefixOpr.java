@@ -16,12 +16,12 @@ class PrefixOpr extends Operator{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint(name);
     }
 
     static PrefixOpr parse(Scanner s) {
         enterParser("prefix opr"); 
-        PrefixOpr po = new PrefixOpr(s.curToken.id, s.curLineNum());
+        PrefixOpr po = new PrefixOpr(s.curToken.kind.toString(), s.curLineNum());
         s.readNextToken();
         leaveParser("prefix opr");
         return po;
