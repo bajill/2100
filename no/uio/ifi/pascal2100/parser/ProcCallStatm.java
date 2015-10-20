@@ -6,8 +6,10 @@ import java.util.ArrayList;
 class ProcCallStatm extends Statement {
     CharLiteral name;
     ArrayList<Expression> expression;
+    boolean arguments;
     ProcCallStatm(int lNum) {
         super(lNum);
+        arguments = true;
         expression = new ArrayList<Expression>();
     }
 
@@ -33,6 +35,7 @@ class ProcCallStatm extends Statement {
         ProcCallStatm pcs = new ProcCallStatm(s.curLineNum());
         pcs.name = CharLiteral.parse(s);
         if(s.curToken.kind == leftParToken){
+            arguments = true;
             s.skip(leftParToken);
             while(true){
                 pcs.expression.add(Expression.parse(s));
