@@ -9,7 +9,7 @@ class ProcCallStatm extends Statement {
     boolean arguments;
     ProcCallStatm(int lNum) {
         super(lNum);
-        arguments = true;
+        arguments = false;
         expression = new ArrayList<Expression>();
     }
 
@@ -20,7 +20,7 @@ class ProcCallStatm extends Statement {
     @Override public void prettyPrint() {
         name.prettyPrint();
         if (arguments) {
-            Main.log.prettyPrint("(");
+            Main.log.prettyPrint("((");
             for (int i = 0; i < expression.size(); i++) {
                 expression.get(i).prettyPrint();
                 if (i < expression.size() - 1)

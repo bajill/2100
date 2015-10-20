@@ -12,8 +12,8 @@ abstract class Constant extends Factor {
     return "<constant> on line " + lineNum;
     }
 
-    @Override void prettyPrint() {
-    }
+//    @Override void prettyPrint() {
+ //    }
 
     // DONE, BUT WORKING?
     static Constant parse(Scanner s) {

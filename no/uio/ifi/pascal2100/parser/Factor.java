@@ -17,8 +17,6 @@ abstract class Factor extends PascalSyntax {
     }
 
     @Override void prettyPrint() {
-
-
     }
 
     static Factor parse(Scanner s) {
