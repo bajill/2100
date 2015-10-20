@@ -31,7 +31,6 @@ class EmptyStatm extends Statement {
     static EmptyStatm parse(Scanner s) {
         enterParser("empty statm"); 
         EmptyStatm ess = new EmptyStatm(s.curLineNum());
-        System.out.println("emptyStatm: " + s.curToken.kind);
         leaveParser("empty statm");
         return ess;
     }

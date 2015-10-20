@@ -36,7 +36,6 @@ class StatmList extends PascalSyntax {
                 break;
             s.skip(semicolonToken);
         }
-        System.out.println("STATMLIST " + s.curToken.kind);
         leaveParser("statm list");
         return sl;
     }
