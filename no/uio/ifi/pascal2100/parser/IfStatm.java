@@ -24,10 +24,9 @@ class IfStatm extends Statement {
         enterParser("if-statm");
 
         IfStatm is = new IfStatm(s.curLineNum());
-        s.skip(whileToken);
+        s.skip(ifToken);
 
         is.expr = Expression.parse(s);
-        s.skip(doToken);
         is.body = Statement.parse(s);
 
         leaveParser("if-statm");
