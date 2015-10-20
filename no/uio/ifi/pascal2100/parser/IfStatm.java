@@ -17,6 +17,8 @@ class IfStatm extends Statement {
         Main.log.prettyPrint("if ");
         expression.prettyPrint();
         Main.log.prettyPrintLn("do ");
+        expr.prettyPrint();
+        Main.log.prettyPrintLn("then ");
         Main.log.prettyIndent();
         statement.prettyPrint();
         Main.log.prettyOutdent();
@@ -27,11 +29,12 @@ class IfStatm extends Statement {
         enterParser("if-statm");
 
         IfStatm is = new IfStatm(s.curLineNum());
-        s.skip(ifToken);
 
+        s.skip(ifToken);
         is.expression = Expression.parse(s);
         s.skip(thenToken);
         is.statement = Statement.parse(s);
+
         if(s.curToken.kind == elseToken){
             s.skip(elseToken);
             is.additionalStatement = Statement.parse(s);

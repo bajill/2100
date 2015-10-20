@@ -23,7 +23,8 @@ class SimpleExpr extends PascalSyntax {
     }
 
     @Override void prettyPrint() {
-        // term.prettyPrint();
+       for (int i = 0; i < term.size(); i++)
+           term.get(i).prettyPrint();
     }
     // DONE, BUT WORKING?
     static SimpleExpr parse(Scanner s) {

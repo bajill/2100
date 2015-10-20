@@ -20,6 +20,7 @@ class Expression extends PascalSyntax {
 
     @Override void prettyPrint() {
         simpleExpr.prettyPrint();
+        if (operator != null)
     }
 
     static Expression parse(Scanner s) {

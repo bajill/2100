@@ -15,7 +15,7 @@ class RelOperator extends Operator{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint(name); 
     }
 
     static RelOperator parse(Scanner s) {

@@ -17,7 +17,7 @@ class StringLiteral extends Constant {
     }
 
     @Override void prettyPrint() {
-        Main.log.prettyPrint(" '" + id +"'");
+        Main.log.prettyPrint("'" + id +"' ");
     }
 
     // DONE, BUT WORKING?
