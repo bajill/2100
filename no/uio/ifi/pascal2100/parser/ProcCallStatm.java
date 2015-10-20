@@ -32,15 +32,17 @@ class ProcCallStatm extends Statement {
         enterParser("proc call statm"); 
         ProcCallStatm pcs = new ProcCallStatm(s.curLineNum());
         pcs.name = CharLiteral.parse(s);
-        s.skip(leftParToken);
-        while(true){
-            pcs.expression.add(Expression.parse(s));
-            if(s.curToken.kind == commaToken)
-                s.skip(commaToken);
-            else
-                break;
+        if(s.curToken.kind == leftParToken){
+            s.skip(leftParToken);
+            while(true){
+                pcs.expression.add(Expression.parse(s));
+                if(s.curToken.kind == commaToken)
+                    s.skip(commaToken);
+                else
+                    break;
+            }
+            s.skip(rightParToken);
         }
-        s.skip(rightParToken);
         leaveParser("proc call statm");
         return pcs;
     }
