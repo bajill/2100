@@ -26,18 +26,17 @@ abstract class Constant extends Factor {
              // være noe object i seg selv, hvor skal id??
              //c = new Constant(s.curToken.id, s.curLineNum());
             case stringValToken:
-                System.out.println("Constant hit 2?");
                 c = StringLiteral.parse(s);
                 break;
             case intValToken:
-                System.out.println("Constant hit?");
+                //System.out.println("Constant hit?");
                 c = NumberLiteral.parse(s);
                 break;
             default:
                 System.out.println("Something wrong in Constant");
         }
         leaveParser("constant");
-        System.out.println("Constant " + c);
+        //System.out.println("Constant " + c);
         return c;
     }
 }
