@@ -15,7 +15,7 @@ class IfStatm extends Statement {
     @Override void prettyPrint() {
         Main.log.prettyPrint("if ");
         expr.prettyPrint();
-        Main.log.prettyPrintLn("do ");
+        Main.log.prettyPrintLn("then ");
         Main.log.prettyIndent();
         body.prettyPrint();
         Main.log.prettyOutdent();
@@ -27,6 +27,7 @@ class IfStatm extends Statement {
         s.skip(ifToken);
 
         is.expr = Expression.parse(s);
+        s.skip(thenToken);
         is.body = Statement.parse(s);
 
         leaveParser("if-statm");

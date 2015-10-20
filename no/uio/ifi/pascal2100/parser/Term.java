@@ -19,7 +19,9 @@ class Term extends PascalSyntax  {
     }
 
     @Override void prettyPrint() {
-        //factor.prettyPrint();
+        for (int i = 0; i < factor.size(); i++) {
+            factor.get(i).prettyPrint();
+        }
     }
 
     // DONE, BUT WORKING?
