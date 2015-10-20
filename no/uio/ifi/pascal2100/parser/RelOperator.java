@@ -15,14 +15,12 @@ class RelOperator extends Operator{
     }
 
     @Override public void prettyPrint() {
-       super.prettyPrint();
-       // Main.log.prettyPrint(name); 
+       Main.log.prettyPrint(name + " "); 
     }
 
     static RelOperator parse(Scanner s) {
         enterParser("rel operator"); 
-        System.out.println(s.curToken.id);
-        RelOperator ro = new RelOperator(s.curToken.id, s.curLineNum());
+        RelOperator ro = new RelOperator(s.curToken.kind.toString(), s.curLineNum());
         s.readNextToken();
         leaveParser("rel operator");
         return ro;

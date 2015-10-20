@@ -16,12 +16,16 @@ class IfStatm extends Statement {
     @Override void prettyPrint() {
         Main.log.prettyPrint("if ");
         expression.prettyPrint();
-        Main.log.prettyPrintLn("do ");
-        expr.prettyPrint();
         Main.log.prettyPrintLn("then ");
         Main.log.prettyIndent();
         statement.prettyPrint();
         Main.log.prettyOutdent();
+        if (additionalStatement != null) {
+            Main.log.prettyPrint("else ");
+            Main.log.prettyIndent();
+            additionalStatement.prettyPrint();
+            Main.log.prettyOutdent();
+        }
     }
 
     // DONE, BUT WORKING?
