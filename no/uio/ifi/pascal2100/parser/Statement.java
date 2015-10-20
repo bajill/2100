@@ -32,14 +32,14 @@ abstract class Statement extends PascalSyntax {
                     case leftBracketToken:
                         st = AssignStatm.parse(s);  break;
                     default:
-                        //st = ProcCallStatm.parse(s);  break;
+                        st = ProcCallStatm.parse(s);  break;
                 } break;
             case whileToken:
                 st = WhileStatm.parse(s);  break;
             default:
                 st = EmptyStatm.parse(s);  break;
         }
-        System.out.println("Statement: " + st); 
+        System.out.println("Statement: " + s.curToken.kind); 
         leaveParser("statement");
         return st;
     }

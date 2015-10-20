@@ -11,6 +11,7 @@ class Term extends PascalSyntax  {
     Term(int lNum) {
     super(lNum);
     factor = new ArrayList<Factor>();
+    operator = new ArrayList<Operator>();
     }
 
     

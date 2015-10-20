@@ -3,8 +3,8 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
-class <C> extends CC{
-    <C>(int lNum) {
+class CV extends CC{
+    CV(int lNum) {
     super(lNum);
     }
 
@@ -17,10 +17,10 @@ class <C> extends CC{
 
     }
 
-    static <C> parse(Scanner s) {
+    static CV parse(Scanner s) {
         enterParser("msg"); 
-        <C> <r> = new <C>(s.curLineNum());
+        CV RR = new CV(s.curLineNum());
         leaveParser("msg");
-        return <r>;
+        return RR;
     }
 }
