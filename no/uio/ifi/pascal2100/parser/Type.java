@@ -8,7 +8,6 @@ abstract class Type extends PascalSyntax {
         super(lNum);
     }
 
-
     @Override public String identify() {
         return "<type> on line " + lineNum;
     }
@@ -18,7 +17,6 @@ abstract class Type extends PascalSyntax {
 
     static Type parse(Scanner s) {
         enterParser("type"); 
-
         Type t = null;
         switch (s.curToken.kind){
             case leftParToken:
@@ -38,15 +36,12 @@ abstract class Type extends PascalSyntax {
                         t = TypeName.parse(s);
                         leaveParser("type");
                         return t;
-                        
                 }
-
             default:
                 t = RangeType.parse(s);
                 break;
-
         }
         leaveParser("type");
         return t;
     }
-    }
+}

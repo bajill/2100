@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -17,7 +16,13 @@ class EnumType extends Type{
     }
 
     @Override public void prettyPrint() {
-
+        Main.log.prettyPrint("(");
+        for (int i = 0; i < enumType.size(); i++) {
+            enumType.get(i).prettyPrint();
+            if (i < enumType.size() - 1)
+                Main.log.prettyPrint(", ");
+        }
+        Main.log.prettyPrint(") ");
     }
 
     static EnumType parse(Scanner s) {

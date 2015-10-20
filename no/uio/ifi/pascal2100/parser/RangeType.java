@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -17,7 +16,9 @@ class RangeType extends Type{
     }
 
     @Override public void prettyPrint() {
-
+        constant.prettyPrint();
+        Main.log.prettyPrint("..");
+        additionalConstant.prettyPrint();
     }
 
     static RangeType parse(Scanner s) {
