@@ -25,7 +25,7 @@ class StatmList extends PascalSyntax {
         }
     }
 
-
+    // DONE, BUT WORKING??
     static StatmList parse(Scanner s) {
         enterParser("statm list");
         StatmList sl = new StatmList(s.curLineNum());
@@ -36,7 +36,7 @@ class StatmList extends PascalSyntax {
                 break;
             s.skip(semicolonToken);
         }
-
+        System.out.println("STATMLIST " + s.curToken.id);
         leaveParser("statm list");
         return sl;
     }

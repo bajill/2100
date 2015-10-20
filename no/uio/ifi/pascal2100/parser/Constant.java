@@ -17,14 +17,13 @@ abstract class Constant extends Factor {
     @Override void prettyPrint() {
     }
 
+    // DONE, BUT WORKING?
     static Constant parse(Scanner s) {
         enterParser("constant"); 
         Constant c = null;
         switch (s.curToken.kind){
             case nameToken:
-             //TODO her det et problem, klassen er abstrakt og kan derfor ikke
-             // være noe object i seg selv, hvor skal id??
-             //c = new Constant(s.curToken.id, s.curLineNum());
+                c = CharLiteral.parse(s);
             case stringValToken:
                 c = StringLiteral.parse(s);
                 break;
