@@ -1,5 +1,3 @@
-
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -9,24 +7,25 @@ class ProcCallStatm extends Statement {
     CharLiteral name;
     ArrayList<Expression> expression;
     ProcCallStatm(int lNum) {
-    super(lNum);
-    expression = new ArrayList<Expression>();
+        super(lNum);
+        expression = new ArrayList<Expression>();
     }
 
-    
     @Override public String identify() {
-    return "<proc call statm> on line " + lineNum;
+        return "<proc call statm> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
         name.prettyPrint();
-        Main.log.prettyPrint("(");
-        for (int i = 0; i < expression.size(); i++) {
-            expression.get(i).prettyPrint();
-            if (i < expression.size() - 1)
-                Main.log.prettyPrint(", ");
+        if arguments {
+            Main.log.prettyPrint("(");
+            for (int i = 0; i < expression.size(); i++) {
+                expression.get(i).prettyPrint();
+                if (i < expression.size() - 1)
+                    Main.log.prettyPrint(", ");
+            }
+            Main.log.prettyPrint(") ");
         }
-        Main.log.prettyPrint(") ");
     }
 
     static ProcCallStatm parse(Scanner s) {
