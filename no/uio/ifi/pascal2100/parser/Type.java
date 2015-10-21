@@ -13,9 +13,6 @@ abstract class Type extends PascalSyntax {
         return "<type> on line " + lineNum;
     }
 
-    @Override void prettyPrint() {
-    }
-
     static Type parse(Scanner s) {
         enterParser("type"); 
         Type t = null;
