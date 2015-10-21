@@ -28,6 +28,7 @@ class VarDeclPart extends Statement {
     }
 
     static VarDeclPart parse(Scanner s) {
+        /* These tokens are the valid tokens that can exist in VarDeclPart */
         TokenKind[] tokenKind = {functionToken, procedureToken, beginToken};
         enterParser("var decl part"); 
         s.skip(varToken);
@@ -35,6 +36,7 @@ class VarDeclPart extends Statement {
 
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
+            /* Tests if curToken is valid */
             if (testIfToken(s, tokenKind))
                 break;
             else

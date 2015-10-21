@@ -15,6 +15,14 @@ public abstract class PascalSyntax {
         return lineNum < 0;
     }  
 
+    /*
+     * This method compares the current token to a list of tokens given as
+     * a parameter. It´s purpose is to save us from comparing current token
+     * against all the possible tokens in a long if-statement.
+     *
+     * It is called from ConstDeclPart, TypeDeclPart, and VarDeclPart.
+     *
+     */
     public static boolean testIfToken(Scanner s, TokenKind[] tokens) {
         boolean b = false;
         for (int i = 0; i < tokens.length; i++) {

@@ -28,6 +28,7 @@ class ConstDeclPart extends PascalSyntax {
     }
 
     static ConstDeclPart parse(Scanner s) {
+        /* These tokens are the valid tokens that can exist in ConstDeclPart */
         TokenKind[] tokenKind = {varToken, functionToken, procedureToken, typeToken, beginToken};
         enterParser("const decl part"); 
         s.skip(constToken);
@@ -36,6 +37,7 @@ class ConstDeclPart extends PascalSyntax {
         ConstDeclPart cdp = new ConstDeclPart(s.curLineNum());
         while(true){
             cdp.constDecl.add(ConstDecl.parse(s));
+            /* Tests if curToken is valid */
             if (testIfToken(s, tokenKind)) 
                 break;
             else
