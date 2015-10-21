@@ -39,7 +39,6 @@ abstract class Statement extends PascalSyntax {
             default:
                 st = EmptyStatm.parse(s);  break;
         }
-        System.out.println("Statement: " + s.curToken.kind); 
         leaveParser("statement");
         return st;
     }

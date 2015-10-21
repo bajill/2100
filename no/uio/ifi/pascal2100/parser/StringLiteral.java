@@ -26,7 +26,6 @@ class StringLiteral extends Constant {
         s.test(stringValToken);
         StringLiteral sl = new StringLiteral(s.curLineNum(), s.curToken.strVal);
         s.readNextToken();
-        System.out.println("StringLiteral " + sl);
         leaveParser("string literal");
         return sl;
     }
