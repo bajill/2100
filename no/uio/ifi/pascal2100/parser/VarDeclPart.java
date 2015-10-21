@@ -3,17 +3,19 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 /* var delc part ::= 'var' <var decl> */
+
 class VarDeclPart extends Statement {
     ArrayList<VarDecl> varDecl;
+
     VarDeclPart(int lNum) {
-    super(lNum);
-    varDecl = new ArrayList<VarDecl>();
+        super(lNum);
+        varDecl = new ArrayList<VarDecl>();
     }
 
-    
     @Override public String identify() {
-    return "<var decl part> on line " + lineNum;
+        return "<var decl part> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
@@ -30,14 +32,21 @@ class VarDeclPart extends Statement {
         enterParser("var decl part"); 
         s.skip(varToken);
         VarDeclPart vdp = new VarDeclPart(s.curLineNum());
+
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
+            if (s.curToken.kind == nameToken)
+                continue;
+            else
+                break;
+            /*
             if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;
+                */
         }
-           
+
         leaveParser("var decl part");
         return vdp;
     }

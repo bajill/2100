@@ -3,16 +3,17 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 class EnumType extends Type{
     ArrayList <EnumLiteral> enumType;
+
     EnumType(int lNum) {
-    super(lNum);
-    enumType = new ArrayList<EnumLiteral>();
+        super(lNum);
+        enumType = new ArrayList<EnumLiteral>();
     }
 
-    
     @Override public String identify() {
-    return "<enum type> on line " + lineNum;
+        return "<enum type> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {

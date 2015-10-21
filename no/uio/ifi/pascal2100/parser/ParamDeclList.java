@@ -3,7 +3,9 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 /* param decl list ::= '(' <param decl> [;][loop param decl] ')' */
+
 class ParamDeclList extends PascalSyntax{
     ArrayList<ParamDecl> paramDecl;
 
@@ -11,9 +13,9 @@ class ParamDeclList extends PascalSyntax{
         super(lNum);
         paramDecl = new ArrayList<ParamDecl>();
     }
-    
+
     @Override public String identify() {
-    return "<param decl part> on line " + lineNum;
+        return "<param decl part> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {

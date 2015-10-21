@@ -4,14 +4,16 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 /*<program> ::= ’program’ <name> ’;’ <block> ’.’*/
+
 public class Program extends PascalDecl {
     Block block;
+
     Program(String id, int lNum) {
         super(id, lNum);
     }
+
     @Override public String identify() {
         return "<program> " + name + " on line " + lineNum;
-
     }
 
     @Override public void prettyPrint(){
@@ -21,7 +23,6 @@ public class Program extends PascalDecl {
         block.prettyPrint(); 
         Main.log.prettyPrint(".");
     }
-
 
     public static Program parse(Scanner s) {
         enterParser("program");
@@ -35,7 +36,7 @@ public class Program extends PascalDecl {
         //System.out.println("2. " + s.curToken.identify());
         s.skip(dotToken);
         //System.out.println("3. " + s.curToken.identify());
-        
+
         // Hvorfor var ikke denne med koden?
         s.skip(eofToken);
         leaveParser("program");

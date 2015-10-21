@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -6,17 +5,16 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 /* func decl ::= 'function' <name> [param decl list] 
  * ':' <type name> ';' <block> ';'*/
+
 class FuncDecl extends ProcDecl{
     TypeName typeName;
 
-    /* ProcDecl are super */
     FuncDecl(String name, int lNum) {
-    super(name, lNum);
+        super(name, lNum);
     }
 
-    
     @Override public String identify() {
-    return "<func decl> on line " + lineNum;
+        return "<func decl> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
@@ -27,6 +25,7 @@ class FuncDecl extends ProcDecl{
         typeName.prettyPrint();
         Main.log.prettyPrintLn(";");
         block.prettyPrint();
+        Main.log.prettyPrintLn(";");
     }
 
     static FuncDecl parse(Scanner s) {
@@ -40,7 +39,7 @@ class FuncDecl extends ProcDecl{
         s.skip(colonToken);
         fd.typeName = TypeName.parse(s);
         s.skip(semicolonToken);
-        
+
         /* in super */
         fd.block = Block.parse(s);
         s.skip(semicolonToken);

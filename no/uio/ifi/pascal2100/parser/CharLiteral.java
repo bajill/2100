@@ -5,6 +5,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class CharLiteral extends Constant{
     String name;
+
     CharLiteral(String name, int lNum) {
         super(lNum);
         this.name = name;
@@ -15,7 +16,7 @@ class CharLiteral extends Constant{
     }
 
     @Override public void prettyPrint() {
-        Main.log.prettyPrint(name);
+        Main.log.prettyPrint(name + " ");
     }
 
     static CharLiteral parse(Scanner s) {

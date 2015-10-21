@@ -4,6 +4,7 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 abstract class Type extends PascalSyntax {
+
     Type(int lNum) {
         super(lNum);
     }

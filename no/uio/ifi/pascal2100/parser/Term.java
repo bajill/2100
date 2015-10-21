@@ -1,22 +1,21 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 class Term extends PascalSyntax  {
     ArrayList<Operator> operator;
     ArrayList<Factor> factor;
 
     Term(int lNum) {
-    super(lNum);
-    factor = new ArrayList<Factor>();
-    operator = new ArrayList<Operator>();
+        super(lNum);
+        factor = new ArrayList<Factor>();
+        operator = new ArrayList<Operator>();
     }
 
-    
     @Override public String identify() {
-    return "<term> on line " + lineNum;
+        return "<term> on line " + lineNum;
     }
 
     @Override void prettyPrint() {
@@ -27,7 +26,6 @@ class Term extends PascalSyntax  {
         }
     }
 
-    // DONE, BUT WORKING?
     static Term parse(Scanner s) {
         enterParser("term"); 
         Term t = new Term(s.curLineNum());
@@ -41,6 +39,7 @@ class Term extends PascalSyntax  {
             else
                 break;
         }
+
         leaveParser("term");
         return t;
     }

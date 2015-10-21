@@ -2,13 +2,16 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.* ;
 import no.uio.ifi.pascal2100.scanner.* ; 
 import static no.uio.ifi.pascal2100.scanner.TokenKind.* ; 
+
 class IfStatm extends Statement {
     Expression expression;
     Statement statement;
     Statement additionalStatement;
+
     IfStatm(int lNum) {
         super(lNum);
     }
+
     @Override public String identify() {
         return "<while-statm> on line " + lineNum;
     }
@@ -21,6 +24,7 @@ class IfStatm extends Statement {
         statement.prettyPrint();
         Main.log.prettyOutdent();
         if (additionalStatement != null) {
+            Main.log.prettyPrintLn();
             Main.log.prettyPrint("else ");
             Main.log.prettyIndent();
             additionalStatement.prettyPrint();
@@ -28,12 +32,9 @@ class IfStatm extends Statement {
         }
     }
 
-    // DONE, BUT WORKING?
     static IfStatm parse(Scanner s) {
         enterParser("if-statm");
-
         IfStatm is = new IfStatm(s.curLineNum());
-
         s.skip(ifToken);
         is.expression = Expression.parse(s);
         s.skip(thenToken);
@@ -43,7 +44,7 @@ class IfStatm extends Statement {
             s.skip(elseToken);
             is.additionalStatement = Statement.parse(s);
         }
-            
+
         leaveParser("if-statm");
         return is;
     }

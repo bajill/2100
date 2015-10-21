@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -6,17 +5,17 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class NumberLiteral extends Constant {
     int numValue;
+
     NumberLiteral(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
     @Override public String identify() {
-    return "<numeric literal> on line " + lineNum;
+        return "<numeric literal> on line " + lineNum;
     }
 
     @Override void prettyPrint(){
-        Main.log.prettyPrint(Integer.toString(numValue));
+        Main.log.prettyPrint(Integer.toString(numValue) + " ");
     }
 
     static NumberLiteral parse(Scanner s) {

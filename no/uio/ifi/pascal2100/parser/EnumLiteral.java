@@ -6,11 +6,11 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class EnumLiteral extends PascalDecl{
 
     EnumLiteral(String name, int lNum) {
-    super(name, lNum);
+        super(name, lNum);
     }
-    
+
     @Override public String identify() {
-    return "<enum literal> on line " + lineNum;
+        return "<enum literal> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {

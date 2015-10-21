@@ -4,18 +4,15 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 abstract class Constant extends Factor {
+
     Constant(int lNum) {
-    super(lNum);
+        super(lNum);
     }
-    
+
     @Override public String identify() {
-    return "<constant> on line " + lineNum;
+        return "<constant> on line " + lineNum;
     }
 
-    @Override void prettyPrint() {
-    }
-
-    // DONE, BUT WORKING?
     static Constant parse(Scanner s) {
         enterParser("constant"); 
         Constant c = null;

@@ -3,7 +3,9 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 /* const decl part ::= 'const' <const decl> <const decl> ect... */
+
 class ConstDeclPart extends PascalSyntax {
     ArrayList<ConstDecl> constDecl;
 

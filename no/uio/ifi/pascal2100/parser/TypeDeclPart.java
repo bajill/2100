@@ -12,7 +12,6 @@ class TypeDeclPart extends PascalSyntax {
         typeDecl = new ArrayList<TypeDecl>();
     }
 
-
     @Override public String identify() {
         return "<type decl part> on line " + lineNum;
     }
@@ -38,7 +37,7 @@ class TypeDeclPart extends PascalSyntax {
             else
                 continue;
         }
-            
+
         leaveParser("type decl part");
         return tdp;
     }

@@ -3,8 +3,10 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 /* Block ::= <const decl part> <type decl part> <var decl part> 
    <func decl> || <proc decl> 'begin' <statm list> 'end' */
+
 class Block extends PascalSyntax{
     // TODO All these are PascalDecl, should be a arraylist?
     // ArrayList<PascalDecl> pascalDecl;
@@ -32,7 +34,7 @@ class Block extends PascalSyntax{
             varDeclPart.prettyPrint();
         if(procANDfuncDecl.size() != 0)
             for (int i = 0; i < procANDfuncDecl.size(); i++)
-                 procANDfuncDecl.get(i).prettyPrint();
+                procANDfuncDecl.get(i).prettyPrint();
         Main.log.prettyPrintLn("begin");
         Main.log.prettyIndent();
         statmList.prettyPrint();
@@ -41,7 +43,6 @@ class Block extends PascalSyntax{
         Main.log.prettyPrint("end");
     }
 
-    // DONE, BUT WORKING?
     static Block parse(Scanner s) {
         enterParser("block"); 
         Block b = new Block(s.curLineNum());
@@ -64,14 +65,13 @@ class Block extends PascalSyntax{
                     b.procANDfuncDecl.add(FuncDecl.parse(s));
                     break;
             }
-            
+
             if(s.curToken.kind == functionToken ||
                     s.curToken.kind == procedureToken)
                 continue;
             else
                 break;
         }
-
         s.skip(beginToken);
         b.statmList = StatmList.parse(s); 
         s.skip(endToken);
