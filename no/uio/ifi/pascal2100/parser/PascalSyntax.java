@@ -8,13 +8,13 @@ public abstract class PascalSyntax {
     public int lineNum;
 
     PascalSyntax(int n) {
-	lineNum = n;
+        lineNum = n;
     }
 
     boolean isInLibrary() {
-	return lineNum < 0;
+        return lineNum < 0;
     }  
-    
+
     public static boolean testIfToken(Scanner s, TokenKind[] tokens) {
         boolean b = false;
         for (int i = 0; i < tokens.length; i++) {
@@ -25,21 +25,23 @@ public abstract class PascalSyntax {
     }
 
 
-
     //Del 3: abstract void check(Block curScope, Library lib);
+
     //Del 4: abstract void genCode(CodeFile f);
+
     abstract public String identify();
+
     abstract void prettyPrint();
 
     void error(String message) {
-	Main.error("Error at line " + lineNum + ": " + message);
+        Main.error("Error at line " + lineNum + ": " + message);
     }
 
     static void enterParser(String nonTerm) {
-	Main.log.enterParser(nonTerm);
+        Main.log.enterParser(nonTerm);
     }
 
     static void leaveParser(String nonTerm) {
-	Main.log.leaveParser(nonTerm);
+        Main.log.leaveParser(nonTerm);
     }
 }

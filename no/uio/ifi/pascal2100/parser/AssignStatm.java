@@ -6,12 +6,13 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class AssignStatm extends Statement {
     Variable variable;
     Expression expression;
+
     AssignStatm(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
     @Override public String identify() {
-    return "<assign statm> on line " + lineNum;
+        return "<assign statm> on line " + lineNum;
     }
 
     @Override void prettyPrint() {

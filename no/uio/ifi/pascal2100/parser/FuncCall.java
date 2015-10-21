@@ -3,14 +3,14 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+
 class FuncCall extends Factor {
     CharLiteral name;
     ArrayList<Expression> expression;
-    boolean arguments;
+
     FuncCall(int lNum) {
-    super(lNum);
-    expression = new ArrayList<Expression>();
-    arguments = false;
+        super(lNum);
+        expression = new ArrayList<Expression>();
     }
 
     @Override public String identify() {
@@ -19,7 +19,7 @@ class FuncCall extends Factor {
 
     @Override public void prettyPrint() {
         name.prettyPrint();
-        if (arguments) {
+        if (!expression.isEmpty()) {
             Main.log.prettyPrint("(");
             for (int i = 0; i < expression.size(); i++) {
                 expression.get(i).prettyPrint();
@@ -35,7 +35,6 @@ class FuncCall extends Factor {
         FuncCall fc = new FuncCall(s.curLineNum());
         fc.name = CharLiteral.parse(s);
         if(s.curToken.kind == leftParToken){
-            fc.arguments = true;
             s.skip(leftParToken);
             while(true){
                 fc.expression.add(Expression.parse(s));

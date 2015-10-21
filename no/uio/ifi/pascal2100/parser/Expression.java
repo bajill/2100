@@ -1,21 +1,22 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
 /* expression ::= <simple expression> [<rel opr> <simple expression>] */
 
 class Expression extends PascalSyntax {
     SimpleExpr simpleExpr;
     SimpleExpr additionalSimpleExpr;
     Operator operator;
+
     Expression(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
+
     @Override public String identify() {
-    return "<expression> on line " + lineNum;
+        return "<expression> on line " + lineNum;
     }
 
     @Override void prettyPrint() {

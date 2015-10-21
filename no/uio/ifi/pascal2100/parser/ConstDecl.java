@@ -5,6 +5,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 public class ConstDecl extends PascalDecl {
     Constant constant;
+
     ConstDecl(String name, int lNum) {
         super(name, lNum);
     }

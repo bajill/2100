@@ -2,10 +2,13 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
 /* variable ::= <name> ['(' <expression> [, loop] ')'] */
+
 class Variable extends Factor {
     String id;
     Expression expression;
+
     Variable(String id, int lNum) {
         super(lNum);
         this.id = id; 
@@ -17,8 +20,13 @@ class Variable extends Factor {
 
     @Override void prettyPrint() {
         Main.log.prettyPrint(id + " ");
+        if (expression != null) {
+            Main.log.prettyPrint("[");
+            expression.prettyPrint();
+            Main.log.prettyPrint("]");
+        } 
     }
-    
+
     static Variable parse(Scanner s) {
         enterParser("variable"); 
 
@@ -33,6 +41,7 @@ class Variable extends Factor {
             v.expression = Expression.parse(s);
             s.skip(rightBracketToken);
         }
+
         leaveParser("variable");
         return v;
     }

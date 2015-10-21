@@ -5,11 +5,11 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class TypeName extends Type {
     String name;
+
     TypeName(String name, int lNum) {
         super(lNum);
         this.name = name;
     }
-
 
     @Override public String identify() {
         return "<type name> on line " + lineNum;

@@ -1,4 +1,3 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
@@ -7,12 +6,11 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class PrefixOpr extends Operator{
 
     PrefixOpr(String name, int lNum) {
-    super(name, lNum);
+        super(name, lNum);
     }
 
-    
     @Override public String identify() {
-    return "<prefix opr> on line " + lineNum;
+        return "<prefix opr> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {

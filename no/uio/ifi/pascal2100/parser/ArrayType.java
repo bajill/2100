@@ -6,12 +6,13 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class ArrayType extends Type{
     Type type;
     Type additionalType;
+
     ArrayType(int lNum) {
-    super(lNum);
+        super(lNum);
     }
-    
+
     @Override public String identify() {
-    return "<array-type> on line " + lineNum;
+        return "<array-type> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
@@ -23,7 +24,6 @@ class ArrayType extends Type{
         additionalType.prettyPrint();
     }
 
-    // DONE, BUT WORKING?
     static ArrayType parse(Scanner s) {
         enterParser("array-type"); 
         s.skip(arrayToken);

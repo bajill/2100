@@ -5,20 +5,19 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class InnerExpr extends Factor{
     Expression expression;
+
     InnerExpr(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
     @Override public String identify() {
-    return "<inner expr> on line " + lineNum;
+        return "<inner expr> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
         Main.log.prettyPrint("(");
         expression.prettyPrint();
         Main.log.prettyPrint(") ");
-
     }
 
     static InnerExpr parse(Scanner s) {

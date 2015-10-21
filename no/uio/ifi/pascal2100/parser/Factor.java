@@ -1,19 +1,20 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
 /* factor ::= [<constant>] [<variable>] [<func call>] [<inner expr>]
  * [<negation>] */
+
 abstract class Factor extends PascalSyntax {
     IfStatm ifStatm;
+
     Factor(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
     @Override public String identify() {
-    return "<factor> on line " + lineNum;
+        return "<factor> on line " + lineNum;
     }
 
     @Override void prettyPrint() {
@@ -29,7 +30,7 @@ abstract class Factor extends PascalSyntax {
             case intValToken:
                 f = Constant.parse(s);  
                 break;
-            
+
             case nameToken:
                 switch (s.nextToken.kind){
 

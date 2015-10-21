@@ -7,12 +7,11 @@ class RangeType extends Type{
     Constant constant;
     Constant additionalConstant;
     RangeType(int lNum) {
-    super(lNum);
+        super(lNum);
     }
 
-    
     @Override public String identify() {
-    return "<range type> on line " + lineNum;
+        return "<range type> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {

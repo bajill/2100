@@ -12,7 +12,6 @@ class StatmList extends PascalSyntax {
         statement = new ArrayList<Statement>();
     }
 
-
     @Override public String identify() {
         return "<statm list> on line " + lineNum;
     }
@@ -25,7 +24,6 @@ class StatmList extends PascalSyntax {
         }
     }
 
-    // DONE, BUT WORKING??
     static StatmList parse(Scanner s) {
         enterParser("statm list");
         StatmList sl = new StatmList(s.curLineNum());
@@ -36,6 +34,7 @@ class StatmList extends PascalSyntax {
                 break;
             s.skip(semicolonToken);
         }
+
         leaveParser("statm list");
         return sl;
     }

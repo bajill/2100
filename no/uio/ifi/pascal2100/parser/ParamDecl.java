@@ -1,19 +1,20 @@
-
 package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
 /* param decl ::= <name> ':' <type name> */
+
 class ParamDecl extends PascalDecl{
     TypeName typeName;
+
     /* name is going to super's  progProcFuncName */
     ParamDecl(String name, int lNum) {
-    super(name, lNum);
+        super(name, lNum);
     }
 
-    
     @Override public String identify() {
-    return "<param decl> on line " + lineNum;
+        return "<param decl> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
@@ -28,7 +29,6 @@ class ParamDecl extends PascalDecl{
         s.readNextToken();
         s.skip(colonToken);
         pd.typeName = TypeName.parse(s);
-
         leaveParser("param decl");
         return pd;
     }

@@ -2,7 +2,9 @@ package no.uio.ifi.pascal2100.parser;
 import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
+
 /* ProcDecl ==: 'procedure' <name> [param decl list] ';' <block> ';' */
+
 class ProcDecl extends PascalDecl {
     ParamDeclList paramDeclList;
     Block block;
@@ -10,7 +12,6 @@ class ProcDecl extends PascalDecl {
     ProcDecl(String name, int lNum) {
         super("", name, lNum);
     }
-
 
     @Override public String identify() {
         return "<proc decl> on line " + lineNum;
@@ -34,13 +35,11 @@ class ProcDecl extends PascalDecl {
 
         if(s.curToken.kind == leftParToken){
             pd.paramDeclList = ParamDeclList.parse(s);
-
         }
+
         s.skip(semicolonToken);
         pd.block = Block.parse(s);
-
         s.skip(semicolonToken);
-
         leaveParser("proc decl");
         return pd;
     }

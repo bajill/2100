@@ -9,8 +9,8 @@ public abstract class PascalDecl extends PascalSyntax {
     //Del 3: Type type = null;
 
     PascalDecl(String id, int lNum) {
-	super(lNum);
-	name = id;
+        super(lNum);
+        name = id;
     }
 
     PascalDecl(String dummy, String name, int lNum) {
@@ -25,7 +25,6 @@ public abstract class PascalDecl extends PascalSyntax {
         else 
             Main.log.prettyPrint(name);
     }
-
 
     /**
      * checkWhetherAssignable: Utility method to check whether this PascalDecl is
@@ -50,10 +49,10 @@ public abstract class PascalDecl extends PascalSyntax {
      * </dl>
      */
     /*Del 3:
-    abstract void checkWhetherAssignable(PascalSyntax where);
+      abstract void checkWhetherAssignable(PascalSyntax where);
 
-    abstract void checkWhetherFunction(PascalSyntax where);
-    abstract void checkWhetherProcedure(PascalSyntax where);
-    abstract void checkWhetherValue(PascalSyntax where);
-    */
+      abstract void checkWhetherFunction(PascalSyntax where);
+      abstract void checkWhetherProcedure(PascalSyntax where);
+      abstract void checkWhetherValue(PascalSyntax where);
+      */
 }
