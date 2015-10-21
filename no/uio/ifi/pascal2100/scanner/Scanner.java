@@ -74,10 +74,9 @@ public class Scanner {
         /* end of file */
         if(sourceFile == null){
             //System.out.println("last token: " + curToken.identify());
-            Main.error("Nothing more to read");
+            Main.error("Error in last line: Expected a . but found a e-o-f");
             return true;
         }
-
         return false;
     }
 
