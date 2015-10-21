@@ -7,3 +7,12 @@ cases. As the call for function testIfToken() in PascalSyntax. It is called from
 ConstDeclPart, TypeDeclPart, VarDeclPart.
 
 We hope this is enough.
+
+
+Last update:
+
+We get the wrong error message when running wrong-order.pas. This is because of the aforementioned
+method that we wrote. We found this error when it was 30 minutes to deadline so we decided to not 
+fix it and instead just comment on it. In VarDeclPart we commented out a solution but we didn't 
+dare to implement this because all the other tests were correct.
+
