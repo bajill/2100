@@ -5,8 +5,10 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
 
 class ProcCallStatm extends Statement {
+    //String procName;
     CharLiteral name;
     ArrayList<Expression> expression;
+    ProcDecl procRef;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -15,6 +17,13 @@ class ProcCallStatm extends Statement {
 
     @Override public String identify() {
         return "<proc call statm> on line " + lineNum;
+    }
+
+    @Override void check(Block curScope, Library lib) {
+        PascalDecl d = curScope.findDecl(name.name, this);
+        //
+        procRef = (ProcDecl)d;
+        //
     }
 
     @Override public void prettyPrint() {

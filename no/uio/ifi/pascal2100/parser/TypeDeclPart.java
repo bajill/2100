@@ -16,6 +16,9 @@ class TypeDeclPart extends PascalSyntax {
         return "<type decl part> on line " + lineNum;
     }
 
+    @Override void check(Block curScope, Library lib) {
+    }
+
     @Override public void prettyPrint(){
         Main.log.prettyPrintLn("type");
         Main.log.prettyIndent();

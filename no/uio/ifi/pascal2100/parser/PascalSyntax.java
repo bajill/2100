@@ -33,7 +33,7 @@ public abstract class PascalSyntax {
     }
 
 
-    //Del 3: abstract void check(Block curScope, Library lib);
+    abstract void check(Block curScope, Library lib);
 
     //Del 4: abstract void genCode(CodeFile f);
 

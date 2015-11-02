@@ -18,6 +18,10 @@ class ConstDeclPart extends PascalSyntax {
         return "<const decl part> on line " + lineNum;
     }
 
+
+    @Override void check(Block curScope, Library lib) {
+    }
+    
     @Override void prettyPrint(){
         Main.log.prettyPrintLn("const");
         Main.log.prettyIndent();

@@ -9,7 +9,7 @@ import java.io.*;
 public class Main {
     public static final String version = "2015-08-18";
 
-    //Del 3: public static Library library;
+    public static Library library;
     public static LogFile log = new LogFile();
 
     private static String sourceFileName, baseFileName;
@@ -31,8 +31,8 @@ public class Main {
 	    //Del 2: 
         else if (testParser)
 	        doTestParser(s);
-	    // else
-	    //    doRunRealCompiler(s);
+	    else
+	        doRunRealCompiler(s);
 	} catch (PascalError e) {
 	    System.out.println();
 	    System.err.println(e.getMessage());
@@ -95,7 +95,7 @@ public class Main {
     }
     
 
-    /* Del 3 og 4:
+    /* Del 3 */
     private static void doRunRealCompiler(Scanner s) {
 	System.out.print("Parsing...");
 	Program prog = Program.parse(s);
@@ -108,7 +108,8 @@ public class Main {
 	System.out.print(" checking...");
 	library = new Library();
 	prog.check(library, library);
-
+    }
+    /* Del 4
 	System.out.print(" generating code...");
 	CodeFile code = new CodeFile(baseFileName+".s");
 	library.genCode(code);  prog.genCode(code);
