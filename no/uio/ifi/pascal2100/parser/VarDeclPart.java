@@ -38,8 +38,8 @@ class VarDeclPart extends Statement {
         // the time to test all files again.
 
         while(true){
-            vdp.varDecl.add(VarDecl.parse(s));
             /*
+            vdp.varDecl.add(VarDecl.parse(s));
             if (s.curToken.kind == nameToken)
                 continue;
             else

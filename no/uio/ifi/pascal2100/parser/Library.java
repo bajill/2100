@@ -10,13 +10,21 @@ class Library extends Block{
 
     Library() {
         super(0);
-
-        String [] enumtypes = {"write", "true", "false", "eol"};
-        int i = 0;
         predefDecls = new ArrayList<String>();
-        for(String t : enumtypes){
-            predefDecls.add(t);
-        }
+
+        predefDecls.add("write");
+        predefDecls.add("true");
+        predefDecls.add("false");
+        predefDecls.add("eol");
     }
 
+    @Override void check(Block curScope, Library lib){
+        String id = "write";
+        // If its not write, true, false or eol, check for integer and char and
+        // log error of not
+        if(!predefDecls.contains(id)){
+            System.out.println("Library: int or char");
+        }
+        
+    }
 }
