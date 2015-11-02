@@ -18,6 +18,9 @@ class VarDeclPart extends Statement {
         return "<var decl part> on line " + lineNum;
     }
 
+    @Override void check(Block curScope, Library lib) {
+    }
+
     @Override public void prettyPrint() {
         Main.log.prettyPrintLn("var");
         Main.log.prettyIndent();
@@ -38,21 +41,20 @@ class VarDeclPart extends Statement {
         // the time to test all files again.
 
         while(true){
-            /*
             vdp.varDecl.add(VarDecl.parse(s));
+            /*
             if (s.curToken.kind == nameToken)
                 continue;
             else
                 break;
-                */
-
-        /* Tests if curToken is valid */
+            */
+            /* Tests if curToken is valid */
             if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;
-        }
 
+        }
         leaveParser("var decl part");
         return vdp;
     }

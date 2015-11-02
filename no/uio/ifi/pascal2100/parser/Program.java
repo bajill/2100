@@ -16,6 +16,11 @@ public class Program extends PascalDecl {
         return "<program> " + name + " on line " + lineNum;
     }
 
+    
+    @Override public void check(Block curScope, Library lib) {
+        System.out.println("jesus");
+    }
+
     @Override public void prettyPrint(){
         Main.log.prettyPrint("Program ");
         super.prettyPrint();
