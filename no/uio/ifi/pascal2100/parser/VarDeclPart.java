@@ -34,12 +34,12 @@ class VarDeclPart extends Statement {
         s.skip(varToken);
         VarDeclPart vdp = new VarDeclPart(s.curLineNum());
 
-        /* 
         // We should have used this one instead of testIfToken, but dont have
         // the time to test all files again.
 
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
+            /*
             if (s.curToken.kind == nameToken)
                 continue;
             else
