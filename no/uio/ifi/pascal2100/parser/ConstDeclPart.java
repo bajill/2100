@@ -20,6 +20,7 @@ class ConstDeclPart extends PascalSyntax {
 
 
     @Override void check(Block curScope, Library lib) {
+
     }
     
     @Override void prettyPrint(){

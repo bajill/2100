@@ -18,7 +18,7 @@ public class Program extends PascalDecl {
 
     
     @Override public void check(Block curScope, Library lib) {
-        System.out.println("jesus");
+        block.check(block, lib);
     }
 
     @Override public void prettyPrint(){

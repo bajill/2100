@@ -49,11 +49,14 @@ class Block extends PascalSyntax{
     }
 
 
-    @Override void check(Block curscope, Library lib) {
+    @Override void check(Block curScope, Library lib) {
+        outerScope = curScope;
+        System.out.println("we got here in block");
         if (constDeclPart != null) {
             constDeclPart.check(this, lib);
             for (ConstDecl cd: constDeclPart.constDecl) {
-                addDecl(cd.name, cd);
+                addDecl(cd.name, cd); 
+                PascalDecl d = findDecl(cd.name, this);
             }
         }
         // Block outerScope initieras här?

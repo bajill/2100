@@ -4,11 +4,12 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-class Library extends Block{
+public class Library extends Block{
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
 
-    Library() {
+    public Library() {
         super(0);
 
     }
