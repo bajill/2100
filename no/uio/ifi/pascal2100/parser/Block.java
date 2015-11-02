@@ -9,8 +9,6 @@ import java.util.HashMap;
    <func decl> || <proc decl> 'begin' <statm list> 'end' */
 
 class Block extends PascalSyntax{
-    // TODO All these are PascalDecl, should be a arraylist?
-    // ArrayList<PascalDecl> pascalDecl;
     ConstDeclPart constDeclPart;
     TypeDeclPart typeDeclPart;
     VarDeclPart varDeclPart;
@@ -22,10 +20,6 @@ class Block extends PascalSyntax{
     Block(int lNum){
         super(lNum);
         procANDfuncDecl = new ArrayList<ProcDecl>(); 
-    }
-
-    @Override public String identify() {
-        return "<empty statm> on line " + lineNum;
     }
 
     void addDecl(String id, PascalDecl d) {
@@ -48,10 +42,8 @@ class Block extends PascalSyntax{
         return null; // Required by the Java compiler
     }
 
-
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
-        System.out.println("we got here in block");
         if (constDeclPart != null) {
             constDeclPart.check(this, lib);
             for (ConstDecl cd: constDeclPart.constDecl) {
@@ -59,7 +51,6 @@ class Block extends PascalSyntax{
                 PascalDecl d = findDecl(cd.name, this);
             }
         }
-        // Block outerScope initieras här?
         // if (typeDeclPart != null) {
         // if (varDeclPart != null) {
         // ..
@@ -118,4 +109,9 @@ class Block extends PascalSyntax{
         leaveParser("block");
         return b;
     }
+    
+    @Override public String identify() {
+        return "<empty statm> on line " + lineNum;
+    }
+
 }
