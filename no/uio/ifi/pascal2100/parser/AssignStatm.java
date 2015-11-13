@@ -21,6 +21,11 @@ class AssignStatm extends Statement {
         expression.prettyPrint();
     }
 
+    @Override void check(Block curscope, Library lib){
+        variable.check(curscope, lib);
+        expression.check(curscope, lib);
+    }
+
     static AssignStatm parse(Scanner s) {
         enterParser("assign statm"); 
         AssignStatm as = new AssignStatm(s.curLineNum());

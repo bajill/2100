@@ -17,6 +17,11 @@ class Term extends PascalSyntax  {
     @Override public String identify() {
         return "<term> on line " + lineNum;
     }
+    @Override void check(Block curscope, Library lib){
+        for(Factor f : factor){
+            f.check(curscope, lib);
+        }
+    }
 
     @Override void prettyPrint() {
         for (int i = 0; i < factor.size(); i++) {

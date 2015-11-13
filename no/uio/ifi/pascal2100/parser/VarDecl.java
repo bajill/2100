@@ -22,6 +22,9 @@ class VarDecl extends PascalDecl {
         type.prettyPrint();
         Main.log.prettyPrintLn(";");
     }
+    @Override void check(Block curscope, Library lib){
+        type.check(curscope, lib);
+    }
 
     static VarDecl parse(Scanner s) {
         enterParser("var decl"); 

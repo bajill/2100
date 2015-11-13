@@ -17,6 +17,8 @@ class TermOperator extends Operator {
         Main.log.prettyPrint(name + " ");
     }
 
+    @Override void check(Block curscope, Library lib){
+    }
     static TermOperator parse(Scanner s) {
         enterParser("term operator"); 
         TermOperator tm = new TermOperator(s.curToken.kind.toString(), s.curLineNum());

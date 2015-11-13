@@ -14,6 +14,11 @@ class ParamDeclList extends PascalSyntax{
         paramDecl = new ArrayList<ParamDecl>();
     }
 
+    @Override void check(Block curscope, Library lib){
+        for(ParamDecl pd : paramDecl){
+            pd.check(curscope, lib);
+        }
+    }
     @Override public String identify() {
         return "<param decl part> on line " + lineNum;
     }

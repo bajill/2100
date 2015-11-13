@@ -13,6 +13,9 @@ class FactorOperator extends Operator{
         return "<factor operator> on line " + lineNum;
     }
 
+    @Override void check(Block curscope, Library lib){
+    }
+
     @Override public void prettyPrint() {
         Main.log.prettyPrint(name + " ");
     }

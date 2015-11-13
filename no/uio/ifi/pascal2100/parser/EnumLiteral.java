@@ -16,10 +16,14 @@ class EnumLiteral extends PascalDecl{
     @Override public void prettyPrint() {
         Main.log.prettyPrint(name);
     }
+    @Override void check(Block curscope, Library lib){
+        curscope.findDecl(name, this);
+    }
 
     static EnumLiteral parse(Scanner s) {
         enterParser("enum literal"); 
         EnumLiteral el = new EnumLiteral(s.curToken.id, s.curLineNum());
+        s.readNextToken();
         leaveParser("enum literal");
         return el;
     }

@@ -13,6 +13,12 @@ class FuncCall extends Factor {
         expression = new ArrayList<Expression>();
     }
 
+    @Override void check(Block curscope, Library lib){
+        name.check(curscope, lib);
+        for(Expression e : expression){
+            e.check(curscope, lib);
+        }
+    }
     @Override public String identify() {
         return "<func call> on line " + lineNum;
     }

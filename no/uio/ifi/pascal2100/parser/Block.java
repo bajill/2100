@@ -4,6 +4,7 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+//import java.io.*;
 
 /* Block ::= <const decl part> <type decl part> <var decl part> 
    <func decl> || <proc decl> 'begin' <statm list> 'end' */
@@ -16,6 +17,8 @@ class Block extends PascalSyntax{
     ArrayList<ProcDecl> procANDfuncDecl;
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
     Block outerScope;
+    ProcDecl paramDecl;
+                
 
     Block(int lNum){
         super(lNum);
@@ -25,19 +28,17 @@ class Block extends PascalSyntax{
     void addDecl(String id, PascalDecl d) {
         if (decls.containsKey(id))
             d.error(id + " declares twice in the same block!");
-        decls.put(id, d);
+        decls.put(id.toLowerCase(), d);
     }
 
     PascalDecl findDecl(String id, PascalSyntax where){
-        PascalDecl d = decls.get(id);
+        PascalDecl d = decls.get(id.toLowerCase());
         if (d != null) {
             Main.log.noteBinding(id, where, d);
             return d;
         }
-
         if (outerScope != null)
             return outerScope.findDecl(id, where);
-
         where.error("Name " + id + " is unknown!");
         return null; // Required by the Java compiler
     }
@@ -48,12 +49,27 @@ class Block extends PascalSyntax{
             constDeclPart.check(this, lib);
             for (ConstDecl cd: constDeclPart.constDecl) {
                 addDecl(cd.name, cd); 
-                PascalDecl d = findDecl(cd.name, this);
             }
         }
-        // if (typeDeclPart != null) {
-        // if (varDeclPart != null) {
-        // ..
+       if (typeDeclPart != null) {
+            typeDeclPart.check(this, lib);
+            for(TypeDecl td : typeDeclPart.typeDecl){
+                addDecl(td.name, td);
+            }
+        }
+        if (varDeclPart != null) {
+            varDeclPart.check(this, lib);
+            for (VarDecl vd: varDeclPart.varDecl) {
+                addDecl(vd.name, vd);
+            }
+        }
+ 
+        if (procANDfuncDecl != null) {
+            for(ProcDecl pd : procANDfuncDecl){
+                pd.check(this, lib);
+            }
+        }
+        statmList.check(this, lib);
     }
 
     @Override void prettyPrint(){

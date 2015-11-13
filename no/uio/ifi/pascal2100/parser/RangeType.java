@@ -19,6 +19,10 @@ class RangeType extends Type{
         Main.log.prettyPrint("..");
         additionalConstant.prettyPrint();
     }
+    @Override void check(Block curscope, Library lib){
+        constant.check(curscope, lib);
+        additionalConstant.check(curscope, lib);
+    }
 
     static RangeType parse(Scanner s) {
         enterParser("range type"); 

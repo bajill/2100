@@ -3,16 +3,16 @@ import no.uio.ifi.pascal2100.main.*;
 import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
-class CharLiteral extends Constant{
+class NamedConst extends Constant{
     String name;
 
-    CharLiteral(String name, int lNum) {
+    NamedConst(String name, int lNum) {
         super(lNum);
         this.name = name;
     }
 
     @Override public String identify() {
-        return "<char literal> on line " + lineNum;
+        return "<named constant> on line " + lineNum;
     }
 
     @Override public void prettyPrint() {
@@ -22,11 +22,11 @@ class CharLiteral extends Constant{
         curscope.findDecl(name, this);
     }
 
-    static CharLiteral parse(Scanner s) {
-        enterParser("char literal"); 
-        CharLiteral cl = new CharLiteral(s.curToken.id, s.curLineNum());
+    static NamedConst parse(Scanner s) {
+        enterParser("named constant"); 
+        NamedConst nc = new NamedConst(s.curToken.id, s.curLineNum());
         s.readNextToken();
-        leaveParser("char literal");
-        return cl;
+        leaveParser("named constant");
+        return nc;
     }
 }

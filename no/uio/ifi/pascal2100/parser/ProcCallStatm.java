@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 class ProcCallStatm extends Statement {
     //String procName;
-    CharLiteral name;
+    NamedConst name;
     ArrayList<Expression> expression;
     ProcDecl procRef;
 
@@ -20,10 +20,9 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void check(Block curScope, Library lib) {
-        PascalDecl d = curScope.findDecl(name.name, this);
-        //
-        procRef = (ProcDecl)d;
-        //
+        name.check(curScope, lib);
+        for(Expression e : expression)
+            e.check(curScope, lib);
     }
 
     @Override public void prettyPrint() {
@@ -42,7 +41,7 @@ class ProcCallStatm extends Statement {
     static ProcCallStatm parse(Scanner s) {
         enterParser("proc call statm"); 
         ProcCallStatm pcs = new ProcCallStatm(s.curLineNum());
-        pcs.name = CharLiteral.parse(s);
+        pcs.name = NamedConst.parse(s);
         if(s.curToken.kind == leftParToken){
             s.skip(leftParToken);
             while(true){

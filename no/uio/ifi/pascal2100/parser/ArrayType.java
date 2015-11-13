@@ -15,6 +15,11 @@ class ArrayType extends Type{
         return "<array-type> on line " + lineNum;
     }
 
+    @Override void check(Block curScope, Library lib) {
+        type.check(curScope, lib);
+        additionalType.check(curScope, lib);
+    }
+
     @Override public void prettyPrint() {
         Main.log.prettyPrint("array ");
         Main.log.prettyPrint("[");

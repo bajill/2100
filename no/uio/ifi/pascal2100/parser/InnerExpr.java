@@ -10,6 +10,9 @@ class InnerExpr extends Factor{
         super(lNum);
     }
 
+    @Override void check(Block curscope, Library lib){
+        expression.check(curscope, lib);
+    }
     @Override public String identify() {
         return "<inner expr> on line " + lineNum;
     }

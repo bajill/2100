@@ -16,6 +16,14 @@ class ProcDecl extends PascalDecl {
     @Override public String identify() {
         return "<proc decl> on line " + lineNum;
     }
+    @Override void check(Block curscope, Library lib){
+        block.outerScope = curscope;
+        if(paramDeclList != null) {
+            paramDeclList.check(block, lib);
+        }
+        curscope.addDecl(progProcFuncName, this);
+        block.check(curscope, lib);
+    }
 
     @Override public void prettyPrint() {
         Main.log.prettyPrint("procedure  ");

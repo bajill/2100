@@ -17,8 +17,8 @@ public class Program extends PascalDecl {
     }
 
     
-    @Override public void check(Block curScope, Library lib) {
-        block.check(block, lib);
+    @Override public void check(Block curscope, Library lib) {
+        block.check(curscope, lib);
     }
 
     @Override public void prettyPrint(){
@@ -47,5 +47,4 @@ public class Program extends PascalDecl {
         leaveParser("program");
         return p;
     }
-
 }
