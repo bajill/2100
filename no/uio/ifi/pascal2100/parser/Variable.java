@@ -28,7 +28,10 @@ class Variable extends Factor {
     }
 
     @Override void check(Block curscope, Library lib){
+         
         curscope.findDecl(id, this);
+        if(expression != null)
+            expression.check(curscope, lib);
     }
 
     static Variable parse(Scanner s) {

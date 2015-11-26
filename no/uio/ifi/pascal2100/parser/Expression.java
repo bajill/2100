@@ -21,8 +21,10 @@ class Expression extends PascalSyntax {
     
     @Override void check(Block curscope, Library lib){
         simpleExpr.check(curscope, lib);
-        if(additionalSimpleExpr != null)
+        if(additionalSimpleExpr != null){
+            operator.check(curscope, lib);
             additionalSimpleExpr.check(curscope, lib);
+        }
     }
 
     @Override void prettyPrint() {
