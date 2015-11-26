@@ -12,6 +12,22 @@ public class Program extends PascalDecl {
         super(id, lNum);
     }
 
+    public void genCode(CodeFile f){
+        
+        f.genInstr("", ".globl", "_main", "");
+        f.genInstr("", ".globl", "main", "");
+        f.genInstr("_main", "", "", "");
+        f.genInstr("main", "call", "prog$" + name, "Start program");
+        f.genInstr("", "movl", "$0,%eax", "Set status 0 and");
+        f.genInstr("", "ret", "", "terminate the program");
+        
+        /* Program start */ 
+        f.genInstr("prog$" + name, "", "", "");
+        f.genInstr("", "enter", "$32, $1", "Start of " + name);
+        block.genCode(f);
+        
+    }
+
     @Override public String identify() {
         return "<program> " + name + " on line " + lineNum;
     }

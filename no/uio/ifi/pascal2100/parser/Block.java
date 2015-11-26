@@ -25,6 +25,11 @@ class Block extends PascalSyntax{
         procANDfuncDecl = new ArrayList<ProcDecl>(); 
     }
 
+
+    public void genCode(CodeFile f){
+            
+    }
+
     void addDecl(String id, PascalDecl d) {
         if (decls.containsKey(id))
             d.error(id + " declares twice in the same block!");

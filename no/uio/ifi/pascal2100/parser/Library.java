@@ -8,6 +8,12 @@ import java.util.HashMap;
 
 public class Library extends Block{
 
+    public void genCode(CodeFile f){
+
+        f.genInstr("", ".extern write_char", "", "");
+        f.genInstr("", ".extern write_int", "", "");
+        f.genInstr("", ".extern write_string", "", "");
+    }
     public Library() {
         super(0);
         
