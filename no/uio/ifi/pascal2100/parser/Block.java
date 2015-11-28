@@ -35,6 +35,8 @@ class Block extends PascalSyntax{
             return d;
         }
 
+        // DET är findDecl som loggar!
+
         if (outerScope != null)
             return outerScope.findDecl(id, where);
 
