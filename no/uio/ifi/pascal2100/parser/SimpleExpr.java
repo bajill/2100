@@ -24,6 +24,9 @@ class SimpleExpr extends PascalSyntax {
     }
     
     @Override void check(Block curScope, Library lib) {
+        for(Term t : term){
+            t.check(curScope, lib);
+        }
     }
 
     @Override void prettyPrint() { 

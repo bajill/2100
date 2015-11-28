@@ -24,6 +24,12 @@ class StatmList extends PascalSyntax {
         }
     }
 
+    @Override void check(Block curscope, Library lib){
+        for(Statement st : statement){
+            st.check(curscope, lib);
+        }
+    }
+
     static StatmList parse(Scanner s) {
         enterParser("statm list");
         StatmList sl = new StatmList(s.curLineNum());

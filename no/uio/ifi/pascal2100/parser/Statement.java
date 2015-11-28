@@ -37,4 +37,6 @@ abstract class Statement extends PascalSyntax {
         leaveParser("statement");
         return st;
     }
+    @Override void check(Block curScope, Library lib) {
+    }
 }

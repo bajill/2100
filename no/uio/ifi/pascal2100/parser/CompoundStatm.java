@@ -10,6 +10,9 @@ class CompoundStatm extends Statement{
         super(lNum);
     }
 
+    @Override public void check(Block curscope, Library lib) {
+        statmList.check(curscope, lib);
+    }
     @Override public String identify() {
         return "<empty statm> on line " + lineNum;
     }

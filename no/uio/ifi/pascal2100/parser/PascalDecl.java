@@ -48,10 +48,10 @@ public abstract class PascalDecl extends PascalSyntax {
      *  <dd>will give an error message.</dd>
      * </dl>
      */
-    /*Del 3:*/
+    /*Del 3:
       abstract void checkWhetherAssignable(PascalSyntax where);
-
       abstract void checkWhetherFunction(PascalSyntax where);
       abstract void checkWhetherProcedure(PascalSyntax where);
       abstract void checkWhetherValue(PascalSyntax where);
+      */
 }

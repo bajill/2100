@@ -17,6 +17,8 @@ class PrefixOpr extends Operator{
         Main.log.prettyPrint(name);
     }
 
+    @Override void check(Block curscope, Library lib){
+    }
     static PrefixOpr parse(Scanner s) {
         enterParser("prefix opr"); 
         PrefixOpr po = new PrefixOpr(s.curToken.kind.toString(), s.curLineNum());

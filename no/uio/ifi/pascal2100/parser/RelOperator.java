@@ -16,6 +16,8 @@ class RelOperator extends Operator{
     @Override public void prettyPrint() {
         Main.log.prettyPrint(name + " "); 
     }
+    @Override void check(Block curscope, Library lib){
+    }
 
     static RelOperator parse(Scanner s) {
         enterParser("rel operator"); 

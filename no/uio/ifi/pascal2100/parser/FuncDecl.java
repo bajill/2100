@@ -17,6 +17,16 @@ class FuncDecl extends ProcDecl{
         return "<func decl> on line " + lineNum;
     }
 
+    @Override void check(Block curscope, Library lib) {
+        block.outerScope = curscope;
+        if(paramDeclList != null) {
+            paramDeclList.check(block, lib);
+        }
+        typeName.check(curscope, lib);
+        curscope.addDecl(progProcFuncName, this);
+        block.check(curscope, lib);
+    }
+
     @Override public void prettyPrint() {
         Main.log.prettyPrint("function ");
         Main.log.prettyPrint(progProcFuncName);

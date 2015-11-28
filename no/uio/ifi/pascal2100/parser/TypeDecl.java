@@ -15,6 +15,10 @@ class TypeDecl extends PascalDecl {
     @Override public String identify() {
         return "<type decl> on line " + lineNum;
     }
+    @Override void check(Block curScope, Library lib) {
+       type.check(curScope, lib);
+
+    }
 
     @Override void prettyPrint() {
         super.prettyPrint();

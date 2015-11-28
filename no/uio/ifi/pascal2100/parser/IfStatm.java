@@ -12,6 +12,13 @@ class IfStatm extends Statement {
         super(lNum);
     }
 
+    @Override void check(Block curScope, Library lib) {
+        expression.check(curScope, lib);
+        statement.check(curScope, lib);
+        if(additionalStatement != null)
+            additionalStatement.check(curScope, lib);
+    }
+
     @Override public String identify() {
         return "<while-statm> on line " + lineNum;
     }

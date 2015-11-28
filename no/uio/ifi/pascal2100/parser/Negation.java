@@ -10,6 +10,9 @@ class Negation extends Factor{
         super(lNum);
     }
 
+    @Override void check(Block curscope, Library lib){
+        factor.check(curscope, lib);
+    }
     @Override public String identify() {
         return "<negation> on line " + lineNum;
     }

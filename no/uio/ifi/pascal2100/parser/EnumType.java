@@ -15,6 +15,11 @@ class EnumType extends Type{
     @Override public String identify() {
         return "<enum type> on line " + lineNum;
     }
+    @Override void check(Block curscope, Library lib){
+        for(EnumLiteral el: enumType){
+            el.check(curscope, lib);
+        }
+    }
 
     @Override public void prettyPrint() {
         Main.log.prettyPrint("(");

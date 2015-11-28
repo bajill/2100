@@ -17,6 +17,8 @@ class TypeDeclPart extends PascalSyntax {
     }
 
     @Override void check(Block curScope, Library lib) {
+        for (TypeDecl td: typeDecl)
+            td.check(curScope, lib);
     }
 
     @Override public void prettyPrint(){
@@ -37,10 +39,16 @@ class TypeDeclPart extends PascalSyntax {
         while(true){
             tdp.typeDecl.add(TypeDecl.parse(s));
             /* Tests if curToken is valid */
+            if (s.curToken.kind == nameToken)
+                continue;
+            else
+                break;
+            /*
             if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;
+                */
         }
 
         leaveParser("type decl part");

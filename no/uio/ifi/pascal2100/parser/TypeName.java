@@ -11,6 +11,10 @@ class TypeName extends Type {
         this.name = name;
     }
 
+    @Override void check(Block curscope, Library lib){
+        curscope.findDecl(name, this);
+    }
+
     @Override public String identify() {
         return "<type name> on line " + lineNum;
     }

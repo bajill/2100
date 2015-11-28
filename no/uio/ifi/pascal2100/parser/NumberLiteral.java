@@ -10,6 +10,8 @@ class NumberLiteral extends Constant {
         super(lNum);
     }
 
+    @Override void check(Block curscope, Library lib){
+    }
     @Override public String identify() {
         return "<numeric literal> on line " + lineNum;
     }

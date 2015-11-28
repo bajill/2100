@@ -13,12 +13,13 @@ abstract class Constant extends Factor {
         return "<constant> on line " + lineNum;
     }
 
+
     static Constant parse(Scanner s) {
         enterParser("constant"); 
         Constant c = null;
         switch (s.curToken.kind){
             case nameToken:
-                c = CharLiteral.parse(s);
+                c = NamedConst.parse(s);
                 break;
             case stringValToken:
                 c = StringLiteral.parse(s);

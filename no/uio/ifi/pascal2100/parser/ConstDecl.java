@@ -20,6 +20,9 @@ public class ConstDecl extends PascalDecl {
         constant.prettyPrint();
         Main.log.prettyPrintLn(";");
     }
+    @Override void check(Block curscope, Library lib){
+        constant.check(curscope, lib);
+    }
 
     public static ConstDecl parse(Scanner s) {
         enterParser("const decl"); 

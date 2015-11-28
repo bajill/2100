@@ -31,17 +31,17 @@ abstract class Factor extends PascalSyntax {
             case nameToken:
                 switch (s.nextToken.kind){
 
-                    case leftBracketToken:
-                        f = Variable.parse(s);
-                        break;
-
                     case leftParToken:
                         f = FuncCall.parse(s);
                         break;
 
+//                    case leftBracketToken:
                     default:
-                        f = CharLiteral.parse(s);
-                        break;
+                        f = Variable.parse(s);
+                        //break;
+                        leaveParser("factor");
+                        return f;
+
                 }
                 break;
             case leftParToken:
@@ -50,11 +50,13 @@ abstract class Factor extends PascalSyntax {
 
             case notToken:
                 f = Negation.parse(s);
+                break;
             default:
                 s.testError("value");
         }
-
         leaveParser("factor");
         return f;
     }
+    
+    abstract void check(Block curScope, Library lib);
 }

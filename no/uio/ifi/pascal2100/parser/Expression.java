@@ -18,6 +18,14 @@ class Expression extends PascalSyntax {
     @Override public String identify() {
         return "<expression> on line " + lineNum;
     }
+    
+    @Override void check(Block curscope, Library lib){
+        simpleExpr.check(curscope, lib);
+        if(additionalSimpleExpr != null){
+            operator.check(curscope, lib);
+            additionalSimpleExpr.check(curscope, lib);
+        }
+    }
 
     @Override void prettyPrint() {
         simpleExpr.prettyPrint();

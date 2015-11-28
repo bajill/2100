@@ -18,6 +18,8 @@ class StringLiteral extends Constant {
     @Override void prettyPrint() {
         Main.log.prettyPrint("'" + id +"' ");
     }
+    @Override void check(Block curscope, Library lib){
+    }
 
     static StringLiteral parse(Scanner s) {
         enterParser("string literal"); 

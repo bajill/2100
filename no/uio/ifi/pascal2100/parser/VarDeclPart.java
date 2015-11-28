@@ -19,6 +19,8 @@ class VarDeclPart extends Statement {
     }
 
     @Override void check(Block curScope, Library lib) {
+        for (VarDecl vd: varDecl)
+            vd.check(curScope, lib);
     }
 
     @Override public void prettyPrint() {
@@ -42,17 +44,17 @@ class VarDeclPart extends Statement {
 
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
-            /*
             if (s.curToken.kind == nameToken)
                 continue;
             else
                 break;
-            */
             /* Tests if curToken is valid */
+            /*
             if (testIfToken(s, tokenKind))
                 break;
             else
                 continue;
+                */
 
         }
         leaveParser("var decl part");
