@@ -13,18 +13,19 @@ public class Program extends PascalDecl {
     }
 
     public void genCode(CodeFile f){
-        
         f.genInstr("", ".globl", "_main", "");
         f.genInstr("", ".globl", "main", "");
         f.genInstr("_main", "", "", "");
-        f.genInstr("main", "call", "prog$" + name, "Start program");
+        f.genInstr("main", "call", "prog$" + name + "_" + block.blockLevel, "Start program");
         f.genInstr("", "movl", "$0,%eax", "Set status 0 and");
         f.genInstr("", "ret", "", "terminate the program");
         
         /* Program start */ 
-        f.genInstr("prog$" + name, "", "", "");
-        f.genInstr("", "enter", "$32, $1", "Start of " + name);
+        f.genInstr("prog$" + name + "_" + block.blockLevel, "", "", "");
         block.genCode(f);
+        f.genInstr("", "leave", "", "");
+        f.genInstr("", "ret", "", "");
+
         
     }
 

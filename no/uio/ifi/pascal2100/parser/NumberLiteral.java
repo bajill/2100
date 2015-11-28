@@ -10,6 +10,11 @@ class NumberLiteral extends Constant {
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+        f.genInstr("", "movl", "$" + numValue + ",%eax", "numberValue: " + numValue);
+
+    }
+
     @Override void check(Block curscope, Library lib){
     }
     @Override public String identify() {

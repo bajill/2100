@@ -14,6 +14,14 @@ class Expression extends PascalSyntax {
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+        simpleExpr.genCode(f);
+        if (additionalSimpleExpr != null) {
+            operator.genCode(f);
+            additionalSimpleExpr.genCode(f);
+        }
+    }
+
 
     @Override public String identify() {
         return "<expression> on line " + lineNum;

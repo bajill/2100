@@ -8,10 +8,18 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 class Variable extends Factor {
     String id;
     Expression expression;
+    int blockLevel;
 
     Variable(String id, int lNum) {
         super(lNum);
         this.id = id; 
+    }
+
+    @Override void genCode(CodeFile f) {
+        if (expression != null)
+            expression.genCode(f);
+        f.genInstr("", "movl", Integer.toString(-4 * blockLevel) + "(%ebp),%edx",
+                "move variable to %edx");
     }
 
     @Override public String identify() {
@@ -28,7 +36,7 @@ class Variable extends Factor {
     }
 
     @Override void check(Block curscope, Library lib){
-         
+        blockLevel = curscope.blockLevel;
         curscope.findDecl(id, this);
         if(expression != null)
             expression.check(curscope, lib);

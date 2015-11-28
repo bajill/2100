@@ -8,6 +8,8 @@ class PrefixOpr extends Operator{
     PrefixOpr(String name, int lNum) {
         super(name, lNum);
     }
+    @Override void genCode(CodeFile f) {
+    }
 
     @Override public String identify() {
         return "<prefix opr> on line " + lineNum;

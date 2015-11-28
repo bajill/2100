@@ -13,6 +13,8 @@ abstract class Constant extends Factor {
         return "<constant> on line " + lineNum;
     }
 
+    @Override abstract void genCode(CodeFile f);
+
 
     static Constant parse(Scanner s) {
         enterParser("constant"); 

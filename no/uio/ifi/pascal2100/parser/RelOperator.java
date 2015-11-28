@@ -8,6 +8,8 @@ class RelOperator extends Operator{
     RelOperator(String name, int lNum) {
         super(name, lNum);
     }
+    @Override void genCode(CodeFile f) {
+    }
 
     @Override public String identify() {
         return "<rel operator> on line " + lineNum;

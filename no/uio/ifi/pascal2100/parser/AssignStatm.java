@@ -11,6 +11,12 @@ class AssignStatm extends Statement {
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+        expression.genCode(f);
+        variable.genCode(f);
+
+    }
+
     @Override public String identify() {
         return "<assign statm> on line " + lineNum;
     }

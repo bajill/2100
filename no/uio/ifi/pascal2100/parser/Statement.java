@@ -8,6 +8,9 @@ abstract class Statement extends PascalSyntax {
     Statement(int lNum) {
         super(lNum);
     }
+    
+    @Override void genCode(CodeFile f) {
+    }
 
     @Override public String identify() {
         return "<empty statm> on line " + lineNum;

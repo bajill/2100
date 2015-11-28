@@ -11,6 +11,8 @@ abstract class Operator extends PascalSyntax {
         this.name = name;
     }
 
+    @Override abstract void genCode(CodeFile f);
+
     @Override public String identify() {
         return "<operator> on line " + lineNum;
     }

@@ -18,6 +18,7 @@ class Block extends PascalSyntax{
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
     Block outerScope;
     ProcDecl paramDecl;
+    int blockLevel;
                 
 
     Block(int lNum){
@@ -27,6 +28,12 @@ class Block extends PascalSyntax{
 
 
     public void genCode(CodeFile f){
+        f.genInstr("", "enter", "$32, $" + blockLevel, "Start of name??");
+        //constDeclPart.genCode(f);
+        //typeDeclPart.genCode(f);
+        //varDeclPart.genCode(f);
+        statmList.genCode(f);
+        
             
     }
 
@@ -50,6 +57,7 @@ class Block extends PascalSyntax{
 
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
+        blockLevel = ++outerScope.blockLevel;
         if (constDeclPart != null) {
             constDeclPart.check(this, lib);
             for (ConstDecl cd: constDeclPart.constDecl) {

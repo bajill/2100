@@ -19,6 +19,18 @@ class SimpleExpr extends PascalSyntax {
         operator = new ArrayList<Operator>();
     }
 
+    @Override void genCode(CodeFile f) {
+        if (optionalOperator != null)
+            optionalOperator.genCode(f);
+        for (int i = 0; i < term.size(); i++) {
+            term.get(i).genCode(f);
+            if (i < term.size() - 1)
+                operator.get(i).genCode(f);
+        }
+
+
+    }
+
     @Override public String identify() {
         return "<simpleExpr> on line " + lineNum;
     }

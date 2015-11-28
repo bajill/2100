@@ -10,6 +10,10 @@ class CompoundStatm extends Statement{
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+        statmList.genCode(f);
+    }
+
     @Override public void check(Block curscope, Library lib) {
         statmList.check(curscope, lib);
     }

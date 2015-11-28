@@ -8,6 +8,8 @@ class FactorOperator extends Operator{
     FactorOperator(String name, int lNum) {
         super(name, lNum);
     }
+    @Override void genCode(CodeFile f) {
+    }
 
     @Override public String identify() {
         return "<factor operator> on line " + lineNum;

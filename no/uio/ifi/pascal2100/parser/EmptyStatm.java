@@ -20,12 +20,10 @@ class EmptyStatm extends Statement {
 // Til del 3 av prosjektet
        }
 
-
+*/
        @Override void genCode(CodeFile f) {
-// Til del 4 av prosjektet
        }
 
-*/
 
     @Override void prettyPrint() {
         Main.log.prettyPrint(";");

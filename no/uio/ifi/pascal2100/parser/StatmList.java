@@ -12,6 +12,11 @@ class StatmList extends PascalSyntax {
         statement = new ArrayList<Statement>();
     }
 
+    @Override void genCode(CodeFile f) {
+        for (Statement s: statement) 
+            s.genCode(f);
+    }
+
     @Override public String identify() {
         return "<statm list> on line " + lineNum;
     }

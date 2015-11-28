@@ -14,6 +14,16 @@ class Term extends PascalSyntax  {
         operator = new ArrayList<Operator>();
     }
 
+    @Override void genCode(CodeFile f) {
+        for (int i = 0; i < factor.size(); i++) {
+            factor.get(i).genCode(f);
+            if (i < factor.size() -1)
+                operator.get(i).genCode(f);
+        }
+
+
+    }
+
     @Override public String identify() {
         return "<term> on line " + lineNum;
     }
