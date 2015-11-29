@@ -11,6 +11,10 @@ class TypeName extends Type {
         this.name = name;
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override void check(Block curscope, Library lib){
         curscope.findDecl(name, this);
     }

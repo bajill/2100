@@ -14,6 +14,10 @@ class RangeType extends Type{
         return "<range type> on line " + lineNum;
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public void prettyPrint() {
         constant.prettyPrint();
         Main.log.prettyPrint("..");

@@ -12,6 +12,10 @@ class TypeDecl extends PascalDecl {
         super(id, lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<type decl> on line " + lineNum;
     }

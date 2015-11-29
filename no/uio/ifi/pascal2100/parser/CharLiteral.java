@@ -11,6 +11,10 @@ class CharLiteral extends Constant{
         this.name = name;
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<char literal> on line " + lineNum;
     }

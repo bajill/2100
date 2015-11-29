@@ -9,6 +9,7 @@ class Variable extends Factor {
     String id;
     Expression expression;
     int blockLevel;
+    int offSet;
 
     Variable(String id, int lNum) {
         super(lNum);
@@ -16,10 +17,12 @@ class Variable extends Factor {
     }
 
     @Override void genCode(CodeFile f) {
+    
         if (expression != null)
             expression.genCode(f);
         f.genInstr("", "movl", Integer.toString(-4 * blockLevel) + "(%ebp),%edx",
                 "move variable to %edx");
+        f.genInstr("", "movl", "%eax," + (-32 - (4*offSet)) + "(%edx)", id + " :=");
     }
 
     @Override public String identify() {
@@ -36,6 +39,7 @@ class Variable extends Factor {
     }
 
     @Override void check(Block curscope, Library lib){
+        offSet = curscope.offSet;
         blockLevel = curscope.blockLevel;
         curscope.findDecl(id, this);
         if(expression != null)

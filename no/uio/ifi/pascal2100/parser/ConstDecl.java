@@ -10,6 +10,10 @@ public class ConstDecl extends PascalDecl {
         super(name, lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<const decl> on line " + lineNum;
     }

@@ -16,6 +16,9 @@ class TypeDeclPart extends PascalSyntax {
         return "<type decl part> on line " + lineNum;
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
     @Override void check(Block curScope, Library lib) {
         for (TypeDecl td: typeDecl)
             td.check(curScope, lib);

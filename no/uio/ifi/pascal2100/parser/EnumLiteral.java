@@ -9,6 +9,10 @@ class EnumLiteral extends PascalDecl{
         super(name, lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<enum literal> on line " + lineNum;
     }

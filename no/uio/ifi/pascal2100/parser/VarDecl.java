@@ -15,6 +15,9 @@ class VarDecl extends PascalDecl {
     @Override public String identify() {
         return "<var decl> on line " + lineNum;
     }
+    
+    @Override void genCode(CodeFile f) {
+    }
 
     @Override public void prettyPrint() {
         super.prettyPrint();
@@ -24,6 +27,7 @@ class VarDecl extends PascalDecl {
     }
     @Override void check(Block curscope, Library lib){
         type.check(curscope, lib);
+        curscope.offSet++;
     }
 
     static VarDecl parse(Scanner s) {

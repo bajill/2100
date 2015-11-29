@@ -18,12 +18,14 @@ class ConstDeclPart extends PascalSyntax {
         return "<const decl part> on line " + lineNum;
     }
 
-
+    @Override void genCode(CodeFile f) {
+    }
+    
     @Override void check(Block curScope, Library lib) {
         for (ConstDecl cd: constDecl) 
             cd.check(curScope, lib);
     }
-    
+
     @Override void prettyPrint(){
         Main.log.prettyPrintLn("const");
         Main.log.prettyIndent();
@@ -43,18 +45,11 @@ class ConstDeclPart extends PascalSyntax {
         ConstDeclPart cdp = new ConstDeclPart(s.curLineNum());
         while(true){
             cdp.constDecl.add(ConstDecl.parse(s));
-
-            if (s.curToken.kind == nameToken)
-                continue;
-            else
-                break;
             /* Tests if curToken is valid */
-            /*
             if (testIfToken(s, tokenKind)) 
                 break;
             else
                 continue;
-                */
         }
         leaveParser("const decl part");
         return cdp;

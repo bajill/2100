@@ -12,6 +12,10 @@ class EnumType extends Type{
         enumType = new ArrayList<EnumLiteral>();
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<enum type> on line " + lineNum;
     }

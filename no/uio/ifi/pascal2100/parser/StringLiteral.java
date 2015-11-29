@@ -11,6 +11,10 @@ class StringLiteral extends Constant {
         this.id = id;
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<string literal> on line " + lineNum;
     }

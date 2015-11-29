@@ -13,6 +13,10 @@ class ProcDecl extends PascalDecl {
         super("", name, lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+    }
+    
+
     @Override public String identify() {
         return "<proc decl> on line " + lineNum;
     }
