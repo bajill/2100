@@ -20,12 +20,33 @@ class SimpleExpr extends PascalSyntax {
     }
 
     @Override void genCode(CodeFile f) {
+        /* first term and prefix operator */
+        term.get(0).genCode(f);
         if (optionalOperator != null)
             optionalOperator.genCode(f);
-        for (int i = 0; i < term.size(); i++) {
+        
+        /* Additional terms and term operators*/
+        for (int i = 1; i < term.size(); i++) {
+            f.genInstr("", "pushl", "%eax", "");
             term.get(i).genCode(f);
-            if (i < term.size() - 1)
-                operator.get(i).genCode(f);
+            f.genInstr("", "movl", "%eax,%ecx", "");
+            f.genInstr("", "popl", "%eax", "");
+            if (i < term.size()){
+                String oper = operator.get(i-1).name;
+                
+                if(oper == "+")
+                    f.genInstr("", "addl", "%ecx,%eax", "+");
+                else if(oper == "-")
+                    f.genInstr("", "subl", "%ecx,%eax", "-");
+                else if(oper == "*")
+                    f.genInstr("", "imull", "%ecx,%eax", "*");
+                else if(oper == "div"){
+                    f.genInstr("", "cdq", "", "");
+                    f.genInstr("", "idivl", "%ecx", "div");
+                }
+
+            }
+
         }
 
 

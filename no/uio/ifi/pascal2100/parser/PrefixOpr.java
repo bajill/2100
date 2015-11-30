@@ -9,6 +9,8 @@ class PrefixOpr extends Operator{
         super(name, lNum);
     }
     @Override void genCode(CodeFile f) {
+        if(name == "-")
+            f.genInstr("", "negl", "%eax", "negate");
     }
 
     @Override public String identify() {

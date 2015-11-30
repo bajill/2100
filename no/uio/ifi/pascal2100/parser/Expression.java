@@ -16,9 +16,16 @@ class Expression extends PascalSyntax {
 
     @Override void genCode(CodeFile f) {
         simpleExpr.genCode(f);
+        
+        /* if binary operator */
         if (additionalSimpleExpr != null) {
-            operator.genCode(f);
+            f.genInstr("", "pushl","%eax", "");
             additionalSimpleExpr.genCode(f);
+            f.genInstr("", "popl","%ecx", "");
+            f.genInstr("", "cmpl","%eax,%ecx", "");
+            f.genInstr("", "movl","$0,%eax", "");
+            operator.genCode(f);
+
         }
     }
 

@@ -31,7 +31,8 @@ class Block extends PascalSyntax{
 
     public void genCode(CodeFile f){
         // TODO: name och 36
-        f.genInstr("", "enter", "$" +(32 + 4*offSet) + ", $" + blockLevel, "Start of name??");
+        f.genInstr("", "enter", "$" +(32 + 4*(offSet - 1)) + ", $" + blockLevel, "Start of name??");
+        System.out.println("block " + offSet);
         //constDeclPart.genCode(f);
         //typeDeclPart.genCode(f);
         //varDeclPart.genCode(f);

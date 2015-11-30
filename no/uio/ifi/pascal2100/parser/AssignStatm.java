@@ -13,7 +13,9 @@ class AssignStatm extends Statement {
 
     @Override void genCode(CodeFile f) {
         expression.genCode(f);
-        variable.genCode(f);
+        f.genInstr("", "movl", Integer.toString(-4 * variable.blockLevel) + "(%ebp),%edx",
+                "move variable to %edx");
+        f.genInstr("", "movl", "%eax," + (-32 - (4*variable.offSet)) + "(%edx)", variable.id + " :=");
 
     }
 

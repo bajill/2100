@@ -10,6 +10,10 @@ class TermOperator extends Operator {
     }
 
     @Override void genCode(CodeFile f) {
+        if(name == "-")
+            f.genInstr("", "negl", "%eax", "negate");
+        if(name == "not")
+            f.genInstr("", "xorl", "$1,%eax", "xor");
     }
 
     @Override public String identify() {

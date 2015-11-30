@@ -9,6 +9,20 @@ class RelOperator extends Operator{
         super(name, lNum);
     }
     @Override void genCode(CodeFile f) {
+        System.out.println("reloperator " +name);
+        if(name == "<")
+            f.genInstr("", "setl","%al", "Test <");
+        if(name == ">")
+            f.genInstr("", "setg","%al", "Test >");
+        if(name == "<=")
+            f.genInstr("", "setle","%al", "Test <=");
+        if(name == ">=")
+            f.genInstr("", "setge","%al", "Test >=");
+        if(name == "==")
+            f.genInstr("", "sete","%al", "Test ==");
+        if(name == "<>")
+            f.genInstr("", "setne","%al", "Test <>");
+
     }
 
     @Override public String identify() {
