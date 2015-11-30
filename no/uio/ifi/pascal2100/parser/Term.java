@@ -15,13 +15,36 @@ class Term extends PascalSyntax  {
     }
 
     @Override void genCode(CodeFile f) {
-        for (int i = 0; i < factor.size(); i++) {
+        /* first factor */
+        factor.get(0).genCode(f);
+
+        /* additional factors */
+        for (int i = 1; i < factor.size(); i++) {
+
+            f.genInstr("", "pushl", "%eax", "");
+
             factor.get(i).genCode(f);
-            if (i < factor.size() -1)
-                operator.get(i).genCode(f);
+            f.genInstr("", "movl", "%eax,%ecx", "");
+            f.genInstr("", "popl", "%eax", "");
+
+            String oper = operator.get(i-1).name;
+            if(oper == "div"){
+                f.genInstr("", "cdq", "", "");
+                f.genInstr("", "idivl", "%ecx", "div");
+            }
+
+            else if(oper == "*")
+                f.genInstr("", "imull", "%ecx,%eax", "*");
+
+            else if(oper == "mod"){
+                f.genInstr("", "cdq", "", "");
+                f.genInstr("", "idivl", "%ecx", "");
+                f.genInstr("", "movl", "%edx,%eax", "mod");
+            }
+            else if(oper == "and"){
+                f.genInstr("", "andl", "%edx,%eax", "and");
+            }
         }
-
-
     }
 
     @Override public String identify() {

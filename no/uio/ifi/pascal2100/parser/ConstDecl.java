@@ -11,6 +11,7 @@ public class ConstDecl extends PascalDecl {
     }
 
     @Override void genCode(CodeFile f) {
+        constant.genCode(f);
     }
     
 

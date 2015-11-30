@@ -12,6 +12,11 @@ class IfStatm extends Statement {
         super(lNum);
     }
 
+    
+    @Override void genCode(CodeFile f) {
+        //TODO meget lik while, med en else om additional statement
+    }
+
     @Override void check(Block curScope, Library lib) {
         expression.check(curScope, lib);
         statement.check(curScope, lib);

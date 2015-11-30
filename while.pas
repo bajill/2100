@@ -1,10 +1,15 @@
 program whi;
+{const g = 10;}
 var i : integer;
 j : integer;
+h : integer;
+procedure proc1;
 begin
-    i := 0;
-    j := 1;
-    while i mod j < 4 do
-    i := i + 1
+j := 5;
+write(j);
+end;
+
+begin
+    i := 10;
 end.
      

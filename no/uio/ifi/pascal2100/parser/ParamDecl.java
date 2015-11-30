@@ -14,12 +14,13 @@ class ParamDecl extends PascalDecl{
     }
 
     @Override void genCode(CodeFile f) {
+
     }
     
 
     @Override void check(Block curscope, Library lib){
-        //System.out.println("ParamDecl: " + name);
         curscope.addDecl(name, this);
+        paramOffset = curscope.paramOffset++;
         typeName.check(curscope, lib);
         
     }

@@ -14,6 +14,10 @@ class ProcDecl extends PascalDecl {
     }
 
     @Override void genCode(CodeFile f) {
+        f.genInstr("proc$" + progProcFuncName + "_" + block.blockLevel, "", "", "");
+        if (paramDeclList != null)
+            paramDeclList.genCode(f);
+        block.genCode(f);
     }
     
 

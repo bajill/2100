@@ -33,14 +33,9 @@ class VarDeclPart extends Statement {
     }
 
     static VarDeclPart parse(Scanner s) {
-        /* These tokens are the valid tokens that can exist in VarDeclPart */
-        TokenKind[] tokenKind = {functionToken, procedureToken, beginToken};
         enterParser("var decl part"); 
         s.skip(varToken);
         VarDeclPart vdp = new VarDeclPart(s.curLineNum());
-
-        // We should have used this one instead of testIfToken, but dont have
-        // the time to test all files again.
 
         while(true){
             vdp.varDecl.add(VarDecl.parse(s));
@@ -48,14 +43,6 @@ class VarDeclPart extends Statement {
                 continue;
             else
                 break;
-            /* Tests if curToken is valid */
-            /*
-            if (testIfToken(s, tokenKind))
-                break;
-            else
-                continue;
-                */
-
         }
         leaveParser("var decl part");
         return vdp;

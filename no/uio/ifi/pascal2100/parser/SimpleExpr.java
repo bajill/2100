@@ -22,7 +22,6 @@ class SimpleExpr extends PascalSyntax {
     @Override void genCode(CodeFile f) {
         /* first term and prefix operator */
         term.get(0).genCode(f);
-        System.out.println("term size" + term.size());
         if (optionalOperator != null)
             optionalOperator.genCode(f);
 
@@ -41,20 +40,8 @@ class SimpleExpr extends PascalSyntax {
                 f.genInstr("", "addl", "%ecx,%eax", "+");
             else if(oper == "-")
                 f.genInstr("", "subl", "%ecx,%eax", "-");
-            else if(oper == "*")
-                f.genInstr("", "imull", "%ecx,%eax", "*");
-            else if(oper == "div"){
-                f.genInstr("", "cdq", "", "");
-                f.genInstr("", "idivl", "%ecx", "div");
-            }
-            else if(oper == "mod"){
-                f.genInstr("", "cdq", "", "");
-                f.genInstr("", "idivl", "%ecx", "");
-                f.genInstr("", "movl", "%edx,%eax", "mod");
-            }
-            else 
-                System.out.println("ELSE simpleexpr");
-
+            else if(oper == "or")
+                f.genInstr("", "orl", "%ecx,%eax", "or");
         }
     }
 

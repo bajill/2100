@@ -37,8 +37,8 @@ class ConstDeclPart extends PascalSyntax {
 
     static ConstDeclPart parse(Scanner s) {
         /* These tokens are the valid tokens that can exist in ConstDeclPart */
-        TokenKind[] tokenKind = {varToken, functionToken, procedureToken, typeToken, beginToken};
-        enterParser("const decl part"); 
+        TokenKind[] tokenKind = {varToken, functionToken, procedureToken,
+            typeToken, beginToken}; enterParser("const decl part"); 
         s.skip(constToken);
 
         /* loop trough all const decl */
