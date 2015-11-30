@@ -4,7 +4,7 @@ j : integer;
 begin
     i := 0;
     j := 1;
-    while i < 4 do
+    while i mod j < 4 do
     i := i + 1
 end.
      

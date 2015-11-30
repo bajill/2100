@@ -15,6 +15,8 @@ class ArrayType extends Type{
         return "<array-type> on line " + lineNum;
     }
 
+    @Override void genCode(CodeFile f){
+    }
     @Override void check(Block curScope, Library lib) {
         type.check(curScope, lib);
         additionalType.check(curScope, lib);

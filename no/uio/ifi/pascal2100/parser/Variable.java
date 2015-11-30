@@ -42,12 +42,10 @@ class Variable extends Factor {
         offSet = curscope.offSet;
         blockLevel = curscope.blockLevel;
 
-        curscope.findDecl(id, this);
-        System.out.println(blockLevel);
+        PascalDecl d = curscope.findDecl(id, this);
         if(expression != null)
             expression.check(curscope, lib);
 
-        PascalDecl d = curscope.findDecl(id, this);
         offSet = d.declOffset;
     }
 

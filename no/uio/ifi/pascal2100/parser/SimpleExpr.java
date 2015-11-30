@@ -22,40 +22,46 @@ class SimpleExpr extends PascalSyntax {
     @Override void genCode(CodeFile f) {
         /* first term and prefix operator */
         term.get(0).genCode(f);
+        System.out.println("term size" + term.size());
         if (optionalOperator != null)
             optionalOperator.genCode(f);
-        
+
         /* Additional terms and term operators*/
         for (int i = 1; i < term.size(); i++) {
             f.genInstr("", "pushl", "%eax", "");
+
             term.get(i).genCode(f);
             f.genInstr("", "movl", "%eax,%ecx", "");
             f.genInstr("", "popl", "%eax", "");
-            if (i < term.size()){
-                String oper = operator.get(i-1).name;
-                
-                if(oper == "+")
-                    f.genInstr("", "addl", "%ecx,%eax", "+");
-                else if(oper == "-")
-                    f.genInstr("", "subl", "%ecx,%eax", "-");
-                else if(oper == "*")
-                    f.genInstr("", "imull", "%ecx,%eax", "*");
-                else if(oper == "div"){
-                    f.genInstr("", "cdq", "", "");
-                    f.genInstr("", "idivl", "%ecx", "div");
-                }
 
+
+            String oper = operator.get(i-1).name;
+
+            if(oper == "+")
+                f.genInstr("", "addl", "%ecx,%eax", "+");
+            else if(oper == "-")
+                f.genInstr("", "subl", "%ecx,%eax", "-");
+            else if(oper == "*")
+                f.genInstr("", "imull", "%ecx,%eax", "*");
+            else if(oper == "div"){
+                f.genInstr("", "cdq", "", "");
+                f.genInstr("", "idivl", "%ecx", "div");
             }
+            else if(oper == "mod"){
+                f.genInstr("", "cdq", "", "");
+                f.genInstr("", "idivl", "%ecx", "");
+                f.genInstr("", "movl", "%edx,%eax", "mod");
+            }
+            else 
+                System.out.println("ELSE simpleexpr");
 
         }
-
-
     }
 
     @Override public String identify() {
         return "<simpleExpr> on line " + lineNum;
     }
-    
+
     @Override void check(Block curScope, Library lib) {
         for(Term t : term){
             t.check(curScope, lib);
@@ -87,11 +93,11 @@ class SimpleExpr extends PascalSyntax {
                 se.operator.add(TermOperator.parse(s));
             else
                 break;
-                /*
-            if(!s.curToken.kind.isTermOpr())
-                break;
-            se.operator.add(TermOperator.parse(s));
-            */
+            /*
+               if(!s.curToken.kind.isTermOpr())
+               break;
+               se.operator.add(TermOperator.parse(s));
+               */
         }    
 
         leaveParser("simpleExpr");

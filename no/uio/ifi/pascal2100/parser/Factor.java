@@ -14,7 +14,7 @@ abstract class Factor extends PascalSyntax {
     }
 
     @Override void genCode(CodeFile f) {
-
+        f.genInstr("","","","");
     }
 
     @Override public String identify() {
