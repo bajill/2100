@@ -27,7 +27,7 @@ class VarDecl extends PascalDecl {
     }
     @Override void check(Block curscope, Library lib){
         type.check(curscope, lib);
-        curscope.offSet++;
+        declOffset = curscope.offSet++;
     }
 
     static VarDecl parse(Scanner s) {
@@ -41,3 +41,4 @@ class VarDecl extends PascalDecl {
         return vd;
     }
 }
+
