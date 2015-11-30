@@ -44,6 +44,9 @@ class Variable extends Factor {
         curscope.findDecl(id, this);
         if(expression != null)
             expression.check(curscope, lib);
+        PascalDecl d = curscope.findDecl(id, this);
+        offSet = d.declOffset;
+        System.out.println("variable " + d.declOffset);
     }
 
     static Variable parse(Scanner s) {
