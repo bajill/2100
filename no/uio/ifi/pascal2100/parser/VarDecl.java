@@ -41,3 +41,4 @@ class VarDecl extends PascalDecl {
         return vd;
     }
 }
+

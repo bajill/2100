@@ -18,12 +18,13 @@ class Block extends PascalSyntax{
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
     Block outerScope;
     ProcDecl paramDecl;
-    int blockLevel;
-    int offSet = 0;
+    int blockLevel = 1;
+    int offSet;
                 
 
     Block(int lNum){
         super(lNum);
+        offSet = 1;
         procANDfuncDecl = new ArrayList<ProcDecl>(); 
     }
 
