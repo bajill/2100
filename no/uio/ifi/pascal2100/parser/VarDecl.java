@@ -27,7 +27,9 @@ class VarDecl extends PascalDecl {
     }
     @Override void check(Block curscope, Library lib){
         type.check(curscope, lib);
-        declOffset = curscope.offSet++;
+        /* Set blocklevel and offset*/
+        declOffset = ++curscope.offSet;
+        declLevel = curscope.blockLevel;
     }
 
     static VarDecl parse(Scanner s) {

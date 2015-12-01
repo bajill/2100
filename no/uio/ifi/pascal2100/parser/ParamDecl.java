@@ -20,7 +20,7 @@ class ParamDecl extends PascalDecl{
 
     @Override void check(Block curscope, Library lib){
         curscope.addDecl(name, this);
-        paramOffset = curscope.paramOffset++;
+        paramOffset = ++curscope.paramOffset;
         typeName.check(curscope, lib);
         
     }

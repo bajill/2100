@@ -18,6 +18,7 @@ class Block extends PascalSyntax{
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
     Block outerScope;
     ProcDecl paramDecl;
+
     /* Evey new block get new level*/
     int blockLevel;
     static int blockCount;
@@ -27,21 +28,28 @@ class Block extends PascalSyntax{
     Block(int lNum){
         super(lNum);
         offSet = 0; paramOffset = 0;
-        blockLevel = 1;
-        blockCount = 1;
+        blockLevel = 0;
+        blockCount = 0;
         procANDfuncDecl = new ArrayList<ProcDecl>(); 
     }
 
 
     public void genCode(CodeFile f){
-        /* if program block */
-        if(blockLevel != 1){
-            for(ProcDecl pd: procANDfuncDecl)
-            pd.genCode(f);
-        }
+        
+        for(ProcDecl pd: procANDfuncDecl)
+        pd.genCode(f);
+
+        if(blockLevel == 1)
+            f.genInstr("prog$" + "TODOname" + "_" + blockLevel, "", "", "");
+        else
+            f.genInstr("proc$" + "TODOprogProcFuncName" + "_" + blockLevel,
+                    "", "", "");
+
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
                 "Start of name??"); 
         statmList.genCode(f);
+        f.genInstr("", "leave", "", "");
+        f.genInstr("", "ret", "", "");
         
             
     }
@@ -66,7 +74,7 @@ class Block extends PascalSyntax{
 
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
-        blockLevel = blockCount++;
+        blockLevel = ++blockCount;
 
         if (constDeclPart != null) {
             constDeclPart.check(this, lib);

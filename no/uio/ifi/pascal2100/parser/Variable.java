@@ -59,8 +59,6 @@ class Variable extends Factor {
     }
 
     @Override void check(Block curscope, Library lib){
-        offSet = curscope.offSet;
-        blockLevel = curscope.blockLevel;
 
         // Lagt til scope for å ha tilgang til variabler
         scope = curscope;
@@ -70,6 +68,7 @@ class Variable extends Factor {
             expression.check(curscope, lib);
 
         offSet = d.declOffset;
+        blockLevel = d.declLevel;
     }
 
     static Variable parse(Scanner s) {

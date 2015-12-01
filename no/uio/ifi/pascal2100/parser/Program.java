@@ -21,12 +21,10 @@ public class Program extends PascalDecl {
         f.genInstr("", "ret", "", "terminate the program");
         
         /* Program start */ 
-        for(ProcDecl pd: block.procANDfuncDecl)
-            pd.genCode(f);
-        f.genInstr("prog$" + name + "_" + block.blockLevel, "", "", "");
+        //for(ProcDecl pd: block.procANDfuncDecl)
+        //    pd.genCode(f);
+        //f.genInstr("prog$" + name + "_" + block.blockLevel, "", "", "");
         block.genCode(f);
-        f.genInstr("", "leave", "", "");
-        f.genInstr("", "ret", "", "");
 
         
     }

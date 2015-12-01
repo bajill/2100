@@ -2,14 +2,18 @@ program whi;
 {const g = 10;}
 var i : integer;
 j : integer;
-h : integer;
-procedure proc1;
+procedure proc1(h: integer);
+procedure proc2(h: integer);
 begin
 j := 5;
-write(j);
+i := j + h;
+end;
+begin
+j := 5;
+i := j + h;
 end;
 
 begin
-    i := 10;
+    proc1(10)
 end.
      
