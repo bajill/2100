@@ -29,8 +29,8 @@ class Variable extends Factor {
                         
         // TODO denne slår ut på param også
         /* if const */
-        if(offSet == 0){
-            System.out.println("\nvariable-"+scope.decls.get(id));
+        if(scope.decls.get(id) instanceof ConstDecl){
+            System.out.println("ja den är det");
             scope.decls.get(id).genCode(f);
             return;
         }

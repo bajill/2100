@@ -14,7 +14,17 @@ class IfStatm extends Statement {
 
     
     @Override void genCode(CodeFile f) {
+
+        String endLabel = f.getLocalLabel();
+
         //TODO meget lik while, med en else om additional statement
+        f.genInstr("", "", "", "Start if-statement");
+        expression.genCode(f);
+        f.genInstr("", "cmpl", "$0,%eax", "");
+        f.genInstr("", "je", endLabel, "");
+        statement.genCode(f);
+        f.genInstr(endLabel, "", "", "End if-statement");
+        
     }
 
     @Override void check(Block curScope, Library lib) {
