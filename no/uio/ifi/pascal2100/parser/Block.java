@@ -23,7 +23,7 @@ class Block extends PascalSyntax{
     int blockLevel;
     static int blockCount;
     int offSet, paramOffset;
-                
+
 
     Block(int lNum){
         super(lNum);
@@ -35,9 +35,12 @@ class Block extends PascalSyntax{
 
 
     public void genCode(CodeFile f){
-        
+        for (ProcDecl p: procANDfuncDecl) {
+            System.out.println("procDecl: " +p.progProcFuncname);
+        }
+
         for(ProcDecl pd: procANDfuncDecl)
-        pd.genCode(f);
+            pd.genCode(f);
 
         if(blockLevel == 1)
             f.genInstr("prog$" + "TODOname" + "_" + blockLevel, "", "", "");
@@ -48,11 +51,15 @@ class Block extends PascalSyntax{
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
                 "Start of name??"); 
         statmList.genCode(f);
+        //if (this is a function) 
+        if (false)
+            f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
         f.genInstr("", "leave", "", "");
         f.genInstr("", "ret", "", "");
-        
-            
+
     }
+
+
 
     void addDecl(String id, PascalDecl d) {
         if (decls.containsKey(id))
@@ -82,7 +89,7 @@ class Block extends PascalSyntax{
                 addDecl(cd.name, cd); 
             }
         }
-       if (typeDeclPart != null) {
+        if (typeDeclPart != null) {
             typeDeclPart.check(this, lib);
             for(TypeDecl td : typeDeclPart.typeDecl){
                 addDecl(td.name, td);
@@ -94,7 +101,7 @@ class Block extends PascalSyntax{
                 addDecl(vd.name, vd);
             }
         }
- 
+
         if (procANDfuncDecl != null) {
             for(ProcDecl pd : procANDfuncDecl){
                 pd.check(this, lib);
@@ -156,7 +163,7 @@ class Block extends PascalSyntax{
         leaveParser("block");
         return b;
     }
-    
+
     @Override public String identify() {
         return "<empty statm> on line " + lineNum;
     }

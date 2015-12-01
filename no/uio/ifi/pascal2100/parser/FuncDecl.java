@@ -16,6 +16,13 @@ class FuncDecl extends ProcDecl{
     @Override public String identify() {
         return "<func decl> on line " + lineNum;
     }
+    
+    @Override void genCode(CodeFile f) {
+        /* Make parameter offset, and do block */
+        if (paramDeclList != null)
+            paramDeclList.genCode(f);
+        block.genCode(f);
+    }
 
     @Override void check(Block curscope, Library lib) {
         block.outerScope = curscope;
