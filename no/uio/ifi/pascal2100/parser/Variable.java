@@ -19,29 +19,33 @@ class Variable extends Factor {
 
     @Override void genCode(CodeFile f) {
 
-        /* if variable are a parameter in proc */        
-        if(scope.decls.get(id) instanceof ParamDecl){
-            f.genInstr("", "movl", (-4*blockLevel) + "(%ebp),%edx", "");
-            f.genInstr("", "movl", "" + (8 +
-                        (scope.decls.get(id).paramOffset*4)) + "(%edx),%eax",
-                    "  " +id);
+        /* if variable is a parameter in proc */        
+        System.out.println("variable: " + id);
+        // get henter bare fra første scope, mens man må lete overalt
+        if(scope.findDecl(id, this) instanceof ParamDecl){
+            System.out.println("variable1: " + id);
+            PascalDecl pd = scope.findDecl(id, this);
+            f.genInstr("", "movl", (-4*pd.declLevel) + "(%ebp),%edx", "");
+            f.genInstr("", "movl", "" + (8 + (pd.paramOffset*4)) +
+                    "(%edx),%eax", "  " +id);
         }
                         
-        // TODO denne slår ut på param også
+        // Fungerer denne?
         /* if const */
-        if(scope.decls.get(id) instanceof ConstDecl){
-            System.out.println("ja den är det");
+        else if(scope.decls.get(id) instanceof ConstDecl){
             scope.decls.get(id).genCode(f);
             return;
         }
 
-        // TODO denne burde kanskje være instanceof, hva nå dette er 
-        if (expression != null)
+        /* if variable is an array */
+        else if (expression != null)
             expression.genCode(f);
 
-        /* if variable are var(??) */
+        /* if variable is var(??) */
+        else {
         f.genInstr("", "movl", (-4*blockLevel) + "(%ebp),%edx", "");
         f.genInstr("", "movl", "-" + ((32) + offSet*(4)) + "(%edx),%eax", id);
+        }
         
     }
 

@@ -18,6 +18,7 @@ class Block extends PascalSyntax{
     HashMap<String, PascalDecl> decls = new HashMap<String, PascalDecl>();
     Block outerScope;
     ProcDecl paramDecl;
+    String name;
 
     /* Evey new block get new level*/
     int blockLevel;
@@ -27,9 +28,8 @@ class Block extends PascalSyntax{
 
     Block(int lNum){
         super(lNum);
-        offSet = 0; paramOffset = 0;
+        offSet = 0; 
         blockLevel = 0;
-        blockCount = 0;
         procANDfuncDecl = new ArrayList<ProcDecl>(); 
     }
 
@@ -43,9 +43,9 @@ class Block extends PascalSyntax{
             pd.genCode(f);
 
         if(blockLevel == 1)
-            f.genInstr("prog$" + "TODOname" + "_" + blockLevel, "", "", "");
+            f.genInstr("prog$" + name+ "_" + blockLevel, "", "", "");
         else
-            f.genInstr("proc$" + "TODOprogProcFuncName" + "_" + blockLevel,
+            f.genInstr("proc$" + name + "_" + blockLevel,
                     "", "", "");
 
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
@@ -82,6 +82,9 @@ class Block extends PascalSyntax{
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
         blockLevel = ++blockCount;
+        System.out.println("block "+ blockCount);
+        // TODO dene blir feil
+        paramOffset = curScope.paramOffset +1;
 
         if (constDeclPart != null) {
             constDeclPart.check(this, lib);

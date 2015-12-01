@@ -35,6 +35,7 @@ public class Program extends PascalDecl {
 
     
     @Override public void check(Block curscope, Library lib) {
+        block.name = name;
         block.check(curscope, lib);
     }
 
