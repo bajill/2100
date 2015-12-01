@@ -45,7 +45,7 @@ class Block extends PascalSyntax{
             if(outerScope.findDecl(name, this) instanceof FuncDecl) {
                 f.genInstr("proc$" + name + "_" + blockLevel,"", "", "");
                 f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
-                        "Start of name??"); 
+                        "Start of " + name); 
                 statmList.genCode(f);
                 f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
                 f.genInstr("", "leave", "", "End of " + name);
@@ -57,7 +57,7 @@ class Block extends PascalSyntax{
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
                 "Start of " + name); 
         statmList.genCode(f);
-        f.genInstr("", "leave", "", "");
+        f.genInstr("", "leave", "", "End of " + name);
         f.genInstr("", "ret", "", "");
 
     }
