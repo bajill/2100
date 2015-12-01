@@ -30,6 +30,7 @@ class ProcDecl extends PascalDecl {
             paramDeclList.check(block, lib);
         }
         curscope.addDecl(progProcFuncName, this);
+
         block.name = progProcFuncName;
         block.check(curscope, lib);
     }
