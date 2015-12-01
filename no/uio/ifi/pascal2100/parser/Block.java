@@ -35,9 +35,6 @@ class Block extends PascalSyntax{
 
 
     public void genCode(CodeFile f){
-        for (ProcDecl p: procANDfuncDecl) {
-            System.out.println("procDecl: " +p.progProcFuncname);
-        }
 
         for(ProcDecl pd: procANDfuncDecl)
             pd.genCode(f);
@@ -49,7 +46,7 @@ class Block extends PascalSyntax{
                     "", "", "");
 
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
-                "Start of name??"); 
+                "Start of " + name); 
         statmList.genCode(f);
         //if (this is a function) 
         if (false)

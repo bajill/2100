@@ -6,7 +6,7 @@ procedure proc1(h: integer);
 procedure proc2(f: integer);
 begin
 j := 5;
-i := j + h;
+i := f + h;
 end;
 begin
 j := 5;
