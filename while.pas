@@ -3,10 +3,11 @@ program whi;
 var i : integer;
 j : integer;
 procedure proc1(h: integer);
-procedure proc2(f: integer);
+function proc2(f: integer): integer;
 begin
 j := 5;
 i := f + h;
+proc2 := i;
 end;
 begin
 j := 5;

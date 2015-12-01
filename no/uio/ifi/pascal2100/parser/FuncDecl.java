@@ -31,6 +31,7 @@ class FuncDecl extends ProcDecl{
         }
         typeName.check(curscope, lib);
         curscope.addDecl(progProcFuncName, this);
+
         block.name = progProcFuncName;
         block.check(curscope, lib);
     }
