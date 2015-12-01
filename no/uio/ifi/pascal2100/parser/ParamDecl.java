@@ -21,6 +21,8 @@ class ParamDecl extends PascalDecl{
     @Override void check(Block curscope, Library lib){
         curscope.addDecl(name, this);
         declOffset = ++curscope.paramOffset;
+        declLevel = curscope.blockCount;
+        System.out.println("paramdecl " + declLevel + "-" + curscope.blockLevel);
         typeName.check(curscope, lib);
         
     }
