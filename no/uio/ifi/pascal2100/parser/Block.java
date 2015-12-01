@@ -48,7 +48,7 @@ class Block extends PascalSyntax{
                         "Start of name??"); 
                 statmList.genCode(f);
                 f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
-                f.genInstr("", "leave", "", "");
+                f.genInstr("", "leave", "", "End of " + name);
                 f.genInstr("", "ret", "", "");
                 return;                
             }

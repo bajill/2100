@@ -13,7 +13,9 @@ class AssignStatm extends Statement {
 
     @Override void genCode(CodeFile f) {
         expression.genCode(f);
-        f.genInstr("", "movl", (-4 * variable.blockLevel) + "(%ebp),%edx", "");
+        System.out.println("cariable: " +variable.scope.decls.get(variable.id));
+        if (variable.scope.decls.get(variable.id) instanceof FuncDecl)
+            f.genInstr("", "movl", (-4 * variable.blockLevel) + "(%ebp),%edx", "");
         // Offset må starte på 36 her
         f.genInstr("", "movl", "%eax," + (-32 - (4*variable.offSet)) + "(%edx)",
                 variable.id + " :=");
