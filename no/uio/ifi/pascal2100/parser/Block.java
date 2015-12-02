@@ -40,12 +40,13 @@ class Block extends PascalSyntax{
             pd.genCode(f);
 
         if(blockLevel == 1)
-            f.genInstr("prog$" + name+ "_" + blockLevel, "", "", "");
+            f.genInstr("prog$" + name.toLowerCase()+ "_" + blockLevel, "", "", "");
         else {
+            /* if proc decl */
             if(outerScope.findDecl(name, this) instanceof FuncDecl) {
                 f.genInstr("proc$" + name + "_" + blockLevel,"", "", "");
-                f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
-                        "Start of " + name); 
+                f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" +
+                        blockLevel, "Start of " + name); 
                 statmList.genCode(f);
                 f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
                 f.genInstr("", "leave", "", "End of " + name);

@@ -13,13 +13,19 @@ class AssignStatm extends Statement {
 
     @Override void genCode(CodeFile f) {
         expression.genCode(f);
-        //System.out.println("cariable: " +variable.scope.decls.get(variable.id));
-        // TODO
-        //if (variable.scope.decls.get(variable.id) instanceof FuncDecl)
-        f.genInstr("", "movl", (-4 * variable.blockLevel) + "(%ebp),%edx", "");
-        // Offset må starte på 36 her
-        f.genInstr("", "movl", "%eax," + (-32 - (4*variable.offSet)) + "(%edx)",
-                variable.id + " :=");
+
+        /* if variable are a funcreturn */
+        if(variable.scope.findDecl(variable.id, this) instanceof FuncDecl){
+            f.genInstr("", "movl", "%eax, -32(%ebp)", "" + variable.id + " :=");
+        }
+        
+        /* if regular assign statement */
+        else{
+            f.genInstr("", "movl", (-4 * variable.blockLevel) + "(%ebp),%edx",
+                    ""); 
+            f.genInstr("", "movl", "%eax," + (-32 - (4*variable.offSet)) +
+                    "(%edx)", variable.id + " :=");
+        }
 
     }
 

@@ -7,10 +7,24 @@ import java.util.ArrayList;
 class FuncCall extends Factor {
     CharLiteral name;
     ArrayList<Expression> expression;
+    int blockLevel;
 
     FuncCall(int lNum) {
         super(lNum);
         expression = new ArrayList<Expression>();
+    }
+
+    @Override void genCode(CodeFile f){
+        /* add last parameter first */
+        for (int i = expression.size() - 1; i >= 0; i--) {
+            expression.get(i).genCode(f);
+            f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
+        }
+
+        f.genInstr("", "call", "proc$" + name.name + "_" + blockLevel,
+                ""); 
+        f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
+                "Pop parameters.");
     }
 
     @Override void check(Block curscope, Library lib){
@@ -18,6 +32,8 @@ class FuncCall extends Factor {
         for(Expression e : expression){
             e.check(curscope, lib);
         }
+        /* set blocklevel for genCode */
+        blockLevel = curscope.findDecl(name.name, this).declLevel;
     }
     @Override public String identify() {
         return "<func call> on line " + lineNum;

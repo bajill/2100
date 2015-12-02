@@ -20,7 +20,7 @@ class Variable extends Factor {
     @Override void genCode(CodeFile f) {
 
         /* if variable is a parameter in proc */        
-        //System.out.println("variable: " + id);
+        System.out.println("\nvariable: " + id);
         // get henter bare fra første scope, mens man må lete overalt
         if(scope.findDecl(id, this) instanceof ParamDecl){
             PascalDecl pd = scope.findDecl(id, this);
