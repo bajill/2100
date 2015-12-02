@@ -13,7 +13,7 @@ class CharLiteral extends Constant{
 
     @Override void genCode(CodeFile f) {
        /* const */
-        f.genInstr("", "movl", "$" + numValue + ",%eax", "" + numValue);
+        //f.genInstr("", "movl", "$" + stringValue + ",%eax", "" + stringValue);
 
         /* char from write */
         // TODO code in procCall
