@@ -19,8 +19,19 @@ class Variable extends Factor {
 
     @Override void genCode(CodeFile f) {
 
+        /* if variable is a type */
+        if(scope.findDecl(id, this) instanceof EnumLiteral){
+            System.out.println("varboolean " +scope.findDecl(id, this));
+            if(id.equals("false")){
+            f.genInstr("", "movl", "$0,%eax", "  enum value false (=0)");
+            }
+            if(id.equals("true")){
+            f.genInstr("", "movl", "$1,%eax", "  enum value true (=1)");
+            }
+        }
+
         /* if variable is a parameter in proc */        
-        if(scope.findDecl(id, this) instanceof ParamDecl){
+        else if(scope.findDecl(id, this) instanceof ParamDecl){
             PascalDecl pd = scope.findDecl(id, this);
             f.genInstr("", "movl", (-4*pd.declLevel) + "(%ebp),%edx", "");
             f.genInstr("", "movl", "" + (4 + (pd.declOffset*4)) +

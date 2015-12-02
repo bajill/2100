@@ -34,8 +34,6 @@ class TypeDeclPart extends PascalSyntax {
     }
 
     static TypeDeclPart parse(Scanner s) {
-        /* These tokens are the valid tokens that can exist in TypeDeclPart */
-        TokenKind[] tokenKind = {varToken, functionToken, procedureToken, beginToken};
         enterParser("type decl part"); 
         s.skip(typeToken);
         TypeDeclPart tdp = new TypeDeclPart(s.curLineNum());
@@ -46,12 +44,6 @@ class TypeDeclPart extends PascalSyntax {
                 continue;
             else
                 break;
-            /*
-            if (testIfToken(s, tokenKind))
-                break;
-            else
-                continue;
-                */
         }
 
         leaveParser("type decl part");

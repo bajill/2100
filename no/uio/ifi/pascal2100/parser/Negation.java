@@ -10,6 +10,10 @@ class Negation extends Factor{
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f){
+        factor.genCode(f);
+        f.genInstr("", "xorl", "$0x1,%eax", "not");
+    }
     @Override void check(Block curscope, Library lib){
         factor.check(curscope, lib);
     }
