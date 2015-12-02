@@ -16,11 +16,11 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void genCode(CodeFile f) {
-        for (int i = 0; i < expression.size(); i++) {
+        for (int i = expression.size() - 1; i >= 0; i--) {
             expression.get(i).genCode(f);
             f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
     }
-        f.genInstr("", "call", "proc$" + "namnet" + "_", "");
+        f.genInstr("", "call", "proc$" +  "name??" + "_", "");
         f.genInstr("", "addl", "$?,%esp", "Pop parameters.");
 
 
