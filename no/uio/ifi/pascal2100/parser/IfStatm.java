@@ -16,17 +16,17 @@ class IfStatm extends Statement {
     @Override void genCode(CodeFile f) {
 
         String firstLabel = f.getLocalLabel();
-        String endLabel = f.getLocalLabel();
 
         //TODO meget lik while, med en else om additional statement
         if(additionalStatement == null){
             f.genInstr("", "", "", "Start if-statement");
-        expression.genCode(f);
-        f.genInstr("", "cmpl", "$0,%eax", "");
-        f.genInstr("", "je", firstLabel, "");
-        statement.genCode(f);
-        f.genInstr(endLabel, "", "", "End if-statement");
+            expression.genCode(f);
+            f.genInstr("", "cmpl", "$0,%eax", "");
+            f.genInstr("", "je", firstLabel, "");
+            statement.genCode(f);
+            f.genInstr(firstLabel, "", "", "End if-statement");
         }else{
+            String endLabel = f.getLocalLabel();
             f.genInstr("", "", "", "Start if-statement");
             expression.genCode(f);
             f.genInstr("", "cmpl", "$0,%eax", "");

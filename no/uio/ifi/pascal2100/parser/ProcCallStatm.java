@@ -35,14 +35,15 @@ class ProcCallStatm extends Statement {
         else{ 
             /* add last parameter first */
             for (int i = expression.size() - 1; i >= 0; i--) {
-            expression.get(i).genCode(f);
+                expression.get(i).genCode(f);
 
-            f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
+                f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
+            }
             f.genInstr("", "call", "proc$" + block.findDecl(name.name,
                         this).label.toLowerCase(), ""); 
-            f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
+            if(expression.size() > 0)
+                f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
                     "Pop parameters.");
-            }
         }
     }
     @Override public String identify() {

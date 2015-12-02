@@ -23,8 +23,9 @@ class FuncCall extends Factor {
         }
         f.genInstr("", "call", "func$" + block.findDecl(name.name,
                     this).label.toLowerCase(), ""); 
-        f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
-                "Pop parameters.");
+        if(expression.size() > 0)
+            f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
+                    "Pop parameters.");
     }
 
     @Override void check(Block curscope, Library lib){

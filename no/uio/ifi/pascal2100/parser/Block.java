@@ -49,6 +49,7 @@ class Block extends PascalSyntax{
             /* if func*/
             if(outerScope.findDecl(name, this) instanceof FuncDecl) {
                 f.genInstr("func$" + label.toLowerCase(),"", "", "");
+                // TODO blocklevel burde være func sin blockLevel
                 f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" +
                         blockLevel, "Start of " + name); 
                 statmList.genCode(f);
@@ -59,6 +60,7 @@ class Block extends PascalSyntax{
             }
             f.genInstr("proc$" + label.toLowerCase(), "", "", "");
         }
+        // TODO blocklevel burde være proc sin blockLevel
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
                 "Start of " + name); 
         statmList.genCode(f);
