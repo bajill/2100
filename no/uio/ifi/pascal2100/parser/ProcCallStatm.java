@@ -8,7 +8,8 @@ class ProcCallStatm extends Statement {
     //String procName;
     NamedConst name;
     ArrayList<Expression> expression;
-    ProcDecl procRef;
+    PascalDecl procRef;
+    int blockLevel;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -16,14 +17,16 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void genCode(CodeFile f) {
-        for (int i = 0; i < expression.size(); i++) {
+        /* add last parameter first */
+        for (int i = expression.size() - 1; i >= 0; i--) {
             expression.get(i).genCode(f);
             f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
-    }
-        f.genInstr("", "call", "proc$" + "namnet" + "_", "");
-        f.genInstr("", "addl", "$?,%esp", "Pop parameters.");
+        }
 
-
+        f.genInstr("", "call", "proc$" + name.name + "_" + blockLevel,
+                ""); 
+        f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
+                "Pop parameters.");
 
     }
     @Override public String identify() {
@@ -32,8 +35,11 @@ class ProcCallStatm extends Statement {
 
     @Override void check(Block curScope, Library lib) {
         name.check(curScope, lib);
+
         for(Expression e : expression)
             e.check(curScope, lib);
+        /* set blocklevel for genCode */
+        blockLevel = curScope.findDecl(name.name, this).declLevel;
     }
 
     @Override public void prettyPrint() {

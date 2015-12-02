@@ -33,6 +33,10 @@ class ProcDecl extends PascalDecl {
 
         block.name = progProcFuncName.toLowerCase();
         block.check(curscope, lib);
+         
+        /* set current blockLevel */
+        declLevel = block.blockLevel;
+
     }
 
     @Override public void prettyPrint() {
