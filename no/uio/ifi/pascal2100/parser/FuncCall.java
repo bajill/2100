@@ -8,6 +8,7 @@ class FuncCall extends Factor {
     CharLiteral name;
     ArrayList<Expression> expression;
     int blockLevel;
+    Block block;
 
     FuncCall(int lNum) {
         super(lNum);
@@ -20,15 +21,16 @@ class FuncCall extends Factor {
             expression.get(i).genCode(f);
             f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
         }
-
-        f.genInstr("", "call", "proc$" + name.name + "_" + blockLevel,
-                ""); 
+        f.genInstr("", "call", "func$" + block.findDecl(name.name,
+                    this).label.toLowerCase(), ""); 
         f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
                 "Pop parameters.");
     }
 
     @Override void check(Block curscope, Library lib){
         name.check(curscope, lib);
+        block = curscope;
+
         for(Expression e : expression){
             e.check(curscope, lib);
         }

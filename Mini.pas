@@ -1,16 +1,15 @@
 /* Et minimalt Pascal-program */
 program Mini;
+const v1 = 1071; v2 = 462;
 var i : integer;
-function func1(a: integer): integer;
+function func1(a: integer; b: integer): integer;
 begin
-    func1 := a;
+    if a <> b then
+    func1 := v1 + a
+    else
+    func1 := func1(4, 5)
 end;
-procedure proc2(a: integer);
 begin
-    i := a;
-end;
-begin
-    i := func1(2);    
-    proc2(4);    
+    i := func1(2, v2);    
 end.
 

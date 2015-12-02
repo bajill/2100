@@ -12,6 +12,19 @@ class StringLiteral extends Constant {
     }
 
     @Override void genCode(CodeFile f) {
+        /* if write a string */
+        String label = f.getLocalLabel();
+        f.genInstr("", ".data", "", "");
+        f.genInstr(label + "", ".asciz", "\"" +id+"\"", "");
+        f.genInstr("", ".align", "2", "");
+        f.genInstr("", ".text", "", "");
+        f.genInstr("", "leal", label +",%eax", "");
+        f.genInstr("", "push", "%eax", "");
+        f.genInstr("", "call", "write_string", "");
+        f.genInstr("", "addl", "$4,%esp", "");
+
+        /* id expression in assignstatm are a string */
+        // TODO code
     }
     
 

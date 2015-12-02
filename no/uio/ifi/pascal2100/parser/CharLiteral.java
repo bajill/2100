@@ -12,6 +12,13 @@ class CharLiteral extends Constant{
     }
 
     @Override void genCode(CodeFile f) {
+        /* char from write */
+        f.genInstr("", "pushl", "%eax", "");
+        f.genInstr("", "call", "write_char", "");
+        f.genInstr("", "addl", "$4,%esp", "");
+
+        /* const */ 
+        // TODO code 
     }
     
 

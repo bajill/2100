@@ -18,8 +18,8 @@ class RelOperator extends Operator{
             f.genInstr("", "setle","%al", "Test <=");
         if(name == ">=")
             f.genInstr("", "setge","%al", "Test >=");
-        if(name == "==")
-            f.genInstr("", "sete","%al", "Test ==");
+        if(name == "=")
+            f.genInstr("", "sete","%al", "Test =");
         if(name == "<>")
             f.genInstr("", "setne","%al", "Test <>");
 

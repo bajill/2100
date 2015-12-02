@@ -36,15 +36,19 @@ class Block extends PascalSyntax{
 
     public void genCode(CodeFile f){
 
-        for(ProcDecl pd: procANDfuncDecl)
+        for(ProcDecl pd: procANDfuncDecl){
+            pd.label = f.getLabel(pd.progProcFuncName);
             pd.genCode(f);
+        }
+
 
         if(blockLevel == 1)
             f.genInstr("prog$" + name.toLowerCase()+ "_" + blockLevel, "", "", "");
         else {
-            /* if proc decl */
+            String label = findDecl(name, this).label ;
+            /* if func*/
             if(outerScope.findDecl(name, this) instanceof FuncDecl) {
-                f.genInstr("proc$" + name + "_" + blockLevel,"", "", "");
+                f.genInstr("func$" + label.toLowerCase(),"", "", "");
                 f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" +
                         blockLevel, "Start of " + name); 
                 statmList.genCode(f);
@@ -53,7 +57,7 @@ class Block extends PascalSyntax{
                 f.genInstr("", "ret", "", "");
                 return;                
             }
-            f.genInstr("proc$" + name + "_" + blockLevel,"", "", "");
+            f.genInstr("proc$" + label.toLowerCase(), "", "", "");
         }
         f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
                 "Start of " + name); 

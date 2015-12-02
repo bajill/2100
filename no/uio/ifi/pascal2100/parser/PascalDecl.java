@@ -4,7 +4,7 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 public abstract class PascalDecl extends PascalSyntax {
-    String name, progProcFuncName;
+    String name, progProcFuncName, label;
     int declLevel = 0, declOffset = 0, paramOffset = 0;
 
     PascalDecl(String id, int lNum) {

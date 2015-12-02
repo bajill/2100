@@ -11,8 +11,12 @@ class NumberLiteral extends Constant {
     }
 
     @Override void genCode(CodeFile f) {
-        f.genInstr("", "movl", "$" + numValue + ",%eax", "" + numValue);
 
+        /* from const, assignstatm*/
+        f.genInstr("", "movl", "$" + numValue + ",%eax", "" + numValue);
+        
+        /* from write proccall */
+        // TODO code in procCall
     }
 
     @Override void check(Block curscope, Library lib){
