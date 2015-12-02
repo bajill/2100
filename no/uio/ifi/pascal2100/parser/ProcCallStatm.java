@@ -21,7 +21,21 @@ class ProcCallStatm extends Statement {
         /* write function expression */
         if(name.name.equals("write")){
             for(Expression e : expression){
+                
                 e.genCode(f);
+                /* if numberLiteral TODO*/
+                if(false){
+                    f.genInstr("", "pushl", "%eax", "Push param x"+ ".");
+                    f.genInstr("", "call", "write_int", "");
+                    f.genInstr("", "addl", "$4,%esp", "");
+                }
+                /* if charLiteral TODO */
+                if(false){
+                    f.genInstr("", "pushl", "%eax", "");
+                    f.genInstr("", "call", "write_char", "");
+                    f.genInstr("", "addl", "$4,%esp", "");
+
+                }
             }
         }
         /* regular proc and funccall */

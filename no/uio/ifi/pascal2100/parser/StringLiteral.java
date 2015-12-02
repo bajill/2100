@@ -12,7 +12,7 @@ class StringLiteral extends Constant {
     }
 
     @Override void genCode(CodeFile f) {
-        /* if write a string */
+        /* if write a string, TODO should be in procDecl??*/
         String label = f.getLocalLabel();
         f.genInstr("", ".data", "", "");
         f.genInstr(label + "", ".asciz", "\"" +id+"\"", "");

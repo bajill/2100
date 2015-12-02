@@ -11,7 +11,6 @@ class NumberLiteral extends Constant {
     }
 
     @Override void genCode(CodeFile f) {
-
         /* from const, assignstatm*/
         f.genInstr("", "movl", "$" + numValue + ",%eax", "" + numValue);
         
