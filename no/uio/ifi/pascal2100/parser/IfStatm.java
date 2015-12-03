@@ -35,7 +35,7 @@ class IfStatm extends Statement {
             f.genInstr("", "jmp", endLabel, "");
             f.genInstr(firstLabel, "", "", "");
             additionalStatement.genCode(f);
-            f.genInstr(endLabel, "", "", "");
+            f.genInstr(endLabel, "", "", "End if-statement");
         }
 
         

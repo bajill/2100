@@ -22,7 +22,7 @@ class WhileStatm extends Statement {
         f.genInstr("", "je", endLabel, "");
         body.genCode(f);
         f.genInstr("", "jmp", testLabel, "");
-        f.genInstr(endLabel, "", "", "end while-statement");
+        f.genInstr(endLabel, "", "", "End while-statement");
     }
 
 

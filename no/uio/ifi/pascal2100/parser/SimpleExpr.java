@@ -37,9 +37,9 @@ class SimpleExpr extends PascalSyntax {
             String oper = operator.get(i-1).name;
 
             if(oper == "+")
-                f.genInstr("", "addl", "%ecx,%eax", "+");
+                f.genInstr("", "addl", "%ecx,%eax", "  +");
             else if(oper == "-")
-                f.genInstr("", "subl", "%ecx,%eax", "-");
+                f.genInstr("", "subl", "%ecx,%eax", "  -");
             else if(oper == "or")
                 f.genInstr("", "orl", "%ecx,%eax", "  or");
         }

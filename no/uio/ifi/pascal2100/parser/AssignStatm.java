@@ -16,7 +16,7 @@ class AssignStatm extends Statement {
 
         /* if variable are a funcreturn */
         if(variable.scope.findDecl(variable.id, this) instanceof FuncDecl){
-            f.genInstr("", "movl", "%eax, -32(%ebp)", "" + variable.id + " :=");
+            f.genInstr("", "movl", "%eax,-32(%ebp)", "" + variable.id + " :=");
         }
         
         /* if regular assign statement */

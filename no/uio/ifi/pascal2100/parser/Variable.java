@@ -80,7 +80,7 @@ class Variable extends Factor {
         if(expression != null)
             expression.check(curscope, lib);
 
-        offSet = d.declOffset;
+        offSet = d.declOffset + 1;
         blockLevel = d.declLevel;
     }
 

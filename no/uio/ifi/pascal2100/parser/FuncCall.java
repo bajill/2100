@@ -19,13 +19,13 @@ class FuncCall extends Factor {
         /* add last parameter first */
         for (int i = expression.size() - 1; i >= 0; i--) {
             expression.get(i).genCode(f);
-            f.genInstr("", "pushl", "%eax", "Push param #" + (i+1) + ".");
+            f.genInstr("", "pushl", "%eax", "Push param #" + (i+1));
         }
         f.genInstr("", "call", "func$" + block.findDecl(name.name,
                     this).label.toLowerCase(), ""); 
         if(expression.size() > 0)
             f.genInstr("", "addl", "$" + (4* expression.size()) + ",%esp", 
-                    "Pop parameters.");
+                    "Pop parameters");
     }
 
     @Override void check(Block curscope, Library lib){
