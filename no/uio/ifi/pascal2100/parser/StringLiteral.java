@@ -21,10 +21,10 @@ class StringLiteral extends Constant {
             /* if write a string, TODO should be in procDecl??*/
             String label = f.getLocalLabel();
             f.genInstr("", ".data", "", "");
-            f.genInstr(label + "", ".asciz", "\"" +id+"\"", "");
+            f.genInstr(label + "", ".asciz", " \"" +id+"\"", "");
             f.genInstr("", ".align", "2", "");
             f.genInstr("", ".text", "", "");
-            f.genInstr("", "leal", label +",%eax", "");
+            f.genInstr("", "leal", label +",%eax", "Addr(\"" + id + "\")");
         }
     }
 

@@ -92,7 +92,6 @@ class Block extends PascalSyntax{
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
         blockLevel = outerScope.blockLevel + 1;
-        System.out.println("block "+ blockLevel);
         // TODO dene blir feil
         paramOffset = curScope.paramOffset +1;
 

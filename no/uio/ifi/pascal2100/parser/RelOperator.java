@@ -9,7 +9,6 @@ class RelOperator extends Operator{
         super(name, lNum);
     }
     @Override void genCode(CodeFile f) {
-        System.out.println("reloperator " +name);
         if(name == "<")
             f.genInstr("", "setl","%al", "Test <");
         if(name == ">")

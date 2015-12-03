@@ -30,7 +30,6 @@ abstract class Constant extends Factor {
                 c = NumberLiteral.parse(s);
                 break;
             default:
-                System.out.println("Something wrong in Constant");
         }
         leaveParser("constant");
         return c;

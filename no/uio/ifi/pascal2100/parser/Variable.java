@@ -20,9 +20,7 @@ class Variable extends Factor {
     @Override void genCode(CodeFile f) {
 
         /* if variable is a type */
-        System.out.println("block " +scope.findDecl(id,this));
         if(scope.findDecl(id, this) instanceof EnumLiteral){
-            System.out.println("varboolean " +scope.findDecl(id, this));
             if(id.equals("false")){
             f.genInstr("", "movl", "$0,%eax", "  enum value false (=0)");
             }

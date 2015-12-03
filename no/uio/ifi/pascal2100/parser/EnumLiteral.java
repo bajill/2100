@@ -11,7 +11,7 @@ class EnumLiteral extends PascalDecl{
 
     @Override void genCode(CodeFile f) {
         /* called by variable */
-        f.genInstr("", "movl", "$" + value + "%eax", "  enum value " +
+        f.genInstr("", "movl", "$" + value + ",%eax", "  enum value " +
                 name + " (=" +value+ ")"); }
     
 
