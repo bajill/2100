@@ -15,6 +15,10 @@ class RangeType extends Type{
     }
 
     @Override void genCode(CodeFile f) {
+        constant.genCode(f);
+        if(additionalConstant != null){
+            additionalConstant.genCode(f);
+        }
     }
     
 
