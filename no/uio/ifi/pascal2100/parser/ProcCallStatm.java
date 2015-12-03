@@ -20,14 +20,15 @@ class ProcCallStatm extends Statement {
     @Override void genCode(CodeFile f) {
         /* write function expression TODO should not always be write_char*/
         if(name.name.equals("write")){
+            int count = 1;
             for(Expression e : expression){
                 
                 e.genCode(f);
 
                 /* End of write call */
-                f.genInstr("", "pushl", "%eax", "");
+                f.genInstr("", "pushl", "%eax", "Push param #" + count++ + ".");
                 f.genInstr("", "call", "write_char", "");
-                f.genInstr("", "addl", "$4,%esp", "");
+                f.genInstr("", "addl", "$4,%esp", "Pop parameter.");
 
             }
         }

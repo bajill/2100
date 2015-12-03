@@ -55,7 +55,6 @@ public class Scanner {
         /* end of line/first read */
         if((sourceLine.length() == 0) || sourceLine.length() == (sourcePos + 1)){
             readNextLine(); // Read next line to sourceLine
-            //System.out.println("   " + getFileLineNum() + ": " + sourceLine);
         }
         /* if eof token, make nextToken a eofToken*/
         if(nextToken != null && curToken != null)
@@ -73,7 +72,6 @@ public class Scanner {
             curToken = nextToken;
         /* end of file */
         if(sourceFile == null){
-            //System.out.println("last token: " + curToken.identify());
             Main.error("Error in last line: Expected a . but found a e-o-f");
             return true;
         }

@@ -42,7 +42,7 @@ class Term extends PascalSyntax  {
                 f.genInstr("", "movl", "%edx,%eax", "mod");
             }
             else if(oper == "and"){
-                f.genInstr("", "andl", "%edx,%eax", "and");
+                f.genInstr("", "andl", "%ecx,%eax", "  and");
             }
         }
     }

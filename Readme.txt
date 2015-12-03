@@ -1,18 +1,13 @@
-We have not commented the classes in parser module. We believe that since we use the same methods
-all the time it would be too much work to comment all of it. The methods given to us as precode is
-also self-explainatory.
+Vi har gjort en del fel tidigt i projektet som vi upptäckt nu på sluttampen.
+Eftersom vi koncentrerat oss på att bli färdiga och producera den rätta
+assemblerkoden så har vi valt att inte åtgärda dessa fel.
 
-Some places we have commented to make it easier to follow are thinking. These are mostly special 
-cases. As the call for function testIfToken() in PascalSyntax. It is called from the classes
-ConstDeclPart, TypeDeclPart, VarDeclPart.
+Ett fel som är ganska stort är det faktum att vi inte har implementerat
+CharLiteral som vi ska. Vi gör om alla characters till strängar och det medför
+att assemblerkoden blir annorlunda än det som referenskompilatorn producerar.
+Det ska dock bli samma resultat när man kör vår assemblerkod som om man kör
+referenskompilatorns assemblerkod.
 
-We hope this is enough.
 
-
-Last update:
-
-We get the wrong error message when running wrong-order.pas. This is because of the aforementioned
-method that we wrote. We found this error when it was 30 minutes to deadline so we decided to not 
-fix it and instead just comment on it. In VarDeclPart we commented out a solution but we didn't 
-dare to implement this because all the other tests were correct.
-
+Vi har heller inte skrivit färdigt Enum, Type eller Write-funktionen. Detta
+tänker vi göra nu i dagarna och skicka in på nytt i Devilry om det går bra.

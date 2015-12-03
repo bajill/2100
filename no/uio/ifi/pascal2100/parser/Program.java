@@ -54,11 +54,8 @@ public class Program extends PascalDecl {
         Program p = new Program(s.curToken.id, s.curLineNum());
         s.readNextToken();
         s.skip(semicolonToken);
-        //System.out.println("1. " + s.curToken.identify());
         p.block = Block.parse(s); // p.block.context = p;
-        //System.out.println("2. " + s.curToken.identify());
         s.skip(dotToken);
-        //System.out.println("3. " + s.curToken.identify());
 
         // Hvorfor var ikke denne med koden?
         s.skip(eofToken);

@@ -41,7 +41,7 @@ class SimpleExpr extends PascalSyntax {
             else if(oper == "-")
                 f.genInstr("", "subl", "%ecx,%eax", "-");
             else if(oper == "or")
-                f.genInstr("", "orl", "%ecx,%eax", "or");
+                f.genInstr("", "orl", "%ecx,%eax", "  or");
         }
     }
 

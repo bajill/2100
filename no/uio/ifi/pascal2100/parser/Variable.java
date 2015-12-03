@@ -21,7 +21,6 @@ class Variable extends Factor {
 
         /* if variable is a type */
         if(scope.findDecl(id, this) instanceof EnumLiteral){
-            System.out.println("varboolean " +scope.findDecl(id, this));
             if(id.equals("false")){
             f.genInstr("", "movl", "$0,%eax", "  enum value false (=0)");
             }

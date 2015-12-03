@@ -10,6 +10,10 @@ class InnerExpr extends Factor{
         super(lNum);
     }
 
+    @Override void genCode(CodeFile f) {
+
+    }
+
     @Override void check(Block curscope, Library lib){
         expression.check(curscope, lib);
     }
