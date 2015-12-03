@@ -7,6 +7,7 @@ import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class ParamDecl extends PascalDecl{
     TypeName typeName;
+    Block scope;    
 
     /* name is going to super's  progProcFuncName */
     ParamDecl(String name, int lNum) {
@@ -14,16 +15,17 @@ class ParamDecl extends PascalDecl{
     }
 
     @Override void genCode(CodeFile f) {
-
+        /* have to wait for procdecl.blcok.parse to set declLevel,
+         * therefore a block reference */
+        declLevel = scope.blockLevel; 
     }
-    
 
     @Override void check(Block curscope, Library lib){
         curscope.addDecl(name, this);
         declOffset = ++curscope.paramOffset;
-        // Av en grunn er blockCount er for lav her, derfor +1
-        declLevel = curscope.blockCount + 1;
-        System.out.println("paramdecl " + declLevel + "-" + curscope.blockLevel);
+
+        /* see genCode */
+        scope = curscope;
         typeName.check(curscope, lib);
         
     }

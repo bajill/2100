@@ -20,6 +20,7 @@ class ProcCallStatm extends Statement {
     @Override void genCode(CodeFile f) {
         /* write function expression TODO should not always be write_char*/
         if(name.name.equals("write")){
+            int i = 0;
             for(Expression e : expression){
                 
                 e.genCode(f);

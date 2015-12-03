@@ -22,7 +22,7 @@ class Block extends PascalSyntax{
 
     /* Evey new block get new level*/
     int blockLevel;
-    static int blockCount;
+    //static int blockCount;
     int offSet, paramOffset;
 
 
@@ -50,7 +50,7 @@ class Block extends PascalSyntax{
             if(outerScope.findDecl(name, this) instanceof FuncDecl) {
                 f.genInstr("func$" + label.toLowerCase(),"", "", "");
                 // TODO blocklevel burde være func sin blockLevel
-                f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" +
+                f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ",$" +
                         blockLevel, "Start of " + name); 
                 statmList.genCode(f);
                 f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
@@ -61,7 +61,7 @@ class Block extends PascalSyntax{
             f.genInstr("proc$" + label.toLowerCase(), "", "", "");
         }
         // TODO blocklevel burde være proc sin blockLevel
-        f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ", $" + blockLevel,
+        f.genInstr("", "enter", "$" +(32 + 4*(offSet)) + ",$" + blockLevel,
                 "Start of " + name); 
         statmList.genCode(f);
         f.genInstr("", "leave", "", "End of " + name);
@@ -91,8 +91,8 @@ class Block extends PascalSyntax{
 
     @Override void check(Block curScope, Library lib) {
         outerScope = curScope;
-        blockLevel = ++blockCount;
-        System.out.println("block "+ blockCount);
+        blockLevel = outerScope.blockLevel + 1;
+        System.out.println("block "+ blockLevel);
         // TODO dene blir feil
         paramOffset = curScope.paramOffset +1;
 

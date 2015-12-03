@@ -4,13 +4,15 @@ import no.uio.ifi.pascal2100.scanner.*;
 import static no.uio.ifi.pascal2100.scanner.TokenKind.*;
 
 class EnumLiteral extends PascalDecl{
-
+    int value;
     EnumLiteral(String name, int lNum) {
         super(name, lNum);
     }
 
     @Override void genCode(CodeFile f) {
-    }
+        /* called by variable */
+        f.genInstr("", "movl", "$" + value + "%eax", "  enum value " +
+                name + " (=" +value+ ")"); }
     
 
     @Override public String identify() {
@@ -21,7 +23,8 @@ class EnumLiteral extends PascalDecl{
         Main.log.prettyPrint(name);
     }
     @Override void check(Block curscope, Library lib){
-        curscope.findDecl(name, this);
+        //curscope.findDecl(name, this);
+        curscope.addDecl(name, this);
     }
 
     static EnumLiteral parse(Scanner s) {

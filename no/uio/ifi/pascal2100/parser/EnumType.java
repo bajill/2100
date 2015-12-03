@@ -20,8 +20,12 @@ class EnumType extends Type{
         return "<enum type> on line " + lineNum;
     }
     @Override void check(Block curscope, Library lib){
-        for(EnumLiteral el: enumType){
-            el.check(curscope, lib);
+        //for(EnumLiteral el: enumType){
+        //    el.check(curscope, lib);
+        //}
+        for(int i = 0; i < enumType.size(); i++){
+            enumType.get(i).check(curscope,lib);
+            enumType.get(i).value = i;
         }
     }
 

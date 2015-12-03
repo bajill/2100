@@ -20,14 +20,18 @@ class Variable extends Factor {
     @Override void genCode(CodeFile f) {
 
         /* if variable is a type */
+        System.out.println("block " +scope.findDecl(id,this));
         if(scope.findDecl(id, this) instanceof EnumLiteral){
             System.out.println("varboolean " +scope.findDecl(id, this));
             if(id.equals("false")){
             f.genInstr("", "movl", "$0,%eax", "  enum value false (=0)");
             }
-            if(id.equals("true")){
+            else if(id.equals("true")){
             f.genInstr("", "movl", "$1,%eax", "  enum value true (=1)");
             }
+
+            /* if variable is enumtype */
+            scope.findDecl(id, this).genCode(f);  
         }
 
         /* if variable is a parameter in proc */        
@@ -48,10 +52,10 @@ class Variable extends Factor {
         else if (expression != null)
             expression.genCode(f);
 
-        /* if variable is var(??) */
+        /* if variable is var */
         else {
         f.genInstr("", "movl", (-4*blockLevel) + "(%ebp),%edx", "");
-        f.genInstr("", "movl", "-" + ((32) + offSet*(4)) + "(%edx),%eax", id);
+        f.genInstr("", "movl", "-" + ((32) + offSet*(4)) + "(%edx),%eax", "  "+id);
         }
         
     }

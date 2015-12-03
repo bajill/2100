@@ -36,7 +36,7 @@ class FuncDecl extends ProcDecl{
         block.check(curscope, lib);
 
         /* set current blockLevel */
-        declLevel = block.blockLevel;
+        declLevel = block.outerScope.blockLevel;
     }
 
     @Override public void prettyPrint() {

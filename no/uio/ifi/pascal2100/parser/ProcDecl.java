@@ -26,6 +26,7 @@ class ProcDecl extends PascalDecl {
     }
     @Override void check(Block curscope, Library lib){
         block.outerScope = curscope;
+        
         if(paramDeclList != null) {
             paramDeclList.check(block, lib);
         }
@@ -35,7 +36,7 @@ class ProcDecl extends PascalDecl {
         block.check(curscope, lib);
          
         /* set current blockLevel */
-        declLevel = block.blockLevel;
+        declLevel = block.outerScope.blockLevel;
 
     }
 
