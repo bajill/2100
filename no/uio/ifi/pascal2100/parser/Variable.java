@@ -50,7 +50,7 @@ class Variable extends Factor {
         else if (expression != null)
             expression.genCode(f);
 
-        /* if variable is var */
+        /* if variable is var decl*/
         else {
         f.genInstr("", "movl", (-4*blockLevel) + "(%ebp),%edx", "");
         f.genInstr("", "movl", "-" + ((32) + offSet*(4)) + "(%edx),%eax", "  "+id);

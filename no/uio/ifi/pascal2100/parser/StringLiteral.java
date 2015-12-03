@@ -14,7 +14,7 @@ class StringLiteral extends Constant {
     @Override void genCode(CodeFile f) {
         /* if of type constdecl */
         if(id.length() == 1){
-            f.genInstr("", "movl", (int)id.charAt(0) + ",%eax", "");
+            f.genInstr("", "movl", "$" +(int)id.charAt(0) + ",%eax", "");
         }
 
         else{
